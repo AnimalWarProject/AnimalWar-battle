@@ -2,9 +2,10 @@ package com.example.animalwarbattle.compatibility.service;
 
 import com.example.animalwarbattle.compatibility.domain.entity.CompatibilityEnum;
 import com.example.animalwarbattle.charactor.domain.entity.Character;
+import lombok.Getter;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service @Getter
 public class CompatibilityChecker implements CompatibilityCheckInterface {
 
     // 공격자와 수비자의 상성을 확인하는 메서드
@@ -14,67 +15,70 @@ public class CompatibilityChecker implements CompatibilityCheckInterface {
         CompatibilityEnum attackerCompatibility = attacker.getCompatibility();
         CompatibilityEnum defenderCompatibility = defender.getCompatibility();
 
-        // 상성이면 true, 비상성이면 false
-
-
         // 각 상성 조합에 따라 상성 확인 후, 전투력을 증가시키는 메서드 호출
         //개 - 새 상성관계에 따른 전투력 부여
         if (attackerCompatibility == CompatibilityEnum.DOG
                 && defenderCompatibility == CompatibilityEnum.BIRD) {
-            increaseCombatPower(attacker, true);
+            increaseAttackerCombatPower(attacker);
             return true;
         } else if (attackerCompatibility == CompatibilityEnum.BIRD
                 && defenderCompatibility == CompatibilityEnum.DOG) {
-            increaseCombatPower(defender, true);
+            increaseDefenderCombatPower(defender);
             return true;
 
         // 새 - 고양이 상성관계에 따른 전투력 부여
         } else if (attackerCompatibility == CompatibilityEnum.BIRD
                 && defenderCompatibility == CompatibilityEnum.CAT) {
-                increaseCombatPower(attacker, true);
+            increaseAttackerCombatPower(attacker);
                 return true;
         } else if (defenderCompatibility == CompatibilityEnum.BIRD
                 && attackerCompatibility == CompatibilityEnum.CAT) {
-                increaseCombatPower(defender, true);
+            increaseDefenderCombatPower(defender);
                 return true;
 
         // 고양이 - 설치류 상성에 따른 전투력 부여
         } else if (attackerCompatibility == CompatibilityEnum.CAT
                 && defenderCompatibility == CompatibilityEnum.GLIRES) {
-                increaseCombatPower(attacker, true);
+            increaseAttackerCombatPower(attacker);
                 return true;
         } else if (defenderCompatibility == CompatibilityEnum.CAT
                 && attackerCompatibility == CompatibilityEnum.GLIRES) {
-                increaseCombatPower(defender, true);
+            increaseDefenderCombatPower(defender);
                 return true;
             
         // 설치류 - 어류 상성에 따른 전투력 부여
         } else if (attackerCompatibility == CompatibilityEnum.GLIRES
                 && defenderCompatibility == CompatibilityEnum.FISH) {
-                increaseCombatPower(attacker, true);
+            increaseAttackerCombatPower(attacker);
                 return true;
         } else if (defenderCompatibility == CompatibilityEnum.GLIRES
                 && attackerCompatibility == CompatibilityEnum.FISH) {
-                increaseCombatPower(defender, true);
+            increaseDefenderCombatPower(defender);
                 return true;
 
         // 어류 - 개 상성에 따른 전투력 부여
         } else if (attackerCompatibility == CompatibilityEnum.FISH
                 && defenderCompatibility == CompatibilityEnum.DOG) {
-                increaseCombatPower(attacker, true);
+            increaseAttackerCombatPower(attacker);
                 return true;
         } else if (defenderCompatibility == CompatibilityEnum.FISH
                 && attackerCompatibility == CompatibilityEnum.DOG) {
-                increaseCombatPower(defender, true);
+            increaseDefenderCombatPower(defender);
                 return true; }
 
         return false;
     }
-    // // 해당 종족의 전투력 10% 증가시키는 메서드
-    private void increaseCombatPower(Character character, boolean isCompatibility){
-        int compatibilityPower = character.getCombatPower(isCompatibility);
-        double increasePower = compatibilityPower * 1.1;
-        character.setCombatPower(isCompatibility, (int) increasePower);
-        character.setCombatPower(!isCompatibility, (int) increasePower);
+    // 공격자의 전투력을 10% 증가시키는 메서드
+    public void increaseAttackerCombatPower(Character isAttacker) {
+        int attackerPower = isAttacker.getAttackerPower();
+        double increasedPower = attackerPower * 1.1;
+        isAttacker.setAttackerPower((int) increasedPower);
+    }
+
+    // 수비자의 전투력을 10% 증가시키는 메서드
+    public void increaseDefenderCombatPower(Character isDefender) {
+        int defenderPower = isDefender.getDefensePower();
+        double increasedPower = defenderPower * 1.1;
+        isDefender.setDefensePower((int) increasedPower);
     }
 }

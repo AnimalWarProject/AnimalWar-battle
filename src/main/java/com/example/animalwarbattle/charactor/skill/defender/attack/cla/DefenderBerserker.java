@@ -2,7 +2,7 @@ package com.example.animalwarbattle.charactor.skill.defender.attack.cla;
 
 
 import com.example.animalwarbattle.charactor.domain.entity.Character;
-import com.example.animalwarbattle.charactor.skill.attacker.attack.inter.AttackerBerserkerSkill;
+import com.example.animalwarbattle.charactor.skill.attacker.attack.AttackerBerserkerSkill;
 
 public class DefenderBerserker implements AttackerBerserkerSkill {
 
