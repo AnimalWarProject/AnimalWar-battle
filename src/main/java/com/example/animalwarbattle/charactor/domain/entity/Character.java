@@ -1,4 +1,4 @@
-package com.example.animalwarbattle.domain.entity;
+package com.example.animalwarbattle.charactor.domain.entity;
 
 import com.example.animalwarbattle.compatibility.domain.entity.CompatibilityEnum;
 import lombok.*;

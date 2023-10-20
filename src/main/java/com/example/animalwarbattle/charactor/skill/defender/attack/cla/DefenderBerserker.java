@@ -1,10 +1,10 @@
-package com.example.animalwarbattle.skill.defender.attack.cla;
+package com.example.animalwarbattle.charactor.skill.defender.attack.cla;
 
 
-import com.example.animalwarbattle.skill.attacker.attack.inter.BerserkerSkill;
-import com.example.animalwarbattle.domain.entity.Character;
+import com.example.animalwarbattle.charactor.domain.entity.Character;
+import com.example.animalwarbattle.charactor.skill.attacker.attack.inter.AttackerBerserkerSkill;
 
-public class DefenderBerserker implements BerserkerSkill {
+public class DefenderBerserker implements AttackerBerserkerSkill {
 
     @Override
     public Integer berserker(Character attacker, Character defender) {
