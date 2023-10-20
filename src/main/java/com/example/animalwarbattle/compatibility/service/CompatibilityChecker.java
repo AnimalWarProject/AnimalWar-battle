@@ -48,7 +48,7 @@ public class CompatibilityChecker implements CompatibilityCheckInterface {
     private void increaseCombatPower(Character character){
         int compatibilityPower = character.getCombatPower();
         double increasePower = compatibilityPower * 1.1;
-        character.se
+        character.setCompatibility();
     }
 
 }
