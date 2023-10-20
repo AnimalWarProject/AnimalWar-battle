@@ -19,12 +19,21 @@ public class Character {
     private String skill;
 
 
-    // 누가 상성을 가지고 있는지 확인
+    // 누가 상성을 가지고 있는지 확인하는 메서드
     public int getCombatPower(boolean isAttacker) {
         if (isAttacker) {
             return this.attackerPower;
         } else {
             return this.defensePower;
+        }
+    }
+
+    // 공격자나 수비자의 전투력을 설정하는 메서드
+    public void setCombatPower(boolean isAttacker, int power){
+        if (isAttacker) {
+            this.attackerPower = power;
+        }else {
+            this.defensePower = power;
         }
     }
 }
