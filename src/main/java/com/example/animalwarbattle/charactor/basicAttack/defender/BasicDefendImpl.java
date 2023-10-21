@@ -33,7 +33,7 @@ public class BasicDefendImpl implements BasicDefend {
         }
         attacker.setLife(remainHealth);
         if (attackerLife <= 0) {
-            System.out.println("수비자 승리 === 전투 종료");
+            System.out.println("수비자 승리 === 방어 성공");
         }
         return remainHealth;
     }

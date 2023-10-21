@@ -12,9 +12,11 @@ public class BasicAttackImpl implements BasicAttack{
     @Override
     public Integer attackPlainHit(Character attacker, Character defender) {
         boolean hasCompatibility = compatibilityChecker.check(attacker, defender);
-        // 기본공격 수치
+        // 기본공격 값
         int plainHit = attacker.getAttackerPower();
+        // 상성우위일 때 값
         int increaseHit = attacker.getAttackerPower();
+        // 기본 공격과 상성 우위일 때 값 구별
         if (hasCompatibility) {
             compatibilityChecker.increaseAttackerCombatPower(attacker);
             increaseHit = attacker.getAttackerPower();
@@ -26,7 +28,7 @@ public class BasicAttackImpl implements BasicAttack{
 
         // 수비자 남은 체력
         int remainingHealth;
-        
+
         // 상성이 있는 경우, 상승한 공격력으로 수비자를 공격
         // 상성이 없는 경우, 기본 공격력으로 수비자를 공격
         if (hasCompatibility) {
@@ -34,10 +36,10 @@ public class BasicAttackImpl implements BasicAttack{
         } else {
             remainingHealth = defenderLife - plainHit;
         }
-        defender.setLife(remainingHealth);
+            defender.setLife(remainingHealth);
 
         if (defenderLife <= 0) {
-            System.out.println("공격자 승리 === 전투 종료");
+            System.out.println("공격자 승리 === 공격 성공");
         }
         return remainingHealth;
     }
