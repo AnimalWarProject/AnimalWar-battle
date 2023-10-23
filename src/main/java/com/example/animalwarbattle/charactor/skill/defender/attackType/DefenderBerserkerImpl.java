@@ -13,34 +13,28 @@ public class DefenderBerserkerImpl implements AttackerBerserkerSkill {
 
     @Override
     public Integer berserker(Character attacker, Character defender) {
+        // 1. 버서커 스킬 발동 조건 및 상성체크
         boolean hasCompatibility = compatibilityChecker.check(attacker, defender);
-
-        Integer berserkerDamage = defender.getDefensePower();
-        if (defender.getMaxLife() / 5 >= defender.getLife()) {
-            berserkerDamage = berserkerDamage * 2;
-        }
-
-        Integer increaseBerserkerDamage = defender.getDefensePower();
-        if (defender.getMaxLife() / 5 >= defender.getLife()) {
-            increaseBerserkerDamage = increaseBerserkerDamage * 2;
-        }
-
-        if (hasCompatibility) {
-            compatibilityChecker.increaseAttackerCombatPower(defender);
-            increaseBerserkerDamage = defender.getDefensePower();
-        } else {
-            berserkerDamage = defender.getDefensePower();
-        }
+        // 공격자 체력 설정
         int attackerLife = attacker.getLife();
         int remainingHealth;
 
-        if (hasCompatibility) {
-            remainingHealth = attackerLife - increaseBerserkerDamage;
-        } else {
-            remainingHealth = attackerLife - berserkerDamage;
+        // 1-1. 버서커 스킬 발동 조건 및 수비력 설정
+        int berserkerDamage = defender.getDefensePower();
+        if (defender.getMaxLife() / 5 >= defender.getLife()) {
+            berserkerDamage *= 2;
         }
+        // 상성체크
+        if (hasCompatibility) {
+            compatibilityChecker.increaseAttackerCombatPower(defender);
+            berserkerDamage = defender.getDefensePower();
+        }
+        
+        // 2. 스킬 사용
+        remainingHealth = attackerLife - berserkerDamage;
         attacker.setLife(remainingHealth);
 
+        // 3. 공격자 체력 0이하 승리
         if (attackerLife <= 0) {
             System.out.println("수비자 승리 == 방어 성공");
         }
