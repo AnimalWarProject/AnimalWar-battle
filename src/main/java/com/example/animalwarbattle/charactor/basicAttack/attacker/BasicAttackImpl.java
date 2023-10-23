@@ -8,9 +8,9 @@ import lombok.AllArgsConstructor;
 public class BasicAttackImpl implements BasicAttack{
     private final CompatibilityChecker compatibilityChecker;
 
-    // 기본 공격과 공격자가 상성우위이면 10% 상승
     @Override
     public Integer attackPlainHit(Character attacker, Character defender) {
+
         boolean hasCompatibility = compatibilityChecker.check(attacker, defender);
         // 기본 공격과 상성 우위일 때 값 구별
         int defenderLife = defender.getLife();

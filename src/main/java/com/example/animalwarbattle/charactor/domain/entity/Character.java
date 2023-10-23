@@ -17,6 +17,8 @@ public class Character {
     private int maxLife;
     private CompatibilityEnum compatibility;
     private String skill;
-//    private Integer isValid;
+    private int attackCount = 0;
+    private int defendCount = 0;
+
 }
 
