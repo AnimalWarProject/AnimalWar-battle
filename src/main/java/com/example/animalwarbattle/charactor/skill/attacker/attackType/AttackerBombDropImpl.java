@@ -5,7 +5,6 @@ import com.example.animalwarbattle.compatibility.service.CompatibilityChecker;
 import lombok.AllArgsConstructor;
 
 /*  폭탄 투하: 상대방 현재 체력의 10%에 해당하는 데미지를 입힙니다.  */
-@AllArgsConstructor
 public class AttackerBombDropImpl implements AttackerBombDropSkill {
 
     @Override

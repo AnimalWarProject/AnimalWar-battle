@@ -1,13 +1,8 @@
 package com.example.animalwarbattle.charactor.skill.defender.attackType;
 
 import com.example.animalwarbattle.charactor.domain.entity.Character;
-import com.example.animalwarbattle.compatibility.service.CompatibilityChecker;
-import lombok.AllArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 
-@AllArgsConstructor
 public class DefenderBombDropImpl implements DefenderBombDropSkill {
-    private final CompatibilityChecker compatibilityChecker;
     @Override
     public Integer bombDrop(Character attacker, Character defender) {
         // 1. 폭탄 투하 스킬 발동 및 상성 체크
