@@ -7,8 +7,9 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class AttackerSpeedRunImpl implements AttackerSpeedRunSkill {
     private final CompatibilityChecker compatibilityChecker;
+
     @Override
-    public Integer bombDrop(Character attacker, Character defender) {
+    public Integer speedRun(Character attacker, Character defender) {
         return null;
     }
 }

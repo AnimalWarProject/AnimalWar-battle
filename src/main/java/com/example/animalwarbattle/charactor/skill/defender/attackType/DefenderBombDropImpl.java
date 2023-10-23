@@ -9,7 +9,7 @@ import org.springframework.data.domain.PageRequest;
 public class DefenderBombDropImpl implements DefenderBombDropSkill {
     private final CompatibilityChecker compatibilityChecker;
     @Override
-    public Integer berserker(Character attacker, Character defender) {
+    public Integer bombDrop(Character attacker, Character defender) {
         // 1. 폭탄 투하 스킬 발동 및 상성 체크
         // 공격자 체력 설정
         int attackerLife = attacker.getLife();

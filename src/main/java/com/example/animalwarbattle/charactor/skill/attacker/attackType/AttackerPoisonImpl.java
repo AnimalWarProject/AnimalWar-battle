@@ -7,8 +7,9 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class AttackerPoisonImpl implements AttackerPoisonSkill {
     private final CompatibilityChecker compatibilityChecker;
+
     @Override
-    public Integer bombDrop(Character attacker, Character defender) {
+    public Integer poison(Character attacker, Character defender) {
         return null;
     }
 }

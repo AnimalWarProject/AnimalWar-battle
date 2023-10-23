@@ -7,8 +7,9 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class AttackerHiddenAceImpl implements AttackerHiddenAceSkill{
     private final CompatibilityChecker compatibilityChecker;
+
     @Override
-    public Integer bombDrop(Character attacker, Character defender) {
+    public Integer hiddenAce(Character attacker, Character defender) {
         return null;
     }
 }
