@@ -1,10 +1,8 @@
 package com.example.animalwarbattle.charactor.skill.defender.attackType;
 
 import com.example.animalwarbattle.charactor.domain.entity.Character;
-import lombok.AllArgsConstructor;
 
 /*  독약 : 상대방의 최대 체력의 5%에 해당하는 데미지를 입힙니다 */
-@AllArgsConstructor
 public class DefenderPoisonImpl implements DefenderPoisonSkill {
     @Override
     public Integer poison(Character attacker, Character defender) {
