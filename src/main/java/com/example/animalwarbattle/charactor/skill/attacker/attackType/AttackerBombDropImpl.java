@@ -26,8 +26,6 @@ public class AttackerBombDropImpl implements AttackerBombDropSkill {
         if (defenderLife <= 0) {
             System.out.println("공격자 승리 == 공격 성공");
         }
-
-        
         return remainingHealth;
     }
 }

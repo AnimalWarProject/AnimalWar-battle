@@ -9,6 +9,24 @@ public class AttackerPoisonImpl implements AttackerPoisonSkill {
 
     @Override
     public Integer poison(Character attacker, Character defender) {
-        return null;
+        // 1. 포이즌 스킬 발동 설정
+        // 수비자 체력 설정
+        int defenderLife = defender.getLife();
+        int remainingHealth;
+        
+        // 1-1. 포이즌 스킬 발동
+        int poisonDamage = (int) (1.05 * defender.getMaxLife());
+        
+        // 2. 스킬 사용
+        remainingHealth = defenderLife - poisonDamage;
+        defender.setLife(remainingHealth);
+        
+        // 3. 수비자 체력 0이하 승리
+        if (defenderLife <= 0) {
+            System.out.println("공격자 승리 == 공격 성공");
+        }
+
+
+        return remainingHealth;
     }
 }
