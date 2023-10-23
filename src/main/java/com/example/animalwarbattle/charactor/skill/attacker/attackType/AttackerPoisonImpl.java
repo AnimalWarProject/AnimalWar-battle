@@ -1,8 +1,8 @@
 package com.example.animalwarbattle.charactor.skill.attacker.attackType;
 
 import com.example.animalwarbattle.charactor.domain.entity.Character;
-import com.example.animalwarbattle.compatibility.service.CompatibilityChecker;
 import lombok.AllArgsConstructor;
+
 /*  독약 : 상대방의 최대 체력의 5%에 해당하는 데미지를 입힙니다 */
 @AllArgsConstructor
 public class AttackerPoisonImpl implements AttackerPoisonSkill {
@@ -17,7 +17,7 @@ public class AttackerPoisonImpl implements AttackerPoisonSkill {
         // 1-1. 포이즌 스킬 발동
         int poisonDamage = (int) (1.05 * defender.getMaxLife());
         
-        // 2. 스킬 사용
+        // 2. 포이즌 스킬 사용
         remainingHealth = defenderLife - poisonDamage;
         defender.setLife(remainingHealth);
         
@@ -25,8 +25,6 @@ public class AttackerPoisonImpl implements AttackerPoisonSkill {
         if (defenderLife <= 0) {
             System.out.println("공격자 승리 == 공격 성공");
         }
-
-
         return remainingHealth;
     }
 }
