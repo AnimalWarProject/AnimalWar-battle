@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 /*  폭탄 투하: 상대방 현재 체력의 10%에 해당하는 데미지를 입힙니다.  */
 @AllArgsConstructor
 public class AttackerBombDropImpl implements AttackerBombDropSkill {
+
     @Override
     public Integer bombDrop(Character attacker, Character defender) {
         // 1. 폭탄 투하 스킬 발동 설정
