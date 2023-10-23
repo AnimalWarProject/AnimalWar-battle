@@ -1,7 +1,6 @@
 package com.example.animalwarbattle.charactor.skill.attacker.attackType;
 
 import com.example.animalwarbattle.charactor.domain.entity.Character;
-import lombok.AllArgsConstructor;
 
 /*  빨리감기 : 상대방과 자신의 현재 체력이 30% 감소합니다.  */
 public class AttackerSpeedRunImpl implements AttackerSpeedRunSkill {
