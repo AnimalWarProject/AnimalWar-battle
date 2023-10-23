@@ -35,7 +35,7 @@ public class AttackerBerserkerImpl implements AttackerBerserkerSkill {
 
         // 3. 수비자 체력 0이하 승리
         if (defenderLife <= 0) {
-            System.out.println("공격자 승리 == 공경 성공");
+            System.out.println("공격자 승리 == 공격 성공");
         }
         return remainingHealth;
     }
