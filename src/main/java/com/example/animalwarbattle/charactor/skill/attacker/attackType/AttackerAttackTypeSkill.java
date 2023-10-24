@@ -6,5 +6,9 @@ import org.springframework.stereotype.Component;
 @Component
 public interface AttackerAttackTypeSkill {
 
+
     void attackTypeAttackerExecute (Character attacker, Character defender);
+
 }
+
+

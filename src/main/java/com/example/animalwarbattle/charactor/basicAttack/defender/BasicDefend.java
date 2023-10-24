@@ -4,5 +4,5 @@ import com.example.animalwarbattle.charactor.domain.entity.Character;
 import org.springframework.stereotype.Component;
 @Component
 public interface BasicDefend {
-    Integer defendPlainHit(Character attacker, Character defender);
+    void defendPlainHit(Character attacker, Character defender);
 }

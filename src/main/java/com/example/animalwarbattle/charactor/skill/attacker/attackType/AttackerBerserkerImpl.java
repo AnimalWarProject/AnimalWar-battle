@@ -2,17 +2,17 @@ package com.example.animalwarbattle.charactor.skill.attacker.attackType;
 
 
 import com.example.animalwarbattle.charactor.domain.entity.Character;
-import com.example.animalwarbattle.compatibility.service.CompatibilityChecker;
+import com.example.animalwarbattle.compatibility.utill.CompatibilityChecker;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.Random;
 
 /*  버서커 : 자신의 체력이 20% 남았을 때 상대에게 입히는 데미지가 2배가 됩니다.  */
 @AllArgsConstructor
-@NoArgsConstructor
 public class AttackerBerserkerImpl implements AttackerAttackTypeSkill {
-    private CompatibilityChecker compatibilityChecker = new CompatibilityChecker();
+    private final CompatibilityChecker compatibilityChecker;
 
 
     @Override

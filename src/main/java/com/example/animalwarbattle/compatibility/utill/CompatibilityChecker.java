@@ -1,15 +1,15 @@
-package com.example.animalwarbattle.compatibility.service;
+package com.example.animalwarbattle.compatibility.utill;
 
-import com.example.animalwarbattle.compatibility.domain.entity.CompatibilityEnum;
+import com.example.animalwarbattle.compatibility.domain.CompatibilityEnum;
 import com.example.animalwarbattle.charactor.domain.entity.Character;
 import lombok.Getter;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service @Getter
-public class CompatibilityChecker implements CompatibilityCheckInterface {
+@Getter
+@Component
+public class CompatibilityChecker{
 
     // 공격자와 수비자의 상성을 확인하는 메서드
-    @Override
     public boolean check(Character attacker, Character defender) {
         // 공격자 상성, 수비자 상성 설정
         CompatibilityEnum attackerCompatibility = attacker.getCompatibility();

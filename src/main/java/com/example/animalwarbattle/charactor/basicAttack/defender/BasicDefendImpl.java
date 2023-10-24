@@ -1,8 +1,7 @@
 package com.example.animalwarbattle.charactor.basicAttack.defender;
 
-import com.example.animalwarbattle.charactor.basicAttack.attacker.BasicAttack;
 import com.example.animalwarbattle.charactor.domain.entity.Character;
-import com.example.animalwarbattle.compatibility.service.CompatibilityChecker;
+import com.example.animalwarbattle.compatibility.utill.CompatibilityChecker;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -11,7 +10,7 @@ public class BasicDefendImpl implements BasicDefend {
 
     // 기본 공격과 수비자 상성우위이면 10% 상승
     @Override
-    public Integer defendPlainHit(Character attacker, Character defender) {
+    public void defendPlainHit(Character attacker, Character defender) {
         boolean hasCompatibility = compatibilityChecker.check(attacker, defender);
         // 기본 공격과 상성 우윌일 때 값 구별
         int attackerLife = attacker.getLife();
@@ -37,6 +36,5 @@ public class BasicDefendImpl implements BasicDefend {
         if (attackerLife <= 0) {
             System.out.println("수비자 승리 === 방어 성공");
         }
-        return remainingHealth;
     }
 }

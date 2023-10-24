@@ -7,7 +7,7 @@ import java.util.Random;
 public class DefenderBombDropImpl implements DefenderAttackTypeSkill {
 
     @Override
-    public void defendTypeAttackerExecute(Character attacker, Character defender) {
+    public void attackTypeDefenderExecute(Character attacker, Character defender) {
         // 0. 스킬 확률
         double bombDropProbability = 0.65;
         Random random = new Random();

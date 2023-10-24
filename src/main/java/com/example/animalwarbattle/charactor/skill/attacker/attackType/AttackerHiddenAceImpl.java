@@ -1,7 +1,7 @@
 package com.example.animalwarbattle.charactor.skill.attacker.attackType;
 
 import com.example.animalwarbattle.charactor.domain.entity.Character;
-import com.example.animalwarbattle.compatibility.service.CompatibilityChecker;
+import com.example.animalwarbattle.compatibility.utill.CompatibilityChecker;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -10,9 +10,9 @@ import java.util.Random;
 /*  비장의 한발 : 다음 1회의 공격이 상대방보다 체력이 적다면 5배의 피해를 입힙니다.
 (자신의 체력이 더 많다면 일반 공격 데미지) */
 @AllArgsConstructor
-@NoArgsConstructor
+
 public class AttackerHiddenAceImpl implements AttackerAttackTypeSkill {
-    private final CompatibilityChecker compatibilityChecker = new CompatibilityChecker();
+    private final CompatibilityChecker compatibilityChecker;
 
     @Override
     public void attackTypeAttackerExecute(Character attacker, Character defender) {

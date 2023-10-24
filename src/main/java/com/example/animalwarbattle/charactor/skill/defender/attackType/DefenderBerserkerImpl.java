@@ -2,20 +2,19 @@ package com.example.animalwarbattle.charactor.skill.defender.attackType;
 
 
 import com.example.animalwarbattle.charactor.domain.entity.Character;
-import com.example.animalwarbattle.compatibility.service.CompatibilityChecker;
+import com.example.animalwarbattle.compatibility.utill.CompatibilityChecker;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import java.util.Random;
 
 @AllArgsConstructor
-@NoArgsConstructor
 public class DefenderBerserkerImpl implements DefenderAttackTypeSkill {
-    private final CompatibilityChecker compatibilityChecker = new CompatibilityChecker();
+    private final CompatibilityChecker compatibilityChecker;
 
 
     @Override
-    public void defendTypeAttackerExecute(Character attacker, Character defender) {
+    public void attackTypeDefenderExecute(Character attacker, Character defender) {
         // 0. 스킬 확률
         double berserkerProbability = 0.7;
         Random random = new Random();

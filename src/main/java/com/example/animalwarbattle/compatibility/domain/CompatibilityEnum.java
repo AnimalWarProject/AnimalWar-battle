@@ -1,4 +1,4 @@
-package com.example.animalwarbattle.compatibility.domain.entity;
+package com.example.animalwarbattle.compatibility.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,7 +1,7 @@
 package com.example.animalwarbattle.charactor.basicAttack.attacker;
 
 import com.example.animalwarbattle.charactor.domain.entity.Character;
-import com.example.animalwarbattle.compatibility.service.CompatibilityChecker;
+import com.example.animalwarbattle.compatibility.utill.CompatibilityChecker;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -9,7 +9,7 @@ public class BasicAttackImpl implements BasicAttack{
     private final CompatibilityChecker compatibilityChecker;
 
     @Override
-    public Integer attackPlainHit(Character attacker, Character defender) {
+    public void attackPlainHit(Character attacker, Character defender) {
 
         boolean hasCompatibility = compatibilityChecker.check(attacker, defender);
         // 기본 공격과 상성 우위일 때 값 구별
@@ -37,6 +37,5 @@ public class BasicAttackImpl implements BasicAttack{
         if (defenderLife <= 0) {
             System.out.println("공격자 승리 === 공격 성공");
         }
-        return remainingHealth;
     }
 }

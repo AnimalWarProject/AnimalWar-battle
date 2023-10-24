@@ -1,6 +1,7 @@
 package com.example.animalwarbattle.charactor.domain.entity;
 
-import com.example.animalwarbattle.compatibility.domain.entity.CompatibilityEnum;
+import com.example.animalwarbattle.compatibility.domain.CompatibilityEnum;
+
 import lombok.*;
 
 import java.util.UUID;
@@ -15,6 +16,7 @@ public class Character {
     private int defensePower;
     private int life;
     private int maxLife;
+    private String skill;
     private CompatibilityEnum compatibility;
     private int attackSkillCount = 0;
     private int defendSkillCount = 0;
