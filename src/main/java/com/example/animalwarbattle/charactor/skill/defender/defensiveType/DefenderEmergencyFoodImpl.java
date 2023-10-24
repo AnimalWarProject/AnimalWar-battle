@@ -11,7 +11,7 @@ public class DefenderEmergencyFoodImpl implements DefenderDefensiveTypeSkill{
         // 0. 스킬 확률
         double poisonProbability = 0.7;
         // 1. 비상식량 스킬 발동 설정
-        // 공격자 체력 설정
+        // 수비자 체력 설정
         Random random = new Random();
         int defenderLife = defender.getLife();
         int remainingHealth;
