@@ -2,10 +2,16 @@ package com.example.animalwarbattle.charactor.skill.defender.attackType;
 
 import com.example.animalwarbattle.charactor.domain.entity.Character;
 
+import java.util.Random;
+
 /*  독약 : 상대방의 최대 체력의 5%에 해당하는 데미지를 입힙니다 */
-public class DefenderPoisonImpl implements DefenderPoisonSkill {
+public class DefenderPoisonImpl implements DefenderAttackTypeSkill {
+
     @Override
-    public Integer poison(Character attacker, Character defender) {
+    public void defendTypeAttackerExecute(Character attacker, Character defender) {
+        // 0. 스킬 확률
+        double poisonProbability = 0.7;
+        Random random = new Random();
         // 1. 포이즌 스킬 발동 설정
         // 공격자 체력 설정
         int attackerLife = attacker.getLife();
@@ -14,14 +20,17 @@ public class DefenderPoisonImpl implements DefenderPoisonSkill {
         // 1-1. 포이즌 스킬 발동
         int poisonDamage = (int) (1.05 * attacker.getMaxLife());
         
-        // 2. 포이즌 스킬 사용
+        // 2. 포이즌 스킬 사용 (확률 발동)
+        if (random.nextDouble() < poisonProbability) {
         remainingHealth = attackerLife - poisonDamage;
         attacker.setLife(remainingHealth);
-        
+        } else {
+            System.out.println("Poison skill failed");
+        }
+
         // 3. 공격자 체력 0이하 승리
         if (attackerLife <=0) {
             System.out.println("수비자 승리 == 수비 성공");
         }
-        return remainingHealth;
     }
 }

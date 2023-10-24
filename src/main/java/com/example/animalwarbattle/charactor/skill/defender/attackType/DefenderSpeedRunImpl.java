@@ -2,10 +2,15 @@ package com.example.animalwarbattle.charactor.skill.defender.attackType;
 
 import com.example.animalwarbattle.charactor.domain.entity.Character;
 
-public class DefenderSpeedRunImpl implements DefenderSpeedRunSkill {
+import java.util.Random;
+
+public class DefenderSpeedRunImpl implements DefenderAttackTypeSkill {
 
     @Override
-    public Character speedRun(Character attacker, Character defender) {
+    public void defendTypeAttackerExecute(Character attacker, Character defender) {
+        // 0. 스킬 확률
+        double speedRunProbability = 0.85;
+        Random random = new Random();
 
         // 1. 스피드런 스킬 발동 설정
         // 공격자, 수비자 체력 설정
@@ -20,13 +25,15 @@ public class DefenderSpeedRunImpl implements DefenderSpeedRunSkill {
         int attackerSpeedRunDamage = (int) (damagePercentage * attackerLife);
         int defenderSpeedRunDamage = (int) (damagePercentage * defenderLife);
 
-        // 2. 스킬 사용
+        // 2. 스킬 사용 (확률 발동)
+        if (random.nextDouble() < speedRunProbability) {
         attackerRemainingHealth = attackerLife - attackerSpeedRunDamage;
         attacker.setLife(attackerRemainingHealth);
 
         defenderRemainingHealth = defenderLife - defenderSpeedRunDamage;
         defender.setLife(defenderRemainingHealth);
-
-        return defender;
+        } else {
+            System.out.println("SpeedRun skill failed");
+        }
     }
 }
