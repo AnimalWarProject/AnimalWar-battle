@@ -18,7 +18,7 @@ public class AttackerPoisonImpl implements AttackerAttackTypeSkill {
         int remainingHealth;
         
         // 1-1. 포이즌 스킬 발동
-        int poisonDamage = (int) (1.05 * defender.getMaxLife());
+        int poisonDamage = (int) (0.05 * defender.getMaxLife());
         
         // 2. 포이즌 스킬 사용 (확률 발동)
         if (random.nextDouble() < poisonProbability){
