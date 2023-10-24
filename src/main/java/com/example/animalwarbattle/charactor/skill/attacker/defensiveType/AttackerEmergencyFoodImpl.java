@@ -20,6 +20,7 @@ public class AttackerEmergencyFoodImpl implements AttackerDefensiveTypeSkill{
         // 1-1. 비상식량 스킬 발동 설정
         int attackEmergencyFood = (int) (0.2 * attacker.getMaxLife());
 
+        // 2. 스킬 발동(확률 발동)
         if (random.nextDouble() < poisonProbability){
             remainingHealth = attackerLife + attackEmergencyFood;
             attacker.setLife(remainingHealth);
