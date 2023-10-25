@@ -23,7 +23,10 @@ repositories {
 
 dependencies {
     // Spring Data JPA를 사용하여 데이터베이스와 상호 작용하기 위한 스프링 부트의 스타터
-//    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    //
+    runtimeOnly 'com.mysql:mysql-connector-j'
 
     // Spring Web MVC를 사용하여 웹 애플리케이션을 개발하기 위한 스프링 부트의 스타터
     implementation 'org.springframework.boot:spring-boot-starter-web'
