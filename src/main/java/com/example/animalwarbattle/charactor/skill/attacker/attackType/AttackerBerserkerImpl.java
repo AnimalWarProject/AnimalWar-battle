@@ -17,7 +17,10 @@ public class AttackerBerserkerImpl implements AttackerAttackTypeSkill {
 
     @Override
     public void attackTypeAttackerExecute(Character attacker, Character defender) {
-        
+
+        if(!attacker.isAttack()){
+            return;
+        }
         // 0. 스킬 확률
         double berserkerProbability = 0.7;
         Random random = new Random();

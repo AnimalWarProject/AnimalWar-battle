@@ -8,7 +8,11 @@ import java.util.Random;
 public class AttackerEmergencyFoodImpl implements AttackerDefensiveTypeSkill{
     @Override
     public void defensiveTypeAttackerExecute(Character attacker, Character defender) {
-        
+
+        if(!attacker.isDepend()){
+            return;
+        }
+
         // 0. 스킬 확률
         double poisonProbability = 0.7;
         Random random = new Random();

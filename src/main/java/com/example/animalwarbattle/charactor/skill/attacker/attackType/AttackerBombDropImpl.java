@@ -15,15 +15,18 @@ public class AttackerBombDropImpl implements AttackerAttackTypeSkill {
         // 1. 폭탄 투하 스킬 발동 설정
         // 수비자 체력 설정
         int defenderLife = defender.getLife();
-        int remainingHealth;
+
         
         // 1-1. 폭탄 투하 발동
-        int bombDropDamage = (int) (1.1 * defender.getLife());
+
 
         // 2. 스킬 사용(확률 발동)
         if (random.nextDouble() < bombDropProbability){
-        remainingHealth = defenderLife - bombDropDamage;
-        defender.setLife(remainingHealth);
+            int  remainingHealth = (int) (0.9 * defender.getLife());
+
+            defender.setLife(remainingHealth);
+
+
         } else {
             System.out.println("BombDrop skill failed");
         }
