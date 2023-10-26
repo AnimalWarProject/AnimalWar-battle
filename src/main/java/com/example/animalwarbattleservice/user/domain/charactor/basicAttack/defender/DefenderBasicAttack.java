@@ -1,8 +1,8 @@
 package com.example.animalwarbattleservice.user.domain.charactor.basicAttack.defender;
 
-import com.example.animalwarbattleservice.user.domain.charactor.domain.entity.Character;
+import com.example.animalwarbattleservice.user.domain.charactor.domain.entity.CharacterDto;
 import org.springframework.stereotype.Component;
 @Component
 public interface DefenderBasicAttack {
-    void defendPlainHit(Character attacker, Character defender);
+    Integer defendPlainHit(CharacterDto attacker, CharacterDto defender);
 }

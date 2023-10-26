@@ -1,17 +1,17 @@
 package com.example.animalwarbattleservice.user.domain.charactor.skill.defender.defensiveType;
 
-import com.example.animalwarbattleservice.user.domain.charactor.domain.entity.Character;
+import com.example.animalwarbattleservice.user.domain.charactor.domain.entity.CharacterDto;
 import org.springframework.stereotype.Component;
 
 @Component
 public interface DefenderDefensiveTypeSkill {
 
-    Integer defensiveTypeDefenderEmergencyFood (Character attacker, Character defender);
-    Integer defensiveTypeDefenderHeal (Character attacker, Character defender);
-    void defensiveTypeDefenderIroncladDefense (Character attacker, Character defender);
-    void defensiveTypeDefenderLuckySeven (Character attacker, Character defender);
-    Integer defensiveTypeDefenderRustedSword (Character attacker, Character defender);
-    Integer defensiveTypeDefenderBandage (Character attacker, Character defender);
+    Integer defensiveTypeDefenderEmergencyFood (CharacterDto attacker, CharacterDto defender);
+    Integer defensiveTypeDefenderHeal (CharacterDto attacker, CharacterDto defender);
+    void defensiveTypeDefenderIroncladDefense (CharacterDto attacker, CharacterDto defender);
+    void defensiveTypeDefenderLuckySeven (CharacterDto attacker, CharacterDto defender);
+    Integer defensiveTypeDefenderRustedSword (CharacterDto attacker, CharacterDto defender);
+    Integer defensiveTypeDefenderBandage (CharacterDto attacker, CharacterDto defender);
 }
 
 

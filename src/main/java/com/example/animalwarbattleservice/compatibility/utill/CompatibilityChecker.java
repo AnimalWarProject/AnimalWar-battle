@@ -2,7 +2,7 @@ package com.example.animalwarbattleservice.compatibility.utill;
 
 
 import com.example.animalwarbattleservice.compatibility.domain.CompatibilityEnum;
-import com.example.animalwarbattleservice.user.domain.charactor.domain.entity.Character;
+import com.example.animalwarbattleservice.user.domain.charactor.domain.entity.CharacterDto;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class CompatibilityChecker{
 
     // 공격자와 수비자의 상성을 확인하는 메서드
-    public boolean check(Character attacker, Character defender) {
+    public boolean check(CharacterDto attacker, CharacterDto defender) {
         // 공격자 상성, 수비자 상성 설정
         CompatibilityEnum attackerCompatibility = attacker.getCompatibility();
         CompatibilityEnum defenderCompatibility = defender.getCompatibility();
@@ -70,14 +70,14 @@ public class CompatibilityChecker{
         return false;
     }
     // 공격자의 전투력을 10% 증가시키는 메서드
-    public void increaseAttackerCombatPower(Character isAttacker) {
+    public void increaseAttackerCombatPower(CharacterDto isAttacker) {
         int attackerPower = isAttacker.getAttackerPower();
         double increasedPower = attackerPower * 1.1;
         isAttacker.changeAtkp((int) increasedPower);
     }
 
     // 수비자의 전투력을 10% 증가시키는 메서드
-    public void increaseDefenderCombatPower(Character isDefender) {
+    public void increaseDefenderCombatPower(CharacterDto isDefender) {
         int defenderPower = isDefender.getDefensePower();
         double increasedPower = defenderPower * 1.1;
         isDefender.changeDef((int) increasedPower);

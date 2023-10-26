@@ -9,10 +9,8 @@ import lombok.*;
 @AllArgsConstructor
 @Builder @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Character {
+public class CharacterDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userUUID;
     private String nickName;
     private int attackerPower;

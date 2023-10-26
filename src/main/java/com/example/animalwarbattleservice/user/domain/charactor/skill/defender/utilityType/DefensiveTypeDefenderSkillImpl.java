@@ -1,6 +1,6 @@
 package com.example.animalwarbattleservice.user.domain.charactor.skill.defender.utilityType;
 
-import com.example.animalwarbattleservice.user.domain.charactor.domain.entity.Character;
+import com.example.animalwarbattleservice.user.domain.charactor.domain.entity.CharacterDto;
 
 import java.util.Random;
 
@@ -63,7 +63,7 @@ public class DefensiveTypeDefenderSkillImpl implements DefenderUtilityTypeSkill{
 
     /* 부러진 방패-(지속성)상대방이 방어형 스킬을 사용하지 못하게 합니다. */
     @Override
-    public void utilityTypeDefenderBrokenShield(Character attacker, Character defender) {
+    public void utilityTypeDefenderBrokenShield(CharacterDto attacker, CharacterDto defender) {
         // 부러진 방패 스킬(확률 발동)
         if(isBrokenShieldPercent()){
             attacker.blockDependSkill();
@@ -72,7 +72,7 @@ public class DefensiveTypeDefenderSkillImpl implements DefenderUtilityTypeSkill{
 
     /* 부러진 창-(지속성)상대방이 공격형 스킬을 사용하지 못하게 합니다. */
     @Override
-    public void utilityTypeDefenderBrokenSpear(Character attacker, Character defender) {
+    public void utilityTypeDefenderBrokenSpear(CharacterDto attacker, CharacterDto defender) {
         // 부러진 창 스킬(확률 발동)
         if(isBrokenSpearSkillPercent()){
             attacker.blockAttackSkill();
@@ -81,7 +81,7 @@ public class DefensiveTypeDefenderSkillImpl implements DefenderUtilityTypeSkill{
 
     /* 다시하기-(1회성)상대방과 자신의 체력을 100% 회복합니다. */
     @Override
-    public void utilityTypeDefenderDoItAgain(Character attacker, Character defender) {
+    public void utilityTypeDefenderDoItAgain(CharacterDto attacker, CharacterDto defender) {
         // 다시하기 스킬 사용(확률 발동)
         if(isDoItAgainSkillPercent()){
             attacker.restoreHP();
@@ -91,7 +91,7 @@ public class DefensiveTypeDefenderSkillImpl implements DefenderUtilityTypeSkill{
 
     /* 공수교대-(지속성)스킬 사용 후부터 공격자는 방어력으로, 수비자는 공격력으로 전투합니다. */
     @Override
-    public void utilityTypeDefenderOffenseDefenseShift(Character attacker, Character defender) {
+    public void utilityTypeDefenderOffenseDefenseShift(CharacterDto attacker, CharacterDto defender) {
         // 공수교대 사용(확률 발동)
         if(isOffenseDefenseShiftSkillPercent()){
             attacker.exchangeAtkDef();
@@ -101,7 +101,7 @@ public class DefensiveTypeDefenderSkillImpl implements DefenderUtilityTypeSkill{
 
     /* 강약약강-(지속성)상대방보다 최대 체력이 많다면, 공격력 및 방어력이 10% 증가하고, (최대 체력이 상대방보다 적다면, 공격력 및 방어력이 10% 감소합니다. */
     @Override
-    public void utilityTypeDefenderStrongAndWeak(Character attacker, Character defender) {
+    public void utilityTypeDefenderStrongAndWeak(CharacterDto attacker, CharacterDto defender) {
         // 강약약강 스킬(확률 발동)
         if (isStrongAndWeakSkillPercent()) {
             if (defender.getMaxLife() > attacker.getMaxLife()) {
@@ -115,7 +115,7 @@ public class DefensiveTypeDefenderSkillImpl implements DefenderUtilityTypeSkill{
     }
     /* 바꿔치기-(1회성)상대방과 자신의 체력을 교체합니다.(교체 후 자신은 현재 체력의 10%의 피해를 받습니다. */
     @Override
-    public void utilityTypeDefenderSwap(Character attacker, Character defender) {
+    public void utilityTypeDefenderSwap(CharacterDto attacker, CharacterDto defender) {
         if (isSwapSkillPercent()) {
             int defenderLife = defender.getLife();
             defender.changeLife((int) (attacker.getLife() * 0.9));

@@ -28,12 +28,12 @@ public enum CompatibilityEnum {
     CompatibilityEnum(boolean advantageDog,
                       boolean advantageBird,
                       boolean advantageCat,
-                      boolean advantageMouse,
+                      boolean advantageGlires,
                       boolean advantageFish) {
         this.advantageDog = advantageDog;
         this.advantageBird = advantageBird;
         this.advantageCat = advantageCat;
-        this.advantageGLIRES = advantageMouse;
+        this.advantageGLIRES = advantageGlires;
         this.advantageFish = advantageFish;
     }
 }

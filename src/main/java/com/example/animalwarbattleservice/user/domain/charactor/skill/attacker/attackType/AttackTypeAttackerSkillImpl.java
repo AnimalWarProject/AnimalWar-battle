@@ -1,6 +1,6 @@
 package com.example.animalwarbattleservice.user.domain.charactor.skill.attacker.attackType;
 
-import com.example.animalwarbattleservice.user.domain.charactor.domain.entity.Character;
+import com.example.animalwarbattleservice.user.domain.charactor.domain.entity.CharacterDto;
 
 import java.util.Random;
 
@@ -18,7 +18,7 @@ public class AttackTypeAttackerSkillImpl implements AttackerAttackTypeSkill {
 
     /* 버서커-(1회성)자신의 체력이 20% 이하일 때, 상대에게 입히는 데미지가 3.5배가 됩니다. */
     @Override
-    public Integer attackTypeAttackerBerserker(Character attacker, Character defender) {
+    public Integer attackTypeAttackerBerserker(CharacterDto attacker, CharacterDto defender) {
 
         // 스킬 가능 여부
         if(!attacker.isAttackSkill()){
@@ -40,7 +40,7 @@ public class AttackTypeAttackerSkillImpl implements AttackerAttackTypeSkill {
 
     /* 폭탄투하-(1회성)상대방 현재 체력의 10%에 해당하는 데미지를 입힙니다. */
     @Override
-    public Integer attackTypeAttackerBombDrop(Character attacker, Character defender) {
+    public Integer attackTypeAttackerBombDrop(CharacterDto attacker, CharacterDto defender) {
         // 스킬 가능 여부
         if(!attacker.isAttackSkill()){
             return 0;
@@ -56,7 +56,7 @@ public class AttackTypeAttackerSkillImpl implements AttackerAttackTypeSkill {
 
     /* 처형-다음 5회의 공격 이내 상대방이 10%의 체력 아래라면 처형합니다. */
     @Override
-    public Integer attackTypeAttackerExecution(Character attacker, Character defender) {
+    public Integer attackTypeAttackerExecution(CharacterDto attacker, CharacterDto defender) {
         // 스킬 가능 여부
         if(!attacker.isAttackSkill()){
             return 0;
@@ -71,7 +71,7 @@ public class AttackTypeAttackerSkillImpl implements AttackerAttackTypeSkill {
 
     /*비장의 한발-(1회성)다음 1회의 공격이 상대방보다 체력이 적다면 5배의 피해를 입힙니다.(자신의 체력이 더 많다면 추가피해는 없습니다.)  */
     @Override
-    public Integer attackTypeAttackerHiddenAce(Character attacker, Character defender) {
+    public Integer attackTypeAttackerHiddenAce(CharacterDto attacker, CharacterDto defender) {
         // 스킬 가능 여부
         if(!attacker.isAttackSkill()){
             return 0;
@@ -91,7 +91,7 @@ public class AttackTypeAttackerSkillImpl implements AttackerAttackTypeSkill {
 
     /* 독약-(1회성)상대방의 최대 체력의 7%에 해당하는 데미지를 입힙니다. */
     @Override
-    public Integer attackTypeAttackerPoison(Character attacker, Character defender) {
+    public Integer attackTypeAttackerPoison(CharacterDto attacker, CharacterDto defender) {
         // 스킬 가능 여부
         if(!attacker.isAttackSkill()){
             return 0;
@@ -110,7 +110,7 @@ public class AttackTypeAttackerSkillImpl implements AttackerAttackTypeSkill {
 
     /* 빨리감기-(1회성) 상대방과 자신의 현재 체력이 30% 감소합니다. */
     @Override
-    public Integer attackTypeAttackerSpeedRun(Character attacker, Character defender) {
+    public Integer attackTypeAttackerSpeedRun(CharacterDto attacker, CharacterDto defender) {
         // 스킬 가능 여부
         if(!attacker.isAttackSkill()){
             return 0;

@@ -1,6 +1,6 @@
 package com.example.animalwarbattleservice.user.domain.charactor.skill.attacker.defensiveType;
 
-import com.example.animalwarbattleservice.user.domain.charactor.domain.entity.Character;
+import com.example.animalwarbattleservice.user.domain.charactor.domain.entity.CharacterDto;
 
 import java.util.Random;
 
@@ -36,7 +36,7 @@ public class DefensiveTypeAttackerSkillImpl implements AttackerDefensiveTypeSkil
 
     /* 비상식량-전투시 전체 체력의 20%를 회복 */
     @Override
-    public Integer defensiveTypeAttackerEmergencyFood(Character attacker, Character defender) {
+    public Integer defensiveTypeAttackerEmergencyFood(CharacterDto attacker, CharacterDto defender) {
         // 스킬 가능 여부
         if(!attacker.isDependSkill()){
             return 0;
@@ -55,7 +55,7 @@ public class DefensiveTypeAttackerSkillImpl implements AttackerDefensiveTypeSkil
 
     /* 힐-전투시 잃은 체력의 30%를 회복 */
     @Override
-    public Integer defensiveTypeAttackerHeal(Character attacker, Character defender) {
+    public Integer defensiveTypeAttackerHeal(CharacterDto attacker, CharacterDto defender) {
         // 스킬 여부
         if(!attacker.isDependSkill()){
             return 0;
@@ -75,7 +75,7 @@ public class DefensiveTypeAttackerSkillImpl implements AttackerDefensiveTypeSkil
 
     /* 철통방어-상대 공격을 3회 무효화 */
     @Override
-    public void defensiveTypeAttackerIroncladDefense(Character attacker, Character defender) {
+    public void defensiveTypeAttackerIroncladDefense(CharacterDto attacker, CharacterDto defender) {
         // 스킬 가능 여부
         if (!attacker.isDependSkill()) {
             return;
@@ -90,7 +90,7 @@ public class DefensiveTypeAttackerSkillImpl implements AttackerDefensiveTypeSkil
 
     /* 럭키7-상대 기본공격을 7회 무효화 */
     @Override
-    public void defensiveTypeAttackerLuckySeven(Character attacker, Character defender) {
+    public void defensiveTypeAttackerLuckySeven(CharacterDto attacker, CharacterDto defender) {
         // 스킬 가능 여부
         if (!attacker.isDependSkill()) {
             return;
@@ -107,13 +107,13 @@ public class DefensiveTypeAttackerSkillImpl implements AttackerDefensiveTypeSkil
 
     /* 녹슨 방패-스킬을 사용하면, 일반공격, 데미지를 받는 스킬을 받으면, 20% 데미지 감소. */
     @Override
-    public Integer defensiveTypeAttackerRustedSword(Character attacker, Character defender) {
+    public Integer defensiveTypeAttackerRustedSword(CharacterDto attacker, CharacterDto defender) {
         return null;
     }
 
     /* 붕대감기-잃은체력을 3턴의 나누어 7%씩 상승. (총 21% 체력이 상승) */
     @Override
-    public Integer defensiveTypeAttackerBandage(Character attacker, Character defender) {
+    public Integer defensiveTypeAttackerBandage(CharacterDto attacker, CharacterDto defender) {
         return null;
     }
 }
