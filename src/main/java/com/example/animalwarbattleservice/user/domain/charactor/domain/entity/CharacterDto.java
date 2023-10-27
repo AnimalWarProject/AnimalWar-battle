@@ -2,6 +2,9 @@ package com.example.animalwarbattleservice.user.domain.charactor.domain.entity;
 
 
 import com.example.animalwarbattleservice.compatibility.domain.CompatibilityEnum;
+import com.example.animalwarbattleservice.user.domain.charactor.skill.attacker.attackType.AttackerAttackTypeSkill;
+import com.example.animalwarbattleservice.user.domain.charactor.skill.attacker.defensiveType.AttackerDefensiveTypeSkill;
+import com.example.animalwarbattleservice.user.domain.charactor.skill.attacker.utilityType.AttackerUtilityTypeSkill;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,7 +13,6 @@ import lombok.*;
 @Builder @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CharacterDto {
-
     private Long userUUID;
     private String nickName;
     private int attackerPower;
@@ -20,6 +22,7 @@ public class CharacterDto {
     private String attackTypeSkill;
     private String defenseTypeSkill;
     private String utilityTypeSkill;
+
 
     @Enumerated(EnumType.STRING)
     private CompatibilityEnum compatibility;

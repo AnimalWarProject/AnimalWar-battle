@@ -6,11 +6,12 @@ import org.springframework.stereotype.Component;
 @Component
 public interface DefenderAttackTypeSkill {
 
-    Integer attackTypeDefenderBerserker (CharacterDto attacker, CharacterDto defender);
-    Integer attackTypeDefenderBombDrop (CharacterDto attacker, CharacterDto defender);
-    Integer attackTypeDefenderExecution (CharacterDto attacker, CharacterDto defender);
-    Integer attackTypeDefenderHiddenAce (CharacterDto attacker, CharacterDto defender);
-    Integer attackTypeDefenderPoison (CharacterDto attacker, CharacterDto defender);
-    Integer attackTypeDefenderSpeedRun (CharacterDto attacker, CharacterDto defender);
+    Integer execute (CharacterDto attacker, CharacterDto defender);
 
+//    Integer attackTypeDefenderBerserker (CharacterDto attacker, CharacterDto defender);
+//    Integer attackTypeDefenderBombDrop (CharacterDto attacker, CharacterDto defender);
+//    Integer attackTypeDefenderExecution (CharacterDto attacker, CharacterDto defender);
+//    Integer attackTypeDefenderHiddenAce (CharacterDto attacker, CharacterDto defender);
+//    Integer attackTypeDefenderPoison (CharacterDto attacker, CharacterDto defender);
+//    Integer attackTypeDefenderSpeedRun (CharacterDto attacker, CharacterDto defender);
 }
