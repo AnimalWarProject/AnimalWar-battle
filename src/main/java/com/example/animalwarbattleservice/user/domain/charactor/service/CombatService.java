@@ -9,7 +9,6 @@ import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.Attac
 import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.CharacterDto;
 import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.DefenderCharacterDto;
 import com.example.animalwarbattleservice.user.domain.charactor.skill.attacker.attackType.AttackerAttackTypeSkill;
-import com.example.animalwarbattleservice.user.domain.charactor.skill.attacker.attackType.AttackerBerserkerImpl;
 import com.example.animalwarbattleservice.user.domain.charactor.skill.attacker.attackType.AttackerBombDropImpl;
 import com.example.animalwarbattleservice.user.domain.charactor.skill.attacker.defensiveType.AttackerDefensiveTypeSkill;
 import com.example.animalwarbattleservice.user.domain.charactor.skill.attacker.defensiveType.AttackerDefensiveVoidTypeSkill;
@@ -31,7 +30,6 @@ import org.springframework.stereotype.Service;
 import java.util.Random;
 
 @Service
-@AllArgsConstructor
 public class CombatService extends CharacterDto {
     
     public Integer skillDraw(){
@@ -240,11 +238,39 @@ public class CombatService extends CharacterDto {
         skillPersistenceCheck(attacker, defender);
 
         while (attacker.getLife() > 0 && defender.getLife() > 0) {
-            // 공격자 선
+            // 공격자의 공격
+            useBasicAttack(attacker, defender);
             useAttackerAttackType(attacker, defender);
-            
-            // 수비자 선
 
+            // 수비자의 방어
+            useBasicDefend(attacker, defender);
+            useDefenderDefensiveType(attacker, defender);
+
+            // 스킬 사용
+            useAttackerUtilityType(attacker, defender);
+            useDefenderUtilityType(attacker, defender);
+
+            // 철통 방어 및 럭키 7 스킬
+            useAttackerIroncladDefense(attacker, defender);
+            useDefenderLuckySeven(attacker, defender);
+
+            // 처형 스킬
+            useAttackerExecution(attacker, defender);
+            useDefenderExecution(attacker, defender);
+
+            // 생명력 및 스킬 횟수 감소 확인
+            if (attacker.getLife() <= 0 || defender.getLife() <= 0) {
+                break;
+            }
+        }
+
+        // 전투 종료 후 처리
+        if (attacker.getLife() <= 0) {
+            System.out.println("Attacker has been defeated.");
+        } else if (defender.getLife() <= 0) {
+            System.out.println("Defender has been defeated.");
+        } else {
+            System.out.println("The battle resulted in a draw.");
         }
     }
 }

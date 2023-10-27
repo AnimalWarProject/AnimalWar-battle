@@ -1,6 +1,8 @@
 package com.example.animalwarbattleservice.user.domain.charactor.skill.defender.attackType;
 
 import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.CharacterDto;
+import org.springframework.stereotype.Component;
+
 import java.util.Random;
 
     /* 버서커-(1회성)자신의 체력이 20% 이하일 때, 상대에게 입히는 데미지가 3.5배가 됩니다. */

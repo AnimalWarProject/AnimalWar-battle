@@ -2,6 +2,7 @@ package com.example.animalwarbattleservice.user.domain.charactor.skill.defender.
 
 
 import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.CharacterDto;
+import org.springframework.stereotype.Component;
 
 import java.util.Random;
 

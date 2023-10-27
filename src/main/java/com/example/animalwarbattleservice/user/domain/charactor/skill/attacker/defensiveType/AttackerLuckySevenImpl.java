@@ -1,6 +1,8 @@
 package com.example.animalwarbattleservice.user.domain.charactor.skill.attacker.defensiveType;//package com.example.animalwarbattle.charactor.skill.attacker.defensiveType;
 
 import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.CharacterDto;
+import org.springframework.stereotype.Component;
+
 import java.util.Random;
 
 /* 럭키7 : 현재 체력이 77% 이상일 경우, 7%확률로 상대 공격을 7회 무효화 합니다. */

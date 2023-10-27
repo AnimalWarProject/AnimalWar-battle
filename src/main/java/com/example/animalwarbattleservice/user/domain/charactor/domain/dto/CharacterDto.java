@@ -6,10 +6,11 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-
+@Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CharacterDto {
+    @Id
     private Long userUUID;
     private String nickName;
     private int attackerPower;

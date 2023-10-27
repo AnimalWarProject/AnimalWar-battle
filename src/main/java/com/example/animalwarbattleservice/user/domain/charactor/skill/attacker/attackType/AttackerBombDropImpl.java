@@ -1,8 +1,10 @@
 package com.example.animalwarbattleservice.user.domain.charactor.skill.attacker.attackType;//package com.example.animalwarbattle.charactor.skill.attacker.attackType;
 
 import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.CharacterDto;
+import org.springframework.stereotype.Component;
 
 import java.util.Random;
+
 public class AttackerBombDropImpl implements AttackerAttackTypeSkill {
 
     //  스킬 확률 관리

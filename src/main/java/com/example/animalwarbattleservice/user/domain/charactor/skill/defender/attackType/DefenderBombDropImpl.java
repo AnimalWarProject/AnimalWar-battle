@@ -1,10 +1,11 @@
 package com.example.animalwarbattleservice.user.domain.charactor.skill.defender.attackType;//package com.example.animalwarbattle.charactor.skill.defender.attackType;
 
 import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.CharacterDto;
+import org.springframework.stereotype.Component;
 
 import java.util.Random;
 
-    /* 폭탄투하-(1회성)상대방 현재 체력의 10%에 해당하는 데미지를 입힙니다. */
+/* 폭탄투하-(1회성)상대방 현재 체력의 10%에 해당하는 데미지를 입힙니다. */
 public class DefenderBombDropImpl implements DefenderAttackTypeSkill {
 
         //  스킬 확률 관리
