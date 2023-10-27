@@ -2,7 +2,7 @@ package com.example.animalwarbattleservice.compatibility.utill;
 
 
 import com.example.animalwarbattleservice.compatibility.domain.CompatibilityEnum;
-import com.example.animalwarbattleservice.user.domain.charactor.domain.entity.CharacterDto;
+import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.CharacterDto;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 

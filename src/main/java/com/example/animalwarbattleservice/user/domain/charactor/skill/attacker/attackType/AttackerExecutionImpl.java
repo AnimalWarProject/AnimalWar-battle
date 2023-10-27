@@ -1,6 +1,6 @@
 package com.example.animalwarbattleservice.user.domain.charactor.skill.attacker.attackType;//package com.example.animalwarbattle.charactor.skill.attacker.attackType;
 
-import com.example.animalwarbattleservice.user.domain.charactor.domain.entity.CharacterDto;
+import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.CharacterDto;
 
 import java.util.Random;
 
@@ -20,6 +20,8 @@ public class AttackerExecutionImpl implements AttackerAttackTypeSkill {
     @Override
     public Integer execute(CharacterDto attacker, CharacterDto defender) {
         // 스킬 가능 여부
+
+
         if (!attacker.isAttackSkill()) {
             return 0;
         }

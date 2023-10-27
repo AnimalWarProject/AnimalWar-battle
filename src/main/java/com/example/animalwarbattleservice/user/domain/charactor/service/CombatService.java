@@ -2,20 +2,47 @@ package com.example.animalwarbattleservice.user.domain.charactor.service;
 
 import com.example.animalwarbattleservice.compatibility.utill.CompatibilityChecker;
 import com.example.animalwarbattleservice.user.domain.charactor.basicAttack.attacker.AttackerBasicAttack;
+import com.example.animalwarbattleservice.user.domain.charactor.basicAttack.attacker.AttackerBasicAttackImpl;
 import com.example.animalwarbattleservice.user.domain.charactor.basicAttack.defender.DefenderBasicAttack;
-import com.example.animalwarbattleservice.user.domain.charactor.domain.entity.CharacterDto;
+import com.example.animalwarbattleservice.user.domain.charactor.basicAttack.defender.DefenderBasicAttackImpl;
+import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.AttackerCharacterDto;
+import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.CharacterDto;
+import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.DefenderCharacterDto;
 import com.example.animalwarbattleservice.user.domain.charactor.skill.attacker.attackType.AttackerAttackTypeSkill;
+import com.example.animalwarbattleservice.user.domain.charactor.skill.attacker.attackType.AttackerBerserkerImpl;
+import com.example.animalwarbattleservice.user.domain.charactor.skill.attacker.attackType.AttackerBombDropImpl;
 import com.example.animalwarbattleservice.user.domain.charactor.skill.attacker.defensiveType.AttackerDefensiveTypeSkill;
+import com.example.animalwarbattleservice.user.domain.charactor.skill.attacker.defensiveType.AttackerDefensiveVoidTypeSkill;
+import com.example.animalwarbattleservice.user.domain.charactor.skill.attacker.defensiveType.AttackerEmergencyFoodImpl;
+import com.example.animalwarbattleservice.user.domain.charactor.skill.attacker.defensiveType.AttackerLuckySevenImpl;
+import com.example.animalwarbattleservice.user.domain.charactor.skill.attacker.utilityType.AttackerDoItAgainImpl;
 import com.example.animalwarbattleservice.user.domain.charactor.skill.attacker.utilityType.AttackerUtilityTypeSkill;
 import com.example.animalwarbattleservice.user.domain.charactor.skill.defender.attackType.DefenderAttackTypeSkill;
+import com.example.animalwarbattleservice.user.domain.charactor.skill.defender.attackType.DefenderBerserkerImpl;
 import com.example.animalwarbattleservice.user.domain.charactor.skill.defender.defensiveType.DefenderDefensiveTypeSkill;
+import com.example.animalwarbattleservice.user.domain.charactor.skill.defender.defensiveType.DefenderDefensiveVoidTypeSkill;
+import com.example.animalwarbattleservice.user.domain.charactor.skill.defender.defensiveType.DefenderEmergencyFoodImpl;
+import com.example.animalwarbattleservice.user.domain.charactor.skill.defender.defensiveType.DefenderLuckySevenImpl;
+import com.example.animalwarbattleservice.user.domain.charactor.skill.defender.utilityType.DefenderSwapImpl;
 import com.example.animalwarbattleservice.user.domain.charactor.skill.defender.utilityType.DefenderUtilityTypeSkill;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Random;
+
 @Service
 @AllArgsConstructor
 public class CombatService extends CharacterDto {
+    
+    public Integer skillDraw(){
+        Random random = new Random(3);
+        return random.nextInt();
+    }
+
+    public Integer defenseSkillDraw(){
+        Random random = new Random(2);
+        return random.nextInt();
+    }
 
     // 기본 공격
     private AttackerBasicAttack attackerBasicAttack;
@@ -27,7 +54,9 @@ public class CombatService extends CharacterDto {
 
     // 수비형 스킬
     private AttackerDefensiveTypeSkill attackerDefensiveTypeSkill;
+    private AttackerDefensiveVoidTypeSkill attackerDefensiveVoidTypeSkill;
     private DefenderDefensiveTypeSkill defenderDefensiveTypeSkill;
+    private DefenderDefensiveVoidTypeSkill defenderDefensiveVoidTypeSkill;
 
     // 유틸형 스킬
     private AttackerUtilityTypeSkill attackerUtilityTypeSkill;
@@ -49,58 +78,29 @@ public class CombatService extends CharacterDto {
 
     // 공격형 스킬(공격자, 수비자)
     public void useAttackerAttackType(CharacterDto attacker, CharacterDto defender){
-        attackerAttackTypeSkill.attackTypeAttackerBerserker(attacker, defender);
-        attackerAttackTypeSkill.attackTypeAttackerBombDrop(attacker, defender);
-        attackerAttackTypeSkill.attackTypeAttackerExecution(attacker, defender);
-        attackerAttackTypeSkill.attackTypeAttackerHiddenAce(attacker, defender);
-        attackerAttackTypeSkill.attackTypeAttackerPoison(attacker, defender);
-        attackerAttackTypeSkill.attackTypeAttackerSpeedRun(attacker, defender);
+        attackerAttackTypeSkill.execute(attacker, defender);
     }
     public void useDefenderAttackType(CharacterDto attacker, CharacterDto defender){
-        defenderAttackTypeSkill.attackTypeDefenderBerserker(attacker, defender);
-        defenderAttackTypeSkill.attackTypeDefenderBombDrop(attacker, defender);
-        defenderAttackTypeSkill.attackTypeDefenderExecution(attacker, defender);
-        defenderAttackTypeSkill.attackTypeDefenderHiddenAce(attacker, defender);
-        defenderAttackTypeSkill.attackTypeDefenderPoison(attacker, defender);
-        defenderAttackTypeSkill.attackTypeDefenderSpeedRun(attacker, defender);
+        defenderAttackTypeSkill.execute(attacker, defender);
     }
 
     // 수비형 스킬(공격자, 수비자)
     public void useAttackerDefensiveType(CharacterDto attacker, CharacterDto defender){
-        attackerDefensiveTypeSkill.defensiveTypeAttackerEmergencyFood(attacker, defender);
-        attackerDefensiveTypeSkill.defensiveTypeAttackerHeal(attacker, defender);
-        attackerDefensiveTypeSkill.defensiveTypeAttackerIroncladDefense(attacker, defender);
-        attackerDefensiveTypeSkill.defensiveTypeAttackerLuckySeven(attacker, defender);
-//        attackerDefensiveTypeSkill.defensiveTypeAttackerRustedSword(attacker, defender);
-//        attackerDefensiveTypeSkill.defensiveTypeAttackerBandage(attacker, defender);
+        attackerDefensiveTypeSkill.execute(attacker, defender);
+        attackerDefensiveVoidTypeSkill.execute(attacker, defender);
     }
     public void useDefenderDefensiveType(CharacterDto attacker, CharacterDto defender){
-        defenderDefensiveTypeSkill.defensiveTypeDefenderEmergencyFood(attacker, defender);
-        defenderDefensiveTypeSkill.defensiveTypeDefenderHeal(attacker, defender);
-        defenderDefensiveTypeSkill.defensiveTypeDefenderIroncladDefense(attacker, defender);
-        defenderDefensiveTypeSkill.defensiveTypeDefenderLuckySeven(attacker, defender);
-//        defenderDefensiveTypeSkill.defensiveTypeDefenderRustedSword(attacker, defender);
-//        defenderDefensiveTypeSkill.defensiveTypeDefenderBandage(attacker, defender);
+        defenderDefensiveTypeSkill.execute(attacker, defender);
+        defenderDefensiveVoidTypeSkill.execute(attacker, defender);
     }
 
     // 유팅형 스킬(공격자, 수비자)
     public void useAttackerUtilityType(CharacterDto attacker, CharacterDto defender){
-        attackerUtilityTypeSkill.utilityTypeAttackerBrokenShield(attacker, defender);
-        attackerUtilityTypeSkill.utilityTypeAttackerBrokenSpear(attacker, defender);
-        attackerUtilityTypeSkill.utilityTypeAttackerDoItAgain(attacker, defender);
-        attackerUtilityTypeSkill.utilityTypeAttackerOffenseDefenseShift(attacker, defender);
-        attackerUtilityTypeSkill.utilityTypeAttackerStrongAndWeak(attacker, defender);
-        attackerUtilityTypeSkill.utilityTypeAttackerSwap(attacker, defender);
+        attackerUtilityTypeSkill.execute(attacker, defender);
     }
     public void useDefenderUtilityType(CharacterDto attacker, CharacterDto defender){
-        defenderUtilityTypeSkill.utilityTypeDefenderBrokenShield(attacker, defender);
-        defenderUtilityTypeSkill.utilityTypeDefenderBrokenSpear(attacker, defender);
-        defenderUtilityTypeSkill.utilityTypeDefenderDoItAgain(attacker, defender);
-        defenderUtilityTypeSkill.utilityTypeDefenderOffenseDefenseShift(attacker, defender);
-        defenderUtilityTypeSkill.utilityTypeDefenderStrongAndWeak(attacker, defender);
-        defenderUtilityTypeSkill.utilityTypeDefenderSwap(attacker, defender);
+        defenderUtilityTypeSkill.execute(attacker, defender);
     }
-
 
     // 처형 스킬(공격자, 수비자)
     public void useAttackerExecution(CharacterDto attacker, CharacterDto defender) {
@@ -165,6 +165,15 @@ public class CombatService extends CharacterDto {
         }
     }
 
+    // 지속성 스킬 체크
+    public void  skillPersistenceCheck(CharacterDto attacker, CharacterDto defender){
+        if (attacker.getExecutionSkillCount() > 0){useAttackerExecution(attacker, defender);}
+        if (attacker.getExecutionSkillCount() > 0){useDefenderExecution(attacker, defender);}
+        if (attacker.getIroncladDefenseSkillCount() > 0){useAttackerIroncladDefense(attacker, defender);}
+        if (attacker.getIroncladDefenseSkillCount() > 0){useDefenderIroncladDefense(attacker, defender);}
+        if (attacker.getIroncladDefenseSkillCount() > 0){useAttackerLuckySeven(attacker, defender);}
+        if (attacker.getIroncladDefenseSkillCount() > 0){useDefenderLuckySeven(attacker, defender);}
+    }
 
 
     // attacker vs defender
@@ -172,10 +181,63 @@ public class CombatService extends CharacterDto {
         checkCompatibility(attacker);
         checkCompatibility(defender);
 
+        AttackerCharacterDto attackerCharacterDto = new AttackerCharacterDto(
+                new AttackerBasicAttackImpl(),
+                new AttackerBombDropImpl(),
+                new AttackerEmergencyFoodImpl(),
+                new AttackerLuckySevenImpl(),
+                new AttackerDoItAgainImpl());
+        attackerCharacterDto.setNickName("군산 불도저 이세인");
+        attackerCharacterDto.changeLife(100000);
+        attackerCharacterDto.changeMaxLife(100000);
+        attackerCharacterDto.setAttackerPower(200);
+        attackerCharacterDto.setAttackTypeSkill("ㅁㄴㅇ");
+        attackerCharacterDto.setDefenseTypeSkill("ㅁㄴㅇ");
+        attackerCharacterDto.setUtilityTypeSkill("asd");
+
+        DefenderCharacterDto defenderCharacterDto = new DefenderCharacterDto(
+                new DefenderBasicAttackImpl(),
+                new DefenderBerserkerImpl(),
+                new DefenderEmergencyFoodImpl(),
+                new DefenderLuckySevenImpl(),
+                new DefenderSwapImpl());
+        defenderCharacterDto.setNickName("포항 상남자 김정수");
+        defenderCharacterDto.changeLife(1000000);
+        defenderCharacterDto.changeMaxLife(100000);
+        defenderCharacterDto.setDefensePower(200);
+        defenderCharacterDto.setAttackTypeSkill("ㅁㄴㅇ");
+        defenderCharacterDto.setDefenseTypeSkill("");
+        defenderCharacterDto.setUtilityTypeSkill("");
 
 
+        //프론트 공격은 히든, 디펜스 힐, 유틸은 부러진 방패
+        AttackerCharacterDto characterDto = new AttackerCharacterDto(new AttackerBasicAttackImpl(),
+                new AttackerBombDropImpl(),
+                new AttackerEmergencyFoodImpl(),
+                new AttackerLuckySevenImpl(),
+                new AttackerDoItAgainImpl());
 
+        Integer nowSkillType = skillDraw();
 
+        if  (nowSkillType == 0){
+            characterDto.getAttackerAttackTypeSkill().execute( attacker,  defender);
+        }
+        if  (nowSkillType == 1){
+
+            characterDto.getAttackerUtilityTypeSkill().execute( attacker,  defender);
+        }
+        if  (nowSkillType == 2){
+            nowSkillType = defenseSkillDraw();
+            if (nowSkillType == 0){
+                characterDto.getAttackerDefensiveVoidTypeSkill();
+            }
+            if (nowSkillType == 1){
+                characterDto.getAttackerDefensiveTypeSkill();
+            }
+        }
+        characterDto.getAttackerAttackTypeSkill().execute(attacker,  defender);
+        //지속성 스킬 체크
+        skillPersistenceCheck(attacker, defender);
 
         while (attacker.getLife() > 0 && defender.getLife() > 0) {
             // 공격자 선
@@ -186,10 +248,3 @@ public class CombatService extends CharacterDto {
         }
     }
 }
-
-
-//    boolean hasCompatibility = compatibilityChecker.check(attacker, defender);
-//        if (hasCompatibility) {
-//            compatibilityChecker.increaseAttackerCombatPower(attacker);
-//        }
-

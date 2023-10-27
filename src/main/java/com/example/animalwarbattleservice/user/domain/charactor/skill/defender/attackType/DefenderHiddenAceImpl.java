@@ -1,7 +1,7 @@
 package com.example.animalwarbattleservice.user.domain.charactor.skill.defender.attackType;//package com.example.animalwarbattle.charactor.skill.defender.attackType;
 
 
-import com.example.animalwarbattleservice.user.domain.charactor.domain.entity.CharacterDto;
+import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.CharacterDto;
 
 import java.util.Random;
 

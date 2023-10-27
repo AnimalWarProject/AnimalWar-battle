@@ -1,6 +1,6 @@
 package com.example.animalwarbattleservice.user.domain.charactor.skill.defender.attackType;//package com.example.animalwarbattle.charactor.skill.defender.attackType;
 
-import com.example.animalwarbattleservice.user.domain.charactor.domain.entity.CharacterDto;
+import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.CharacterDto;
 import java.util.Random;
 
     /* 빨리감기-(1회성) 상대방과 자신의 현재 체력이 30% 감소합니다. */

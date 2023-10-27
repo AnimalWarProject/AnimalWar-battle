@@ -1,6 +1,6 @@
 package com.example.animalwarbattleservice.user.domain.charactor.skill.defender.utilityType;//package com.example.animalwarbattle.charactor.skill.defender.utilityType;
 
-import com.example.animalwarbattleservice.user.domain.charactor.domain.entity.CharacterDto;
+import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.CharacterDto;
 import java.util.Random;
 
 /* 바꿔치기-(1회성)상대방과 자신의 체력을 교체합니다.(교체 후 자신은 현재 체력의 10%의 피해를 받습니다. */

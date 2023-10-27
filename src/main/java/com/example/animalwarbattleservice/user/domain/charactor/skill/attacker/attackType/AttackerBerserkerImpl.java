@@ -4,7 +4,7 @@ package com.example.animalwarbattleservice.user.domain.charactor.skill.attacker.
 
 ///*  버서커 : 자신의 체력이 20%이하 남았을 때 상대에게 입히는 데미지가 2배가 됩니다.  */
 
-import com.example.animalwarbattleservice.user.domain.charactor.domain.entity.CharacterDto;
+import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.CharacterDto;
 import java.util.Random;
 public class AttackerBerserkerImpl implements AttackerAttackTypeSkill {
 

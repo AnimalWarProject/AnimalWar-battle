@@ -1,16 +1,13 @@
-package com.example.animalwarbattleservice.user.domain.charactor.domain.entity;
-
+package com.example.animalwarbattleservice.user.domain.charactor.domain.dto;
 
 import com.example.animalwarbattleservice.compatibility.domain.CompatibilityEnum;
-import com.example.animalwarbattleservice.user.domain.charactor.skill.attacker.attackType.AttackerAttackTypeSkill;
-import com.example.animalwarbattleservice.user.domain.charactor.skill.attacker.defensiveType.AttackerDefensiveTypeSkill;
-import com.example.animalwarbattleservice.user.domain.charactor.skill.attacker.utilityType.AttackerUtilityTypeSkill;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 
-@AllArgsConstructor
-@Builder @Getter
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CharacterDto {
     private Long userUUID;
@@ -79,6 +76,29 @@ public class CharacterDto {
     public void changeLife(int life){
         this.life = life;
     }
+    public void changeMaxLife(int life){
+        this.maxLife = maxLife;
+    }
+    public void setNickName(String name){
+        this.nickName = nickName;
+    }
+    public void setAttackerPower(int attackerPower){
+        this.attackerPower = attackerPower;
+    }
+    public void setDefensePower(int defensePower){
+        this.defensePower = defensePower;
+    }
+    public void setAttackTypeSkill(String attackTypeSkill){
+        this.attackTypeSkill = attackTypeSkill;
+    }
+    public void setDefenseTypeSkill(String defenseTypeSkill){
+        this.defenseTypeSkill = defenseTypeSkill;
+    }
+    public void setUtilityTypeSkill(String utilityTypeSkill){
+        this.utilityTypeSkill = utilityTypeSkill;
+    }
+
+
 
     // 공격력 반환
     public void changeAtkp(int atk){
