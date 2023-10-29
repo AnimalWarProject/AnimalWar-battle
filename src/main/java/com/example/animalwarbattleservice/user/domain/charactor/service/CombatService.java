@@ -27,6 +27,7 @@ import com.example.animalwarbattleservice.user.domain.charactor.skill.defender.u
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Random;
 
 @Service
@@ -236,6 +237,31 @@ public class CombatService extends CharacterDto {
         characterDto.getAttackerAttackTypeSkill().execute(attacker,  defender);
         //지속성 스킬 체크
         skillPersistenceCheck(attacker, defender);
+
+        int attacker_life = 10;
+        int defender_life = 10;
+
+        List<String> plan;
+
+        while( attacker_life > 0 && defender_life > 0 ){
+            // 1 event : 공격자가 수비자에게 공격
+            if defender_life 상태를체크해서
+                    //먼저 랜덤하게 뽑는거다.
+            // 스텝별로 기본 공격부터 시작해보자!!,, 버서커 확률이 70이면 , 나머지는 가중치 30으로 줘라???
+            List<int> attacker_plan = new List<int>();
+            attacker_plan.add(
+                    0,공격할거냐 말거냐
+            )
+                    attacker_plan.add(1, 스킬쓸거나 말거냐)
+                             attacker_plan.add(
+                                     2, 스킬을 쓸거냐 말거냐
+                             )
+
+            attacker_attack = attacker_plan.get(random())
+            defender_life -= attacker_attack
+            plan.add("공격자가 수비자에게 " + attacker_attack + " 만큼 기본공격을 했습니다.")
+        }
+
 
         while (attacker.getLife() > 0 && defender.getLife() > 0) {
             // 공격자의 공격
