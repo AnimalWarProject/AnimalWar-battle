@@ -14,9 +14,18 @@ import lombok.Getter;
 public class AttackerCharacterDto extends CharacterDto{
     private AttackerBasicAttack attackerBasicAttack;
     private AttackerAttackTypeSkill attackerAttackTypeSkill;
-    private AttackerDefensiveTypeSkill attackerDefensiveTypeSkill;
     private AttackerDefensiveVoidTypeSkill attackerDefensiveVoidTypeSkill;
+    private AttackerDefensiveTypeSkill attackerDefensiveTypeSkill;
     private AttackerUtilityTypeSkill attackerUtilityTypeSkill;
+
+
+
+
+    // 공격자 체력 변화
+    public void decreaseHealth(int amount) {
+        int newHealth = this.getLife() - amount;
+        this.changeLife(newHealth);
+    }
 }
 
 

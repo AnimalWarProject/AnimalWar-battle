@@ -15,7 +15,7 @@ public class CharacterDto {
     private String nickName;
     private int attackerPower;
     private int defensePower;
-    private int life;
+    private int life = 5000;
     private int maxLife;
     private String attackTypeSkill;
     private String defenseTypeSkill;
@@ -23,8 +23,12 @@ public class CharacterDto {
 
 
     @Enumerated(EnumType.STRING)
-    private CompatibilityEnum compatibility;
-    
+    private CompatibilityEnum compatibilityEnum;
+
+    public void setCompatibility(CompatibilityEnum compatibilityEnum) {
+        this.compatibilityEnum = compatibilityEnum;
+    }
+
     // 처형 스킬
     private int executionSkillCount = 5;
     public void decrementExecutionCount(){

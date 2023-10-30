@@ -16,6 +16,12 @@ public class DefenderCharacterDto extends CharacterDto{
     private DefenderDefensiveTypeSkill defenderDefensiveTypeSkill;
     private DefenderDefensiveVoidTypeSkill defenderDefensiveVoidTypeSkill;
     private DefenderUtilityTypeSkill defenderUtilityTypeSkill;
+
+    // 수비자 체력 변화
+    public void decreaseHealth(int amount) {
+        int newHealth = this.getLife() - amount;
+        this.changeLife(newHealth);
+    }
 }
 
 

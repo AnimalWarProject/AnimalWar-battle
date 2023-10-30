@@ -1,13 +1,15 @@
 package com.example.animalwarbattleservice.user.domain.charactor.basicAttack.attacker;
 
+import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.AttackerCharacterDto;
 import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.CharacterDto;
 import org.springframework.stereotype.Component;
+
 
 @Component
 public class AttackerBasicAttackImpl implements AttackerBasicAttack {
 
     @Override
-    public Integer attackPlainHit(CharacterDto attacker, CharacterDto defender) {
+    public Integer attackPlainHit(AttackerCharacterDto attacker, CharacterDto defender) {
         // 기본공격 가능여부
         if(!attacker.isBasicAttack()){
             return 0;

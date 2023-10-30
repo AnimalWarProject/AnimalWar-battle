@@ -29,6 +29,10 @@ public class DefenderExecutionImpl implements DefenderAttackTypeSkill {
         // 처형스킬 설정
         if (percentage(45)){
             defender.getExecutionSkillCount();
+        } else if (defender.getExecutionSkillCount() > 0) {
+            if (attacker.getLife() <= attacker.getLife() / 10) {
+                attacker.changeLife(0);
+            }
         }
         return null;
     }

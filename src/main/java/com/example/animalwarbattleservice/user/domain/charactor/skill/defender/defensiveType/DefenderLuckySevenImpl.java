@@ -30,6 +30,9 @@ public class DefenderLuckySevenImpl implements DefenderDefensiveVoidTypeSkill{
         if ((defenderLife >= defender.getMaxLife() * 0.77) && percentage(7)) {
             attacker.getLuckySevenSkillCount();
             attacker.blockBasicAttack();
+        } else if (attacker.getLuckySevenSkillCount() > 0) {
+            attacker.blockBasicAttack();
+            attacker.decrementLuckySevenCount();
         }
     }
 }

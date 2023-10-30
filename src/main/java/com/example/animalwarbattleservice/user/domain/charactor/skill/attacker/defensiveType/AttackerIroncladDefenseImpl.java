@@ -28,6 +28,9 @@ public class AttackerIroncladDefenseImpl implements AttackerDefensiveVoidTypeSki
         if (percentage(50)) {
             defender.getIroncladDefenseSkillCount();
             defender.blockBasicAttack();
+        } else if (defender.getIroncladDefenseSkillCount() > 0) {
+            defender.blockBasicAttack();
+            defender.decrementIroncladDefenseCount();
         }
     }
 }
