@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import java.util.Random;
 
 /* 럭키7 : 현재 체력이 77% 이상일 경우, 7%확률로 상대 공격을 7회 무효화 합니다. */
-public class AttackerLuckySevenImpl implements AttackerDefensiveVoidTypeSkill {
+public class AttackerLuckySevenImpl implements AttackerDefensiveTypeSkill {
 
     //  스킬 확률 관리
     public Boolean percentage(Integer pass) {
@@ -19,10 +19,10 @@ public class AttackerLuckySevenImpl implements AttackerDefensiveVoidTypeSkill {
     }
     /* 럭키7-상대 기본공격을 7회 무효화 */
     @Override
-    public void execute(CharacterDto attacker, CharacterDto defender) {
+    public Integer execute(CharacterDto attacker, CharacterDto defender) {
         // 스킬 가능 여부
         if (!attacker.isDependSkill()) {
-            return;
+            return 0;
         }
 
         // 공격자 현재체력 설정
@@ -35,5 +35,6 @@ public class AttackerLuckySevenImpl implements AttackerDefensiveVoidTypeSkill {
             defender.blockBasicAttack();
             defender.decrementLuckySevenCount();
         }
+        return null;
     }
 }

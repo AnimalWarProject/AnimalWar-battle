@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import java.util.Random;
 
 /* 철통방어 : 상대 공격을 3회 무효화합니다. */
-public class AttackerIroncladDefenseImpl implements AttackerDefensiveVoidTypeSkill {
+public class AttackerIroncladDefenseImpl implements AttackerDefensiveTypeSkill {
     //  스킬 확률 관리
     public Boolean percentage(Integer pass) {
         double probability = pass;
@@ -18,10 +18,10 @@ public class AttackerIroncladDefenseImpl implements AttackerDefensiveVoidTypeSki
     }
     /* 철통방어-상대 공격을 3회 무효화 */
     @Override
-    public void execute(CharacterDto attacker, CharacterDto defender) {
+    public Integer execute(CharacterDto attacker, CharacterDto defender) {
         // 스킬 가능 여부
         if (!attacker.isDependSkill()) {
-            return;
+            return 0;
         }
 
         // 철통방어 스킬(확률 발동)
@@ -32,5 +32,6 @@ public class AttackerIroncladDefenseImpl implements AttackerDefensiveVoidTypeSki
             defender.blockBasicAttack();
             defender.decrementIroncladDefenseCount();
         }
+        return null;
     }
 }

@@ -15,7 +15,7 @@ public class CharacterDto {
     private String nickName;
     private int attackerPower;
     private int defensePower;
-    private int life = 3000;
+    private int life = 10000;
     private int maxLife;
     private String attackTypeSkill;
     private String defenseTypeSkill;

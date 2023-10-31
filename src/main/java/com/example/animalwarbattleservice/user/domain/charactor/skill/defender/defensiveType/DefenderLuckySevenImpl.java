@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Random;
 
-public class DefenderLuckySevenImpl implements DefenderDefensiveVoidTypeSkill{
+public class DefenderLuckySevenImpl implements DefenderDefensiveTypeSkill{
     //  스킬 확률 관리
     public Boolean percentage(Integer pass) {
         double probability = pass;
@@ -18,10 +18,10 @@ public class DefenderLuckySevenImpl implements DefenderDefensiveVoidTypeSkill{
     }
     /* 럭키7-상대 기본공격을 7회 무효화 */
     @Override
-    public void execute(CharacterDto attacker, CharacterDto defender) {
+    public Integer execute(CharacterDto attacker, CharacterDto defender) {
         // 스킬 가능 여부
         if (!defender.isDependSkill()) {
-            return;
+            return 0;
         }
 
         // 공격자 현재체력 설정
@@ -34,5 +34,6 @@ public class DefenderLuckySevenImpl implements DefenderDefensiveVoidTypeSkill{
             attacker.blockBasicAttack();
             attacker.decrementLuckySevenCount();
         }
+        return null;
     }
 }

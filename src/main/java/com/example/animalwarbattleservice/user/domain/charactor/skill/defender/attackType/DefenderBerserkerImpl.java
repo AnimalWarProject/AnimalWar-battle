@@ -32,7 +32,7 @@ public class DefenderBerserkerImpl implements DefenderAttackTypeSkill {
         int defenderMaxLife = defender.getMaxLife();
 
         // 버서커 스킬 (확률 발동)
-        if ((defenderLife <= defenderMaxLife / 5) && percentage(70)) {
+        if ((defenderLife <= defenderMaxLife / 5) && percentage(100)) {
             defenderBerserkerDamage = (int) 3.5 * (defenderBerserkerDamage);
         }
         return defenderBerserkerDamage;

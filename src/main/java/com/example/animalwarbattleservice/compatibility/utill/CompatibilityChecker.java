@@ -8,10 +8,6 @@ import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.Defen
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-
 @Getter
 @Component
 public class CompatibilityChecker{

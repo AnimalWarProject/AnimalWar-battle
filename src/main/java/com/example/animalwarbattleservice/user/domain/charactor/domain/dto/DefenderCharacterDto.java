@@ -14,7 +14,6 @@ public class DefenderCharacterDto extends CharacterDto{
     private DefenderBasicAttack defenderBasicAttack;
     private DefenderAttackTypeSkill defenderAttackTypeSkill;
     private DefenderDefensiveTypeSkill defenderDefensiveTypeSkill;
-    private DefenderDefensiveVoidTypeSkill defenderDefensiveVoidTypeSkill;
     private DefenderUtilityTypeSkill defenderUtilityTypeSkill;
 
     // 수비자 체력 변화
