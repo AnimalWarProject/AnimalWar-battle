@@ -10,8 +10,8 @@ public class AttackerBombDropImpl implements AttackerAttackTypeSkill {
     //  스킬 확률 관리
     public Boolean percentage(Integer pass) {
         double probability = pass;
-        Random random = new Random(100);
-        if (probability > random.nextInt()) {
+        Random random = new Random();
+        if (probability > random.nextInt(100)) {
             return true;
         }
         return false;

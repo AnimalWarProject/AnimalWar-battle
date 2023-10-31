@@ -25,6 +25,7 @@ import com.example.animalwarbattleservice.user.domain.charactor.skill.defender.d
 import com.example.animalwarbattleservice.user.domain.charactor.skill.defender.defensiveType.DefenderLuckySevenImpl;
 import com.example.animalwarbattleservice.user.domain.charactor.skill.defender.utilityType.DefenderSwapImpl;
 import com.example.animalwarbattleservice.user.domain.charactor.skill.defender.utilityType.DefenderUtilityTypeSkill;
+import jdk.swing.interop.SwingInterOpUtils;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -95,8 +96,6 @@ public class CombatService extends CharacterDto {
         attackerDefensiveVoidTypeSkill.execute(attacker, defender);
     }
 
-
-
     // 수비형 스킬(공격자, 수비자)
     public void useDefenderAttackType(AttackerCharacterDto attacker, CharacterDto defender){
         defenderAttackTypeSkill.execute(attacker, defender);
@@ -113,67 +112,6 @@ public class CombatService extends CharacterDto {
     public void useDefenderUtilityType(CharacterDto attacker, CharacterDto defender){
         defenderUtilityTypeSkill.execute(attacker, defender);
     }
-//    // 버서커 스킬
-//    public void attackerBerserker(AttackerCharacterDto attacker, CharacterDto defender) {
-//        AttackerAttackTypeSkill berserker = new AttackerBerserkerImpl();
-//        berserker.execute(attacker, defender);
-//    }
-
-//    // 처형 스킬(공격자, 수비자)
-//    public void useAttackerExecution(AttackerCharacterDto attacker, CharacterDto defender) {
-//        // 스킬을 사용하는 로직
-//        attackerBasicAttack.attackPlainHit(attacker, defender);
-//
-//        // 스킬 사용 후 피가 깍였을 때, 즉결처형 해야하는지 확인하는 로직이다
-//        if (attacker.getExecutionSkillCount() > 0) {
-//            if (defender.getLife() <= defender.getMaxLife() / 10) {
-//                defender.changeLife(0);
-//            }
-//            attacker.decrementExecutionCount();
-//        }
-//    }
-//    public void useDefenderExecution(CharacterDto attacker, DefenderCharacterDto defender) {
-//        defenderBasicAttack.defendPlainHit(attacker, defender);
-//
-//        if (defender.getExecutionSkillCount() > 0) {
-//            if (attacker.getLife() <= attacker.getLife() / 10) {
-//                attacker.changeLife(0);
-//            }
-//            defender.decrementExecutionCount();
-//        }
-//    }
-
-//    // 철통 방어(공격자 , 수비자)
-//    public void useAttackerIroncladDefense(CharacterDto attacker, DefenderCharacterDto defender) {
-//        defenderBasicAttack.defendPlainHit(attacker, defender);
-//        if (defender.getIroncladDefenseSkillCount() > 0) {
-//            defender.blockBasicAttack();
-//            defender.decrementIroncladDefenseCount();
-//        }
-//    }
-//    public void useDefenderIroncladDefense(AttackerCharacterDto attacker, CharacterDto defender) {
-//        attackerBasicAttack.attackPlainHit(attacker, defender);
-//        if (attacker.getIroncladDefenseSkillCount() > 0) {
-//            attacker.blockBasicAttack();
-//            attacker.decrementIroncladDefenseCount();
-//        }
-//    }
-
-//    // 럭키 7 스킬(공격자, 수비자)
-//    public void useAttackerLuckySeven(CharacterDto attacker, DefenderCharacterDto defender) {
-//        defenderBasicAttack.defendPlainHit(attacker, defender);
-//        if (defender.getLuckySevenSkillCount() > 0) {
-//            defender.blockBasicAttack();
-//            defender.decrementLuckySevenCount();
-//        }
-//    }
-//    public void useDefenderLuckySeven(AttackerCharacterDto attacker, CharacterDto defender) {
-//        attackerBasicAttack.attackPlainHit(attacker, defender);
-//        if (attacker.getLuckySevenSkillCount() > 0) {
-//            attacker.blockBasicAttack();
-//            attacker.decrementLuckySevenCount();
-//        }
-//    }
 
    // 상성체크
     public void checkCompatibility(AttackerCharacterDto attacker, DefenderCharacterDto defender) {
@@ -199,13 +137,6 @@ public class CombatService extends CharacterDto {
 //    }
 
 
-    // attacker vs defender
-    public void conductBattle(AttackerCharacterDto attacker, DefenderCharacterDto defender) {
-        logger.info("Battle initiated between Attacker {} and Defender {}", attacker.getNickName(), defender.getNickName());
-
-        //프론트 공격은 히든, 디펜스 힐, 유틸은 부러진 방패
-//        int attacker_life = 10;
-//        int defender_life = 10;
 //
 //        List<String> plan;
 //
@@ -227,22 +158,24 @@ public class CombatService extends CharacterDto {
 //            defender_life -= attacker_attack
 //            plan.add("공격자가 수비자에게 " + attacker_attack + " 만큼 기본공격을 했습니다.")
 //        }
-        checkCompatibility(attacker, defender);//
-        logger.info("attacker power = " + attacker.getAttackerPower());
-        logger.info("defender power = " + defender.getDefensePower());
 
+
+    // attacker vs defender
+    public void conductBattle(AttackerCharacterDto attacker, DefenderCharacterDto defender) {
+        logger.info("Battle initiated between Attacker {} and Defender {}", attacker.getNickName(), defender.getNickName());
+        checkCompatibility(attacker, defender);//
+        System.out.println("attacker power = " + attacker.getAttackerPower());
+        System.out.println("defender power = " + defender.getDefensePower());
 
         while (attacker.getLife() > 0 && defender.getLife() > 0) {
-
-
-            // 공격자의 기본공격
-            int a = attackerBasicAttack.attackPlainHit(attacker, defender);
             System.out.println("공격자 체력" + attacker.getLife());
             System.out.println("수비자 체력" + defender.getLife());
+            // 공격자의 기본공격
+            int a = attackerBasicAttack.attackPlainHit(attacker, defender);
             defender.changeLife(defender.getLife()-a);
-                System.out.println("기본 공격 맞은 수비자 체력====>" + defender.getLife());
+            System.out.println("공격자 체력" + attacker.getLife());
+            System.out.println("수비자 체력" + defender.getLife());
             skillExecute(attacker, defender);
-                System.out.println("스킬을 맞은 수비자체력====>" + defender.getLife());
             if (attacker.getLife() <= 0 || defender.getLife() <= 0) {
                 break;
             }
@@ -250,9 +183,9 @@ public class CombatService extends CharacterDto {
             // 수비자의 기본공격
             int b = defenderBasicAttack.defendPlainHit(attacker, defender);
             attacker.changeLife(attacker.getLife()-b);
-                System.out.println("기본 공격 받은 공격자 체력====>" + attacker.getLife());
             skillExecute(attacker, defender);
-                System.out.println("스킬맞은 공격자체력====>" + attacker.getLife());
+            System.out.println("공격자 체력" + attacker.getLife());
+            System.out.println("수비자 체력" + defender.getLife());
             // 생명력 및 스킬 횟수 감소 확인
             if (attacker.getLife() <= 0 || defender.getLife() <= 0) {
                 break;
@@ -285,18 +218,16 @@ public class CombatService extends CharacterDto {
 
         if  (nowSkillType == 0){
             attacker.getAttackerAttackTypeSkill().execute(attacker, defender);
-            System.out.println("스킬발동");
+            System.out.println(attacker.getAttackerAttackTypeSkill());
             defender.getDefenderAttackTypeSkill().execute(attacker, defender);
-            System.out.println("스킬발동");
-
-
-
+            System.out.println(defender.getDefenderAttackTypeSkill());
             System.out.println(1);
         }
         if  (nowSkillType == 1){
-
             attacker.getAttackerUtilityTypeSkill().execute(attacker, defender);
+            System.out.println(attacker.getAttackerUtilityTypeSkill());
             defender.getDefenderUtilityTypeSkill().execute(attacker, defender);
+            System.out.println(defender.getDefenderUtilityTypeSkill());
             System.out.println(2);
         }
         if  (nowSkillType == 2){
@@ -304,14 +235,21 @@ public class CombatService extends CharacterDto {
             if (nowSkillType == 0){
                 attacker.getAttackerDefensiveVoidTypeSkill().execute(attacker, defender);
                 defender.getDefenderDefensiveVoidTypeSkill().execute(attacker, defender);
+                System.out.println(attacker.getAttackerDefensiveVoidTypeSkill());
+                System.out.println(defender.getDefenderDefensiveVoidTypeSkill());
                 System.out.println(3);
             }
             if (nowSkillType == 1){
                 attacker.getAttackerDefensiveTypeSkill().execute(attacker, defender);
+                System.out.println(attacker.getAttackerDefensiveTypeSkill());
                 defender.getDefenderDefensiveTypeSkill().execute(attacker, defender);
+                System.out.println(defender.getDefenderDefensiveTypeSkill());
                 System.out.println(4);
             }
         }
-//        skillPersistenceCheck(attacker, defender);
+    }
+
+    public void applyDamage(CharacterDto defender, int damage) {
+        defender.changeLife(defender.getLife() - damage);
     }
 }
