@@ -4,7 +4,6 @@ import com.example.animalwarbattleservice.compatibility.domain.CompatibilityEnum
 import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.CharacterDto;
 import com.example.animalwarbattleservice.user.domain.charactor.service.BattleService;
 import com.example.animalwarbattleservice.user.domain.charactor.skill.battler.attackType.BerserkerImpl;
-import com.example.animalwarbattleservice.user.domain.charactor.skill.battler.attackType.BombDropImpl;
 import com.example.animalwarbattleservice.user.domain.charactor.skill.battler.defensiveType.LuckySevenImpl;
 import com.example.animalwarbattleservice.user.domain.charactor.skill.battler.utilityType.DoItAgainImpl;
 import lombok.AllArgsConstructor;
@@ -29,7 +28,7 @@ public class BattleController {
 
         CharacterDto defenderCharacterDto = new CharacterDto();
         defenderCharacterDto.setNickName("포항 상남자 김정수");
-        defenderCharacterDto.setAttackTypeSkill(new BombDropImpl());
+        defenderCharacterDto.setAttackTypeSkill(new BerserkerImpl());
         defenderCharacterDto.setDefenseTypeSkill(new LuckySevenImpl());
         defenderCharacterDto.setUtilityTypeSkill(new DoItAgainImpl());
         defenderCharacterDto.changeBattlePower(450);

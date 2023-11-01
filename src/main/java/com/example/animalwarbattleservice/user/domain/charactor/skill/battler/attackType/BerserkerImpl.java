@@ -27,15 +27,27 @@ public class BerserkerImpl implements AttackTypeSkill {
         }
 
         // 버서커 스킬 조건
-        Integer berserkerDamage = 3 * attacker.getBattlePower();
         // 공격자 현재체력 및 최대체력 설정
-        int attackerLife = attacker.getLife();
-        int attackerMaxLife = attacker.getMaxLife();
-        if (percentage(99)) {
-            if (attackerLife <= attackerMaxLife / 5) {
-                attacker.changeBattlePower(berserkerDamage);
-            }
+//        attacker.getLife()
+//        int attackerMaxLife = attacker.getMaxLife();
+        // 기본 공격력 계산
+        int berserkerDamage = attacker.getBattlePower();
+// attacker.getLife() <= attacker.getMaxLife() / 5
+        // 버서커 스킬 (확률 발동)
+        if (percentage(99))  {
+            attacker.setBerserkerActivated(true); // 버서커 스킬 활성화
+            System.out.println("버어어어어어서어어어어어커어어어어어111111");
+        // 버서커 스킬 활성화 여부에 따른 공격력 변화
+        } else if (attacker.isBerserkerActivated())  {
+            berserkerDamage *= 3; // 기본 공격력 3배 증가
+            attacker.changeBattlePower(berserkerDamage);
+            System.out.println("버어어어어어서어어어어어커어어어어어22222");
         }
+
+        return berserkerDamage;
+    }
+}
+
         // 체력이 20% 이하로 떨어질 경우 버서커 스킬 활성화
 //        if ((double)attackerLife / attackerMaxLife <= 0.2) {
 //            attacker.setBerserkerActivated(true);
@@ -46,10 +58,6 @@ public class BerserkerImpl implements AttackTypeSkill {
 //            berserkerDamage = 3 * berserkerDamage;
 //            attacker.changeBattlePower(berserkerDamage);
 //        }
-        return berserkerDamage;
-    }
-}
-
 
 // if (attacker.getMaxLife() > defender.getMaxLife()) {
 //         attacker.changeBattlePower((int) (attacker.getBattlePower() * 1.1));

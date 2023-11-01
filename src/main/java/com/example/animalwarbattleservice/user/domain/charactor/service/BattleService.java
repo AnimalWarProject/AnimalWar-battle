@@ -71,7 +71,12 @@ public class BattleService extends CharacterDto {
             System.out.println("==================defender power = " + defender.getBattlePower());
             // 공격자 턴
             int a = basicAttack.plainHit(attacker, defender);
-            defender.changeLife(defender.getLife() -a);
+            if (attacker.isBerserkerActivated() && attacker.getLife() <= attacker.getMaxLife() / 5) {
+                defender.changeLife(defender.getLife() - a);
+                System.out.println("버서커 맞은 수비자 체력" + defender.getLife());
+            }
+            defender.changeLife(defender.getLife() - a);
+            System.out.println("기본공겨 맞은 수비자 체력" + defender.getLife());
             AttackerSkillUsed(attacker, defender);
             System.out.println("공격자 체력" + attacker.getLife());
             System.out.println("수비자 체력" + defender.getLife());
@@ -81,9 +86,14 @@ public class BattleService extends CharacterDto {
 
             // 수비자 턴
             int b = basicAttack.plainHit(defender, attacker);
-            attacker.changeLife(attacker.getLife() -b);
+            if (defender.isBerserkerActivated()) {
+                b *= 3; // 버서커 스킬이 활성화되었을 때 공격력 증가
+                attacker.changeLife(attacker.getLife() - b);
+                System.out.println("버서커 맞은 공격자 체력" + attacker.getLife());
+            }
+            attacker.changeLife(attacker.getLife() - b);
+            System.out.println("기본공격 맞은 공격자 체력" + attacker.getLife());
             DefenderSkillExecute(defender, attacker);
-//            DefenderSkillExecute(defender, attacker);
             System.out.println("공격자 체력" + attacker.getLife());
             System.out.println("수비자 체력" + defender.getLife());
             System.out.println("==================attacker power = " + attacker.getBattlePower());
@@ -141,7 +151,7 @@ public class BattleService extends CharacterDto {
         if (nowSkillType == 0) {
             if (!attackerAttackUsed) {
                 if (attacker.getAttackTypeSkill() != null) {
-                    returnAttackerDamage = attacker.getAttackTypeSkill().execute(attacker, defender);
+                    attacker.getAttackTypeSkill().execute(attacker, defender);
                     System.out.println("======공격자" + attacker.getAttackTypeSkill());
                     attackerAttackUsed = true;
                 }
