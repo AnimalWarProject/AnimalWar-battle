@@ -30,8 +30,12 @@ public class CharacterDto {
     public void setCompatibility(CompatibilityEnum compatibilityEnum) {
         this.compatibilityEnum = compatibilityEnum;
     }
-    // 버서커
+    // 버서커 스킬
     private boolean berserkerActivated = true;
+    private int berserkerCount = 50;
+    public void decrementBerserker() {
+        this.berserkerCount--;
+    }
     public boolean isBerserkerActivated() {
         return berserkerActivated;
     }
@@ -43,7 +47,7 @@ public class CharacterDto {
     public void decrementExecutionCount(){
         this.executionSkillCount--;
     }
-    // 철통 방어 스킬
+    // 철통방어 스킬
     private int ironcladDefenseSkillCount = 3;
     public void decrementIroncladDefenseCount(){
         this.ironcladDefenseSkillCount--;

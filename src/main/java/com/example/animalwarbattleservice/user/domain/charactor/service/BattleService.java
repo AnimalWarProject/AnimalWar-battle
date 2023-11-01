@@ -71,10 +71,8 @@ public class BattleService extends CharacterDto {
             System.out.println("==================defender power = " + defender.getBattlePower());
             // 공격자 턴
             int a = basicAttack.plainHit(attacker, defender);
-            if (attacker.isBerserkerActivated() && attacker.getLife() <= attacker.getMaxLife() / 5) {
-                defender.changeLife(defender.getLife() - a);
-                System.out.println("버서커 맞은 수비자 체력" + defender.getLife());
-            }
+//            if (attacker.isBerserkerActivated() && attacker.getLife() <= attacker.getMaxLife() / 5) {
+//                defender.changeLife(defender.getLife() - a * 3);
             defender.changeLife(defender.getLife() - a);
             System.out.println("기본공겨 맞은 수비자 체력" + defender.getLife());
             AttackerSkillUsed(attacker, defender);
@@ -86,11 +84,10 @@ public class BattleService extends CharacterDto {
 
             // 수비자 턴
             int b = basicAttack.plainHit(defender, attacker);
-            if (defender.isBerserkerActivated()) {
-                b *= 3; // 버서커 스킬이 활성화되었을 때 공격력 증가
-                attacker.changeLife(attacker.getLife() - b);
-                System.out.println("버서커 맞은 공격자 체력" + attacker.getLife());
-            }
+//            if (defender.isBerserkerActivated()) {
+//                b *= 3; // 버서커 스킬이 활성화되었을 때 공격력 증가
+//                attacker.changeLife(attacker.getLife() - b);
+//                System.out.println("버서커 맞은 공격자 체력" + attacker.getLife());
             attacker.changeLife(attacker.getLife() - b);
             System.out.println("기본공격 맞은 공격자 체력" + attacker.getLife());
             DefenderSkillExecute(defender, attacker);
