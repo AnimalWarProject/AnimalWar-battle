@@ -1,25 +1,32 @@
 package com.example.animalwarbattleservice.user.domain.charactor.domain.dto;
 
 import com.example.animalwarbattleservice.compatibility.domain.CompatibilityEnum;
+import com.example.animalwarbattleservice.user.domain.charactor.basicAttack.BasicAttack;
+import com.example.animalwarbattleservice.user.domain.charactor.skill.battler.attackType.AttackTypeSkill;
+import com.example.animalwarbattleservice.user.domain.charactor.skill.battler.defensiveType.DefensiveTypeSkill;
+import com.example.animalwarbattleservice.user.domain.charactor.skill.battler.utilityType.UtilityTypeSkill;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Entity
+
+
+
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class CharacterDto {
     @Id
     private Long userUUID;
-    private String nickName;
-    private int attackerPower;
-    private int defensePower;
-    private int life = 10000;
-    private int maxLife;
-    private String attackTypeSkill;
-    private String defenseTypeSkill;
-    private String utilityTypeSkill;
+    private String nickName = "";
+    private int battlePower;
+    private int life = 9999;
+    private int maxLife = 9999;
+    private BasicAttack basicAttack;
+    private AttackTypeSkill attackTypeSkill;
+    private DefensiveTypeSkill defenseTypeSkill;
+    private UtilityTypeSkill utilityTypeSkill;
+
 
 
     @Enumerated(EnumType.STRING)
@@ -28,6 +35,18 @@ public class CharacterDto {
     public void setCompatibility(CompatibilityEnum compatibilityEnum) {
         this.compatibilityEnum = compatibilityEnum;
     }
+
+    // 버서커
+    private boolean berserkerActivated = false;
+    public boolean isBerserkerActivated() {
+        return berserkerActivated;
+    }
+    public void setBerserkerActivated(boolean berserkerActivated) {
+        this.berserkerActivated = berserkerActivated;
+    }
+
+
+
 
     // 처형 스킬
     private int executionSkillCount = 5;
@@ -43,15 +62,20 @@ public class CharacterDto {
 
 
     // 럭키 7-상대공겨 7회 무효
+    private boolean isBasicAttackBlocked = false;
     private int luckySevenSkillCount = 7;
+    private boolean isBasicAttack = true;
     public void decrementLuckySevenCount(){
         this.luckySevenSkillCount--;
     }
-    public void blockBasicAttack(){
-        this.isBasicAttack = false;
-    }
-    private boolean isBasicAttack = true;
 
+    // 기본 공격 차단
+    public void blockBasicAttack(){
+        this.isBasicAttackBlocked = true;
+    }
+    public boolean isBasicAttack() {
+        return isBasicAttack;
+    }
 
     // 부러진 창-공격형 스킬 가능하지
     public void blockAttackSkill(){
@@ -72,9 +96,8 @@ public class CharacterDto {
 
     // 공격자 수비자 공수전투력 체인지
     public void exchangeAtkDef(){
-        int temp = attackerPower;
-        this.attackerPower = defensePower;
-        this.defensePower = temp;
+        int temp = battlePower;
+        this.battlePower = temp;
     }
 
     // 체력 반환
@@ -84,34 +107,23 @@ public class CharacterDto {
     public void changeMaxLife(int life){
         this.maxLife = maxLife;
     }
-    public void setNickName(String name){
+    public void setNickName(String nickName){
         this.nickName = nickName;
     }
-    public void setAttackerPower(int attackerPower){
-        this.attackerPower = attackerPower;
-    }
-    public void setDefensePower(int defensePower){
-        this.defensePower = defensePower;
-    }
-    public void setAttackTypeSkill(String attackTypeSkill){
-        this.attackTypeSkill = attackTypeSkill;
-    }
-    public void setDefenseTypeSkill(String defenseTypeSkill){
-        this.defenseTypeSkill = defenseTypeSkill;
-    }
-    public void setUtilityTypeSkill(String utilityTypeSkill){
-        this.utilityTypeSkill = utilityTypeSkill;
-    }
-
-
 
     // 공격력 반환
-    public void changeAtkp(int atk){
-        this.attackerPower = atk;
+    public void changeBattlePower(int atk){
+        this.battlePower = atk;
     }
 
-    // 수비력 반환
-    public void changeDef(int def){
-        this.defensePower = def;
+    // 스킬들 setter
+    public void setAttackTypeSkill(AttackTypeSkill attackTypeSkill) {
+        this.attackTypeSkill = attackTypeSkill;
+    }
+    public void setDefenseTypeSkill(DefensiveTypeSkill defenseTypeSkill) {
+        this.defenseTypeSkill = defenseTypeSkill;
+    }
+    public void setUtilityTypeSkill(UtilityTypeSkill utilityTypeSkill) {
+        this.utilityTypeSkill = utilityTypeSkill;
     }
 }

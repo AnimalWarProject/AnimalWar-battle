@@ -2,9 +2,7 @@ package com.example.animalwarbattleservice.compatibility.utill;
 
 
 import com.example.animalwarbattleservice.compatibility.domain.CompatibilityEnum;
-import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.AttackerCharacterDto;
 import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.CharacterDto;
-import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.DefenderCharacterDto;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 
@@ -17,11 +15,11 @@ public class CompatibilityChecker{
         // 공격자 상성, 수비자 상성 설정
         CompatibilityEnum attackerCompatibility = attacker.getCompatibilityEnum();
         CompatibilityEnum defenderCompatibility = defender.getCompatibilityEnum();
+        System.out.println("공격자 종족 ===" + attackerCompatibility);
+        System.out.println("수비자 종족 ===" + defenderCompatibility);
 
         // 각 상성 조합에 따라 상성 확인 후, 전투력을 증가시키는 메서드 호출
         //개 - 새 상성관계에 따른 전투력 부여
-        System.out.println("공격자 종족 =" + attackerCompatibility);
-        System.out.println("수비자 종족 =" + defenderCompatibility);
 
         if (attackerCompatibility == CompatibilityEnum.DOG
                 && defenderCompatibility == CompatibilityEnum.BIRD) {
@@ -46,16 +44,16 @@ public class CompatibilityChecker{
         return false;
     }
     // 공격자의 전투력을 10% 증가시키는 메서드
-    public void increaseAttackerCombatPower(AttackerCharacterDto isAttacker) {
-        int attackerPower = isAttacker.getAttackerPower();
+    public void increaseAttackerCombatPower(CharacterDto isAttacker) {
+        int attackerPower = isAttacker.getBattlePower();
         double increasedPower = attackerPower * 1.1;
-        isAttacker.changeAtkp((int) increasedPower);
+        isAttacker.changeBattlePower((int) increasedPower);
     }
 
     // 수비자의 전투력을 10% 증가시키는 메서드
-    public void increaseDefenderCombatPower(DefenderCharacterDto isDefender) {
-        int defenderPower = isDefender.getDefensePower();
+    public void increaseDefenderCombatPower(CharacterDto isDefender) {
+        int defenderPower = isDefender.getBattlePower();
         double increasedPower = defenderPower * 1.1;
-        isDefender.changeDef((int) increasedPower);
+        isDefender.changeBattlePower((int) increasedPower);
     }
 }

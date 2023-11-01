@@ -1,17 +1,12 @@
 package com.example.animalwarbattleservice.user.domain.charactor.controller;
 
 import com.example.animalwarbattleservice.compatibility.domain.CompatibilityEnum;
-import com.example.animalwarbattleservice.user.domain.charactor.basicAttack.attacker.AttackerBasicAttackImpl;
-import com.example.animalwarbattleservice.user.domain.charactor.basicAttack.defender.DefenderBasicAttackImpl;
-import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.AttackerCharacterDto;
-import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.DefenderCharacterDto;
-import com.example.animalwarbattleservice.user.domain.charactor.service.CombatService;
-import com.example.animalwarbattleservice.user.domain.charactor.skill.attacker.attackType.AttackerBerserkerImpl;
-import com.example.animalwarbattleservice.user.domain.charactor.skill.attacker.defensiveType.AttackerHealImpl;
-import com.example.animalwarbattleservice.user.domain.charactor.skill.attacker.utilityType.AttackerStrongAndWeakImpl;
-import com.example.animalwarbattleservice.user.domain.charactor.skill.defender.attackType.DefenderBerserkerImpl;
-import com.example.animalwarbattleservice.user.domain.charactor.skill.defender.defensiveType.DefenderEmergencyFoodImpl;
-import com.example.animalwarbattleservice.user.domain.charactor.skill.defender.utilityType.DefenderSwapImpl;
+import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.CharacterDto;
+import com.example.animalwarbattleservice.user.domain.charactor.service.BattleService;
+import com.example.animalwarbattleservice.user.domain.charactor.skill.battler.attackType.BerserkerImpl;
+import com.example.animalwarbattleservice.user.domain.charactor.skill.battler.attackType.BombDropImpl;
+import com.example.animalwarbattleservice.user.domain.charactor.skill.battler.defensiveType.LuckySevenImpl;
+import com.example.animalwarbattleservice.user.domain.charactor.skill.battler.utilityType.DoItAgainImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,35 +14,27 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @AllArgsConstructor
 public class BattleController {
-    private CombatService combatService;
+    private BattleService battleService;
 
 
     @PostMapping
     public void battleCheck(){
-        AttackerCharacterDto attackerCharacterDto = new AttackerCharacterDto(
-                new AttackerBasicAttackImpl(),
-                new AttackerBerserkerImpl(),
-                new AttackerHealImpl(),
-                new AttackerStrongAndWeakImpl());
+        CharacterDto attackerCharacterDto = new CharacterDto();
         attackerCharacterDto.setNickName("군산 불도저 이세인");
-        attackerCharacterDto.getLife();
-        attackerCharacterDto.changeMaxLife(5000);
-        attackerCharacterDto.setAttackerPower(500);
-        attackerCharacterDto.setDefensePower(500);
-        attackerCharacterDto.setCompatibility(CompatibilityEnum.BIRD);
+        attackerCharacterDto.setAttackTypeSkill(new BerserkerImpl());
+        attackerCharacterDto.setDefenseTypeSkill(new LuckySevenImpl());
+        attackerCharacterDto.setUtilityTypeSkill(new DoItAgainImpl());
+        attackerCharacterDto.changeBattlePower(480);
+        attackerCharacterDto.setCompatibility(CompatibilityEnum.DOG);
 
-        DefenderCharacterDto defenderCharacterDto = new DefenderCharacterDto(
-                new DefenderBasicAttackImpl(),
-                new DefenderBerserkerImpl(),
-                new DefenderEmergencyFoodImpl(),
-                new DefenderSwapImpl());
+        CharacterDto defenderCharacterDto = new CharacterDto();
         defenderCharacterDto.setNickName("포항 상남자 김정수");
-        defenderCharacterDto.getLife();
-        defenderCharacterDto.changeMaxLife(5000);
-        defenderCharacterDto.setDefensePower(500);
-        defenderCharacterDto.setAttackerPower(500);
-        defenderCharacterDto.setCompatibility(CompatibilityEnum.DOG);
+        defenderCharacterDto.setAttackTypeSkill(new BombDropImpl());
+        defenderCharacterDto.setDefenseTypeSkill(new LuckySevenImpl());
+        defenderCharacterDto.setUtilityTypeSkill(new DoItAgainImpl());
+        defenderCharacterDto.changeBattlePower(450);
+        defenderCharacterDto.setCompatibility(CompatibilityEnum.BIRD);
 
-        combatService.conductBattle(attackerCharacterDto, defenderCharacterDto);
+        battleService.conductBattle(attackerCharacterDto, defenderCharacterDto);
     }
 }
