@@ -20,7 +20,7 @@ public class PoisonImpl implements AttackTypeSkill {
     public Integer execute(CharacterDto attacker, CharacterDto defender) {
     // 스킬 가능 여부
     if(!attacker.isAttackSkill()){
-        return 1;
+        return 0;
     }
 
     // 수비자 최대체력 설정

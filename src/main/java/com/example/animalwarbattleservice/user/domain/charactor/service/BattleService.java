@@ -59,50 +59,31 @@ public class BattleService extends CharacterDto {
     public void conductBattle(CharacterDto attacker, CharacterDto defender) {
         logger.info("Battle initiated between Attacker {} and Defender {}", attacker.getNickName(), defender.getNickName());
         checkCompatibility(attacker, defender);//
-        System.out.println("attacker power = " + attacker.getBattlePower());
-        System.out.println("defender power = " + defender.getBattlePower());
-        System.out.println("attacker Name = "+ attacker.getNickName());
-        System.out.println("defender Name = "+ defender.getNickName());
-
+        printStartMessage(attacker, defender);
         while (attacker.getLife() > 0 && defender.getLife() > 0) {
-            System.out.println("공격자 체력" + attacker.getLife());
-            System.out.println("수비자 체력" + defender.getLife());
-            System.out.println("==================attacker power = " + attacker.getBattlePower());
-            System.out.println("==================defender power = " + defender.getBattlePower());
             // 공격자 턴
-            int a = basicAttack.plainHit(attacker, defender);
-//            if (attacker.isBerserkerActivated() && attacker.getLife() <= attacker.getMaxLife() / 5) {
-//                defender.changeLife(defender.getLife() - a * 3);
-            defender.changeLife(defender.getLife() - a);
-            System.out.println("기본공겨 맞은 수비자 체력" + defender.getLife());
+            AttackerPlainHit(attacker, defender);
             AttackerSkillUsed(attacker, defender);
-            System.out.println("공격자 체력" + attacker.getLife());
-            System.out.println("수비자 체력" + defender.getLife());
-            if (attacker.getLife() <= 0 || defender.getLife() <= 0) {
-                break;
-            }
+//            System.out.println("공격자스킬 이후,,,,  공격자 체력 " + attacker.getLife());
+//            System.out.println("공격자스킬 이후,,,,  수비자 체력 " + defender.getLife());
+            printNowPower(attacker, defender);
+            if (attacker.getLife() <= 0 || defender.getLife() <= 0) break;
+            checkBerserker(defender);
+            discountBasicAttack(attacker);
 
             // 수비자 턴
-            int b = basicAttack.plainHit(defender, attacker);
-//            if (defender.isBerserkerActivated()) {
-//                b *= 3; // 버서커 스킬이 활성화되었을 때 공격력 증가
-//                attacker.changeLife(attacker.getLife() - b);
-//                System.out.println("버서커 맞은 공격자 체력" + attacker.getLife());
-            attacker.changeLife(attacker.getLife() - b);
-            System.out.println("기본공격 맞은 공격자 체력" + attacker.getLife());
+            defenderPlainHit(attacker, defender);
             DefenderSkillExecute(defender, attacker);
-            System.out.println("공격자 체력" + attacker.getLife());
-            System.out.println("수비자 체력" + defender.getLife());
-            System.out.println("==================attacker power = " + attacker.getBattlePower());
-            System.out.println("==================defender power = " + defender.getBattlePower());
-            if (attacker.getLife() <= 0 || defender.getLife() <= 0) {
-                break;
-            }
+//            System.out.println("수비자스킬 이후,,,,  공격자 체력 " + attacker.getLife());
+//            System.out.println("수비자스킬 이후,,,,  수비자 체력 " + defender.getLife());
+            printNowPower(attacker, defender);
+            if (attacker.getLife() <= 0 || defender.getLife() <= 0) break;
+            checkBerserker(attacker);
+            discountBasicAttack(defender);
         }
         logger.info("싸움 종료 ");
         logger.info("Attacker life: " + attacker.getLife());
         logger.info("Defender life: " + defender.getLife());
-
 
         // 전투 종료 후 처리
         if (attacker.getLife() <= 0) {
@@ -115,10 +96,67 @@ public class BattleService extends CharacterDto {
         logger.info("Battle concluded");
     }
 
+
+    public void checkBerserker(CharacterDto characterDto){
+        if (characterDto.isBerserkerActivated() &&
+                characterLifeCheck(characterDto) &&
+                !characterDto.isBusuckerUsed()){
+            characterDto.changeBusuckerUsed();
+            characterDto.changeBattlePower(characterDto.getBattlePower() * 3);
+        }
+
+    }
+
+    public void printStartMessage(CharacterDto attacker, CharacterDto defender) {
+        System.out.println("======= 공격자 전투력 =======  " + attacker.getBattlePower());
+        System.out.println("======= 수비자 전투력 =======  " + defender.getBattlePower());
+        System.out.println("======= 공격자 체력 =======  " + attacker.getLife());
+        System.out.println("======= 수비자 체력 =======  " + defender.getLife());
+        System.out.println("======= 공격자 이름 =======  "+ attacker.getNickName());
+        System.out.println("======= 수비자 이름 =======  "+ defender.getNickName());
+        System.out.println("======================================== 전투 시작 ========================================  ");
+        System.out.println("========================================" + attacker.getNickName() + "님이 침략했습니다. ======================================== ");
+    }
+
+    public void printNowPower(CharacterDto attacker, CharacterDto defender) {
+        System.out.println("==================공격자 배틀 power = " + attacker.getBattlePower());
+        System.out.println("==================수비자배틀 power = " + defender.getBattlePower());
+        System.out.println("==================공격자 수비력 power = " + attacker.getDefendPower());
+        System.out.println("==================수비자 수비력 power = " + defender.getDefendPower());
+    }
+
+    private void defenderPlainHit(CharacterDto attacker, CharacterDto defender) {
+        int b = basicAttack.plainHit(defender, attacker);
+        attacker.changeLife(attacker.getLife() - b);
+        System.out.println("수비자평타 이후,,,,  공격자체력 " + attacker.getLife());
+        System.out.println("수비자평타 이후,,,,  수비자체력 " + defender.getLife());
+    }
+
+    private void AttackerPlainHit(CharacterDto attacker, CharacterDto defender) {
+        int a = basicAttack.plainHit(attacker, defender);
+        defender.changeLife(defender.getLife() - a);
+        System.out.println("공격자평타 이후,,,,  공격자체력 " + attacker.getLife());
+        System.out.println("공격자평타 이후,,,,  수비자 체력 " + defender.getLife());
+    }
+
+    public void discountBasicAttack(CharacterDto characterDto){
+        if (characterDto.isBasicAttack() != 0) characterDto.decreaseBasicAttack();
+    }
+
+
+
+    public boolean characterLifeCheck(CharacterDto characterDto){
+        if ((double)characterDto.getMaxLife() *0.2 >= characterDto.getLife()) {
+            return true;
+        }
+        return  false;
+    }
+
+
     public void AttackerSkillUsed(CharacterDto attacker, CharacterDto defender) {
         Integer returnDamage = attackerSkillExecute(attacker, defender);
         if (returnDamage != 0){
-            System.out.println("공격자 스킬데미지======" + returnDamage);
+            System.out.println("공격자 스킬 수치======" + returnDamage);
             defender.changeLife(defender.getLife() - returnDamage);
         }
     }
@@ -126,7 +164,7 @@ public class BattleService extends CharacterDto {
     public void DefenderSkillExecute(CharacterDto defender, CharacterDto attacker) {
         Integer returnDamage = defenderSkillExecute(defender, attacker);
         if (returnDamage != 0){
-            System.out.println("수비자 스킬데미지======" + returnDamage);
+            System.out.println("수비자 스킬 수치======" + returnDamage);
             attacker.changeLife(attacker.getLife() - returnDamage);
         }
     }
@@ -148,7 +186,7 @@ public class BattleService extends CharacterDto {
         if (nowSkillType == 0) {
             if (!attackerAttackUsed) {
                 if (attacker.getAttackTypeSkill() != null) {
-                    attacker.getAttackTypeSkill().execute(attacker, defender);
+                    returnAttackerDamage = attacker.getAttackTypeSkill().execute(attacker, defender);
                     System.out.println("======공격자" + attacker.getAttackTypeSkill());
                     attackerAttackUsed = true;
                 }
@@ -191,7 +229,7 @@ public class BattleService extends CharacterDto {
             if (!defenderUtilityTypeUsed) {
                 if (defender.getUtilityTypeSkill() != null) {
                     defender.getUtilityTypeSkill().execute(defender, attacker);
-                    System.out.println("======수비자" + defender.getDefenseTypeSkill());
+                    System.out.println("======수비자" + defender.getUtilityTypeSkill());
                     defenderUtilityTypeUsed = true;
                 }
             }
@@ -199,7 +237,7 @@ public class BattleService extends CharacterDto {
             if (!defenderDefensiveTypeUsed) {
                 if (defender.getDefenseTypeSkill() != null) {
                     defender.getDefenseTypeSkill().execute(defender, attacker);
-                    System.out.println("======수비자" + defender.getUtilityTypeSkill());
+                    System.out.println("======수비자" + defender.getDefenseTypeSkill());
                     defenderDefensiveTypeUsed = true;
                 }
             }

@@ -15,25 +15,25 @@ public class ExecutionImpl implements AttackTypeSkill {
         return false;
     }
 
-    /* 처형-다음 5회의 공격 이내 상대방이 10%의 체력 아래라면 처형합니다. */
+    /* 처형-다음 5회의 공격 이내 상대방이 90%의 체력 아래라면 처형합니다. */
     @Override
     public Integer execute(CharacterDto attacker, CharacterDto defender) {
         // 스킬 가능 여부
 
-
         if (!attacker.isAttackSkill()) {
-            return 1;
+            return 0;
         }
 
         // 처형스킬 설정
         if (percentage(99)) {
             attacker.getExecutionSkillCount();
-        } else if (attacker.getExecutionSkillCount() > 0 ) {
-            if (defender.getLife() <= defender.getMaxLife() / 10) {
+        }
+        if (attacker.getExecutionSkillCount() > 0 ) {
+            if (defender.getLife() <= defender.getMaxLife() / 0.1) {
                 defender.changeLife(0);
             }
             attacker.decrementExecutionCount();
         }
-        return null;
+        return 0;
     }
 }

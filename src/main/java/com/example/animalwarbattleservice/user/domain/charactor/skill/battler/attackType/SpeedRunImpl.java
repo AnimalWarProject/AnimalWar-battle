@@ -22,7 +22,7 @@ public class SpeedRunImpl implements AttackTypeSkill {
     public Integer execute(CharacterDto attacker, CharacterDto defender) {
         // 스킬 가능 여부
         if(!attacker.isAttackSkill()){
-            return 1;
+            return 0;
         }
 
         // 수비자 현재체력 설정
@@ -30,11 +30,12 @@ public class SpeedRunImpl implements AttackTypeSkill {
         // 공격자 현재체력 설정
         int attackerLife = attacker.getLife();
         // 빨리감기 스킬(확률 발동)
-        if (percentage(99)){
-            int attackerSpeedRun = (int) (attackerLife - attackerLife * 0.3);
-            int defenderSpeedRun = (int) (defenderLife - defenderLife * 0.3);
+        if (percentage(99)) { //
+            int attackerSpeedRun = (int) (attackerLife * 0.7);
+            int defenderSpeedRun = (int) (defenderLife * 0.7);
+            attacker.changeLife(attackerSpeedRun);
+            defender.changeLife(defenderSpeedRun);
         }
-        return null;
-
+        return 0;
     }
 }

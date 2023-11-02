@@ -20,7 +20,7 @@ public class BombDropImpl implements AttackTypeSkill {
     public Integer execute(CharacterDto attacker, CharacterDto defender) {
         // 스킬 가능 여부
         if (!attacker.isAttackSkill()) {
-            return 1;
+            return 0;
         }
 
         // 폭탄 투하 스킬 설정

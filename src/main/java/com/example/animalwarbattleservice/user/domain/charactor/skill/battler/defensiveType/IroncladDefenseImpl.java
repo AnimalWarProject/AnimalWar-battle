@@ -1,7 +1,6 @@
 package com.example.animalwarbattleservice.user.domain.charactor.skill.battler.defensiveType;//package com.example.animalwarbattle.charactor.skill.attacker.defensiveType;
 
 import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.CharacterDto;
-
 import java.util.Random;
 
 /* 철통방어 : 상대 공격을 3회 무효화합니다. */
@@ -15,6 +14,7 @@ public class IroncladDefenseImpl implements DefensiveTypeSkill {
         }
         return false;
     }
+
     /* 철통방어-상대 공격을 3회 무효화 */
     @Override
     public Integer execute(CharacterDto attacker, CharacterDto defender) {
@@ -24,12 +24,11 @@ public class IroncladDefenseImpl implements DefensiveTypeSkill {
         }
 
         // 철통방어 스킬(확률 발동)
-        if (percentage(50)) {
-            defender.getIroncladDefenseSkillCount();
-            defender.blockBasicAttack();
-        } else if (defender.getIroncladDefenseSkillCount() > 0) {
-            defender.blockBasicAttack();
-            defender.decrementIroncladDefenseCount();
+        if (percentage(100)) {
+
+            if (defender.getIroncladDefenseSkillCount() > 0) {
+                defender.changeBasicAttack(3);
+            }
         }
         return null;
     }

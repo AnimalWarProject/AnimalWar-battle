@@ -21,17 +21,17 @@ public class HiddenAceImpl implements AttackTypeSkill {
     public Integer execute(CharacterDto attacker, CharacterDto defender) {
         // 스킬 가능 여부
         if (!attacker.isAttackSkill()) {
-            return 1;
+            return 0;
         }
 
         // 공격자 현재체력 설정
-        int attackerLife = defender.getLife();
+        int attackerLife = attacker.getLife();
         // 수비자 현재체력 설정
         int defenderLife = defender.getLife();
         // 비장의 한발 스킬 설정
         Integer hiddenAceDamage = attacker.getBattlePower();
         if ((attackerLife < defenderLife) && percentage(99)) {
-            hiddenAceDamage = 5 * (attacker.getBattlePower());
+            hiddenAceDamage *= 5 ;
         }
         return hiddenAceDamage;
     }

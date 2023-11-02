@@ -16,7 +16,6 @@ public class HealImpl implements DefensiveTypeSkill {
         return false;
     }
 
-
     /* 힐-전투시 잃은 체력의 30%를 회복 */
     @Override
     public Integer execute(CharacterDto attacker, CharacterDto defender) {
@@ -24,16 +23,12 @@ public class HealImpl implements DefensiveTypeSkill {
         if(!attacker.isDependSkill()){
             return 1;
         }
-
-        // 비상식량 스킬 발동 설정 및 공격자 현재 잃은 체력, 현재 체력
-        int battleLostLife = attacker.getMaxLife() - attacker.getLife();
-        int battleLife = attacker.getLife();
-
+            int battleLostLife = attacker.getMaxLife() - attacker.getLife();
+            int healAmount = (int) (0.3 * battleLostLife);
         // 힐 스킬(확률 발동)
-        Integer attackerHealSkill = battleLostLife + battleLife;
-        if (percentage(99)){
-            attackerHealSkill = (int) ((0.3 * battleLostLife) + battleLife);
+        if (percentage(99)) {
+            attacker.changeLife(attacker.getLife() + healAmount);
         }
-        return attackerHealSkill;
+        return attacker.getLife();
     }
 }

@@ -18,7 +18,7 @@ public Boolean percentage(Integer pass) {
     @Override
     public void execute(CharacterDto attacker, CharacterDto defender) {
         // 바꿔치기 스킬 사용(확률 발동)
-        if(percentage(99)){
+        if(percentage(100)){
             int battleLife = attacker.getLife();
             attacker.changeLife((int) (defender.getLife()*0.9));
             defender.changeLife(battleLife);
