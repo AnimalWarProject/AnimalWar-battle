@@ -1,11 +1,12 @@
-package com.example.animalwarbattleservice.user.domain.charactor.skill.battler.defensiveType;//package com.example.animalwarbattle.charactor.skill.attacker.defensiveType;
+package com.example.animalwarbattleservice.user.domain.charactor.skill.battler.defensiveType;
 
 import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.CharacterDto;
 
 import java.util.Random;
 
-/*  힐 : 전투시 잃은 체력의 30%를 회복합니다.  */
-public class HealImpl implements DefensiveTypeSkill {
+/* 붕대감기: 잃은체력의 3턴의 나누어 7%씩 총 21% 체력이 올라갑니다. */
+public class BandagingImpl implements DefensiveTypeSkill{
+
     //  스킬 확률 관리
     public Boolean percentage(Integer pass) {
         double probability = pass;
@@ -16,18 +17,18 @@ public class HealImpl implements DefensiveTypeSkill {
         return false;
     }
 
-    /* 힐-전투시 잃은 체력의 30%를 회복 */
     @Override
     public Integer execute(CharacterDto attacker, CharacterDto defender) {
+
         // 스킬 여부
         if(!attacker.isDependSkill()){
             return 1;
         }
-            int battleLostLife = attacker.getMaxLife() - attacker.getLife();
-            int healAmount = (int) (0.3 * battleLostLife);
-        // 힐 스킬(확률 발동)
-        if (percentage(99)) {
-            attacker.changeLife(attacker.getLife() + healAmount);
+
+        if (percentage(100)) {
+            if (attacker.getBandagingSkillCount() > 0){
+                attacker.changeBanding(3);
+            }
         }
         return attacker.getLife();
     }

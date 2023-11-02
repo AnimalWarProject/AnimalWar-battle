@@ -57,25 +57,20 @@ public class BattleService extends CharacterDto {
 
     // attacker vs defender
     public void conductBattle(CharacterDto attacker, CharacterDto defender) {
-        logger.info("Battle initiated between Attacker {} and Defender {}", attacker.getNickName(), defender.getNickName());
-        checkCompatibility(attacker, defender);//
+        checkCompatibility(attacker, defender);
         printStartMessage(attacker, defender);
         while (attacker.getLife() > 0 && defender.getLife() > 0) {
             // 공격자 턴
-            AttackerPlainHit(attacker, defender);
+            attackerPlainHit(attacker, defender);
             AttackerSkillUsed(attacker, defender);
-//            System.out.println("공격자스킬 이후,,,,  공격자 체력 " + attacker.getLife());
-//            System.out.println("공격자스킬 이후,,,,  수비자 체력 " + defender.getLife());
             printNowPower(attacker, defender);
             if (attacker.getLife() <= 0 || defender.getLife() <= 0) break;
             checkBerserker(defender);
             discountBasicAttack(attacker);
 
             // 수비자 턴
-            defenderPlainHit(attacker, defender);
+            defenderPlainHit(defender, attacker);
             DefenderSkillExecute(defender, attacker);
-//            System.out.println("수비자스킬 이후,,,,  공격자 체력 " + attacker.getLife());
-//            System.out.println("수비자스킬 이후,,,,  수비자 체력 " + defender.getLife());
             printNowPower(attacker, defender);
             if (attacker.getLife() <= 0 || defender.getLife() <= 0) break;
             checkBerserker(attacker);
@@ -104,17 +99,17 @@ public class BattleService extends CharacterDto {
             characterDto.changeBusuckerUsed();
             characterDto.changeBattlePower(characterDto.getBattlePower() * 3);
         }
-
     }
 
     public void printStartMessage(CharacterDto attacker, CharacterDto defender) {
+        logger.info("Battle initiated between Attacker {} and Defender {}", attacker.getNickName(), defender.getNickName());
         System.out.println("======= 공격자 전투력 =======  " + attacker.getBattlePower());
         System.out.println("======= 수비자 전투력 =======  " + defender.getBattlePower());
         System.out.println("======= 공격자 체력 =======  " + attacker.getLife());
         System.out.println("======= 수비자 체력 =======  " + defender.getLife());
         System.out.println("======= 공격자 이름 =======  "+ attacker.getNickName());
         System.out.println("======= 수비자 이름 =======  "+ defender.getNickName());
-        System.out.println("======================================== 전투 시작 ========================================  ");
+        System.out.println("==========전투 시작============================== 전투 시작 =======================전투 시작=================  ");
         System.out.println("========================================" + attacker.getNickName() + "님이 침략했습니다. ======================================== ");
     }
 
@@ -125,14 +120,14 @@ public class BattleService extends CharacterDto {
         System.out.println("==================수비자 수비력 power = " + defender.getDefendPower());
     }
 
-    private void defenderPlainHit(CharacterDto attacker, CharacterDto defender) {
+    private void defenderPlainHit(CharacterDto defender, CharacterDto attacker) {
         int b = basicAttack.plainHit(defender, attacker);
         attacker.changeLife(attacker.getLife() - b);
         System.out.println("수비자평타 이후,,,,  공격자체력 " + attacker.getLife());
         System.out.println("수비자평타 이후,,,,  수비자체력 " + defender.getLife());
     }
 
-    private void AttackerPlainHit(CharacterDto attacker, CharacterDto defender) {
+    private void attackerPlainHit(CharacterDto attacker, CharacterDto defender) {
         int a = basicAttack.plainHit(attacker, defender);
         defender.changeLife(defender.getLife() - a);
         System.out.println("공격자평타 이후,,,,  공격자체력 " + attacker.getLife());
@@ -143,15 +138,12 @@ public class BattleService extends CharacterDto {
         if (characterDto.isBasicAttack() != 0) characterDto.decreaseBasicAttack();
     }
 
-
-
     public boolean characterLifeCheck(CharacterDto characterDto){
         if ((double)characterDto.getMaxLife() *0.2 >= characterDto.getLife()) {
             return true;
         }
         return  false;
     }
-
 
     public void AttackerSkillUsed(CharacterDto attacker, CharacterDto defender) {
         Integer returnDamage = attackerSkillExecute(attacker, defender);
@@ -168,6 +160,13 @@ public class BattleService extends CharacterDto {
             attacker.changeLife(attacker.getLife() - returnDamage);
         }
     }
+
+
+
+    public
+    int battleLostLife = attacker.getMaxLife() - attacker.getLife();
+    int healAmount = (int) (0.07 * battleLostLife);
+                attacker.changeLife(attacker.getLife() + healAmount);
 
     private boolean attackerAttackUsed = false;
     private boolean attackerDefensiveTypeUsed = false;

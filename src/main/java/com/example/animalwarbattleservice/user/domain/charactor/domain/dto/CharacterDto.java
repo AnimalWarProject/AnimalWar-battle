@@ -53,6 +53,13 @@ public class CharacterDto {
     public void decrementExecutionCount(){
         this.executionSkillCount--;
     }
+    
+    // 붕대감기 스킬
+    private int bandagingSkillCount = 3;
+    Integer isBanding  = 0;
+    public void changeBanding(Integer num) {
+        this.isBanding = num;
+    }
 
     // 철통방어 스킬
     private int ironcladDefenseSkillCount = 3;
@@ -63,10 +70,6 @@ public class CharacterDto {
 
     public void changeBasicAttack(Integer num){
         this.isBasicAttack = num;
-    }
-
-    public void decrementLuckySevenCount(){
-        this.luckySevenSkillCount--;
     }
 
     // 기본 공격 차단
