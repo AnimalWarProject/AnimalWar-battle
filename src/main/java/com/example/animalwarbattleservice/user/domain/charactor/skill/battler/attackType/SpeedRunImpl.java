@@ -1,11 +1,9 @@
 package com.example.animalwarbattleservice.user.domain.charactor.skill.battler.attackType;//package com.example.animalwarbattle.charactor.skill.attacker.attackType;
 
 import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.CharacterDto;
-
 import java.util.Random;
 
-
-///*  빨리감기 : 상대방과 자신의 현재 체력이 30% 감소합니다.  */
+/*  빨리감기 : 상대방과 자신의 현재 체력이 30% 감소합니다.  */
 public class SpeedRunImpl implements AttackTypeSkill {
 
     //  스킬 확률 관리

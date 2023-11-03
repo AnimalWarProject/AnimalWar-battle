@@ -21,7 +21,6 @@ public class CharacterDto {
     private int defendPower;
     private int life;
     private int maxLife;
-    private BasicAttack basicAttack;
     private AttackTypeSkill attackTypeSkill;
     private DefensiveTypeSkill defenseTypeSkill;
     private UtilityTypeSkill utilityTypeSkill;
@@ -41,9 +40,6 @@ public class CharacterDto {
     }
     public void setRustedSwordActivated(boolean rustedSwordActivated) {
         this.rustedSwordActivated = rustedSwordActivated;
-    }
-    public void changeRustedSwordUsed() {
-        this.rustedSwordUsed = !this.rustedSwordUsed;
     }
 
     // 버서커 스킬
@@ -72,18 +68,13 @@ public class CharacterDto {
     public boolean isBandingActivated() {
         return bandingActivated;
     }
-//    public void setBandingActivated(boolean berserkerActivated) {
-//        this.berserkerActivated = berserkerActivated;
-//    }
+
     public void changeBanding(Integer num) {
         this.isBanding = num;
     }
     public void decreaseBandingCheck(){
         this.isBanding -= 1;
     }
-
-//    public void openBanding(){
-//        this.isBandingSkill= false;}
 
     private boolean isBandingSkill = true;
 

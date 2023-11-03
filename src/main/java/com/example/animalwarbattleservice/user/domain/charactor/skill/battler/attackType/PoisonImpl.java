@@ -1,10 +1,9 @@
 package com.example.animalwarbattleservice.user.domain.charactor.skill.battler.attackType;//package com.example.animalwarbattle.charactor.skill.attacker.attackType;
 
 import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.CharacterDto;
-
 import java.util.Random;
 
-///*  독약 : 상대방의 최대 체력의 5%에 해당하는 데미지를 입힙니다 */
+/*  독약 : 상대방의 최대 체력의 5%에 해당하는 데미지를 입힙니다 */
 public class PoisonImpl implements AttackTypeSkill {
     //  스킬 확률 관리
     public Boolean percentage(Integer pass) {

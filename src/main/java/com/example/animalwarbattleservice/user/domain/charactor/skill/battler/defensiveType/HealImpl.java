@@ -1,7 +1,6 @@
 package com.example.animalwarbattleservice.user.domain.charactor.skill.battler.defensiveType;//package com.example.animalwarbattle.charactor.skill.attacker.defensiveType;
 
 import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.CharacterDto;
-
 import java.util.Random;
 
 /*  힐 : 전투시 잃은 체력의 30%를 회복합니다.  */

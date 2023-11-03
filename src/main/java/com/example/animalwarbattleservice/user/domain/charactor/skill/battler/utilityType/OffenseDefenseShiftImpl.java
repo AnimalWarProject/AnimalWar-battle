@@ -1,7 +1,6 @@
 package com.example.animalwarbattleservice.user.domain.charactor.skill.battler.utilityType;//package com.example.animalwarbattle.charactor.skill.attacker.utilityType;
 
 import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.CharacterDto;
-
 import java.util.Random;
 
 /* 공수교대-(지속성)스킬 사용 후부터 공격자는 방어력으로, 수비자는 공격력으로 전투합니다. */
@@ -15,6 +14,7 @@ public class OffenseDefenseShiftImpl implements UtilityTypeSkill {
         }
         return false;
     }
+
     @Override
     public void execute(CharacterDto attacker, CharacterDto defender) {
         // 공수교대 사용(확률 발동)

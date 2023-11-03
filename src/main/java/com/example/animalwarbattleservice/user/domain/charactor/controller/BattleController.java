@@ -25,24 +25,24 @@ public class BattleController {
 
         CharacterDto attackerCharacterDto = new CharacterDto();
         attackerCharacterDto.setNickName("군산 불도저 이세인");
-        attackerCharacterDto.setAttackTypeSkill(new BombDropImpl());
-        attackerCharacterDto.setDefenseTypeSkill(new BandagingImpl());
+        attackerCharacterDto.setAttackTypeSkill(new SpeedRunImpl());
+        attackerCharacterDto.setDefenseTypeSkill(new RustedSwordImpl());
         attackerCharacterDto.setUtilityTypeSkill(new StrongAndWeakImpl());
-        attackerCharacterDto.changeLife(10000);
-        attackerCharacterDto.changeMaxLife(10000);
-        attackerCharacterDto.changeBattlePower(444);
-        attackerCharacterDto.changeDefendPower(777);
-        attackerCharacterDto.setCompatibility(CompatibilityEnum.BIRD);
+        attackerCharacterDto.changeLife(20000);
+        attackerCharacterDto.changeMaxLife(20000);
+        attackerCharacterDto.changeBattlePower(111);
+        attackerCharacterDto.changeDefendPower(222);
+        attackerCharacterDto.setCompatibility(CompatibilityEnum.CAT);
 
         CharacterDto defenderCharacterDto = new CharacterDto();
         defenderCharacterDto.setNickName("포항 상남자 김정수");
-        defenderCharacterDto.setAttackTypeSkill(new PoisonImpl());
-        defenderCharacterDto.setDefenseTypeSkill(new LuckySevenImpl());
-        defenderCharacterDto.setUtilityTypeSkill(new DoItAgainImpl());
+        defenderCharacterDto.setAttackTypeSkill(new SpeedRunImpl());
+        defenderCharacterDto.setDefenseTypeSkill(new RustedSwordImpl());
+        defenderCharacterDto.setUtilityTypeSkill(new StrongAndWeakImpl());
         defenderCharacterDto.changeLife(10000);
         defenderCharacterDto.changeMaxLife(10000);
-        defenderCharacterDto.changeBattlePower(444);
-        defenderCharacterDto.changeDefendPower(777);
+        defenderCharacterDto.changeBattlePower(111);
+        defenderCharacterDto.changeDefendPower(222);
         defenderCharacterDto.setCompatibility(CompatibilityEnum.CAT);
         battleService.conductBattle(attackerCharacterDto, defenderCharacterDto);
     }

@@ -1,7 +1,6 @@
 package com.example.animalwarbattleservice.user.domain.charactor.skill.battler.defensiveType;
 
 import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.CharacterDto;
-
 import java.util.Random;
 
 /* 붕대감기: 잃은체력의 3턴의 나누어 7%씩 총 21% 체력이 올라갑니다. */

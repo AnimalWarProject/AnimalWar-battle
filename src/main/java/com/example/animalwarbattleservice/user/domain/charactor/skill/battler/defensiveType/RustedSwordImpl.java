@@ -1,8 +1,8 @@
 package com.example.animalwarbattleservice.user.domain.charactor.skill.battler.defensiveType;
 
 import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.CharacterDto;
-
 import java.util.Random;
+
 /* 녹슨 방패: .(지속성)모든 데미지 10% 데미지 감소 */
 public class RustedSwordImpl implements DefensiveTypeSkill{
 
@@ -19,8 +19,8 @@ public class RustedSwordImpl implements DefensiveTypeSkill{
     @Override
     public Integer execute(CharacterDto attacker, CharacterDto defender) {
         // 스킬 가능 여부
-        if (!attacker.isAttackSkill()) {
-            return 0;
+        if (!attacker.isDependSkill()) {
+            return 1;
         }
 
         if (percentage(100)){

@@ -2,8 +2,7 @@ package com.example.animalwarbattleservice.user.domain.charactor.basicAttack;
 
 import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.CharacterDto;
 import org.springframework.stereotype.Component;
-
-
+/* 기본공격: 공격력 또는 수비력으로 상대를 공격 */
 @Component
 public class BasicAttackImpl implements BasicAttack {
 

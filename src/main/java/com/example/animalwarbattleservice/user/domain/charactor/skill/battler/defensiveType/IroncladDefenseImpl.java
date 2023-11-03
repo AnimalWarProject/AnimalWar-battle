@@ -15,7 +15,6 @@ public class IroncladDefenseImpl implements DefensiveTypeSkill {
         return false;
     }
 
-    /* 철통방어-상대 공격을 3회 무효화 */
     @Override
     public Integer execute(CharacterDto attacker, CharacterDto defender) {
         // 스킬 가능 여부

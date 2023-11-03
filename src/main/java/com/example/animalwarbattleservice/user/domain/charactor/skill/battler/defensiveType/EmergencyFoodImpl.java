@@ -1,9 +1,7 @@
 package com.example.animalwarbattleservice.user.domain.charactor.skill.battler.defensiveType;//package com.example.animalwarbattle.charactor.skill.attacker.defensiveType;
 
 import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.CharacterDto;
-
 import java.util.Random;
-
 
 /*  비상식량 : 전투시 전체 체력의 20%를 회복합니다. */
 public class EmergencyFoodImpl implements DefensiveTypeSkill {

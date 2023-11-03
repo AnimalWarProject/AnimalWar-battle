@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum CompatibilityEnum {
-    //개는 조류에 강함을 true로 설정
+    //개는 조류에 강함을 true로 확인
     DOG(false, true, false, false, false),
 
     //새는 고양이에 강함(true)

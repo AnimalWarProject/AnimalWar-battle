@@ -3,6 +3,7 @@ package com.example.animalwarbattleservice.user.domain.charactor.skill.battler.a
 import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.CharacterDto;
 import java.util.Random;
 
+/* 처형-다음 5회의 공격 이내 상대방이 90%의 체력 아래라면 처형합니다. */
 public class ExecutionImpl implements AttackTypeSkill {
 
     //  스킬 확률 관리
@@ -15,7 +16,6 @@ public class ExecutionImpl implements AttackTypeSkill {
         return false;
     }
 
-    /* 처형-다음 5회의 공격 이내 상대방이 90%의 체력 아래라면 처형합니다. */
     @Override
     public Integer execute(CharacterDto attacker, CharacterDto defender) {
         // 스킬 가능 여부

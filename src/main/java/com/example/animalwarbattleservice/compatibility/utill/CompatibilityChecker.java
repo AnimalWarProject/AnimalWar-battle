@@ -1,6 +1,5 @@
 package com.example.animalwarbattleservice.compatibility.utill;
 
-
 import com.example.animalwarbattleservice.compatibility.domain.CompatibilityEnum;
 import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.CharacterDto;
 import lombok.Getter;
@@ -20,7 +19,6 @@ public class CompatibilityChecker{
 
         // 각 상성 조합에 따라 상성 확인 후, 전투력을 증가시키는 메서드 호출
         //개 - 새 상성관계에 따른 전투력 부여
-
         if (attackerCompatibility == CompatibilityEnum.DOG
                 && defenderCompatibility == CompatibilityEnum.BIRD) {
             return true;
