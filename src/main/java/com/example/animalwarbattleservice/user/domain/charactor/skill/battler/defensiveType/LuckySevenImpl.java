@@ -27,7 +27,7 @@ public class LuckySevenImpl implements DefensiveTypeSkill {
         // 공격자 현재체력 설정
         int attackerLife = attacker.getLife();
         // 럭키 7 스킬 발동
-        if ((attackerLife >= attacker.getMaxLife() * 0.77) && percentage(99)) {
+        if ((attackerLife >= attacker.getMaxLife() * 0.77) && percentage(7)) {
             if (defender.getLuckySevenSkillCount() > 0) {
                 defender.changeBasicAttack(7);
             }

@@ -25,11 +25,6 @@ public class CharacterDto {
     private AttackTypeSkill attackTypeSkill;
     private DefensiveTypeSkill defenseTypeSkill;
     private UtilityTypeSkill utilityTypeSkill;
-    private boolean busuckerUsed = false;
-
-    public void changeBusuckerUsed(){
-        this.busuckerUsed = !this.busuckerUsed;
-    }
 
     // 상성 체크
     @Enumerated(EnumType.STRING)
@@ -37,15 +32,31 @@ public class CharacterDto {
     public void setCompatibility(CompatibilityEnum compatibilityEnum) {
         this.compatibilityEnum = compatibilityEnum;
     }
-    
+
+    // 녹슨방패 스킬
+    private Boolean rustedSwordActivated = false;
+    private boolean rustedSwordUsed = false;
+    public boolean isRustedSwordActivated() {
+        return rustedSwordActivated;
+    }
+    public void setRustedSwordActivated(boolean rustedSwordActivated) {
+        this.rustedSwordActivated = rustedSwordActivated;
+    }
+    public void changeRustedSwordUsed() {
+        this.rustedSwordUsed = !this.rustedSwordUsed;
+    }
 
     // 버서커 스킬
     private Boolean berserkerActivated = false;
+    private boolean berserkerUsed = false;
     public boolean isBerserkerActivated() {
         return berserkerActivated;
     }
     public void setBerserkerActivated(boolean berserkerActivated) {
         this.berserkerActivated = berserkerActivated;
+    }
+    public void changeBerserkerUsed(){
+        this.berserkerUsed = !this.berserkerUsed;
     }
 
     // 처형 스킬
@@ -56,9 +67,28 @@ public class CharacterDto {
     
     // 붕대감기 스킬
     private int bandagingSkillCount = 3;
-    Integer isBanding  = 0;
+    private Integer isBanding  = 0;
+    private Boolean bandingActivated = false;
+    public boolean isBandingActivated() {
+        return bandingActivated;
+    }
+//    public void setBandingActivated(boolean berserkerActivated) {
+//        this.berserkerActivated = berserkerActivated;
+//    }
     public void changeBanding(Integer num) {
         this.isBanding = num;
+    }
+    public void decreaseBandingCheck(){
+        this.isBanding -= 1;
+    }
+
+//    public void openBanding(){
+//        this.isBandingSkill= false;}
+
+    private boolean isBandingSkill = true;
+
+    public Integer isBandingHeal() {
+        return isBanding;
     }
 
     // 철통방어 스킬
@@ -73,13 +103,14 @@ public class CharacterDto {
     }
 
     // 기본 공격 차단
-
     public Integer isBasicAttack() {
         return isBasicAttack;
     }
     public void decreaseBasicAttack(){
         this.isBasicAttack -= 1;
     }
+
+
 
     // 부러진 창-공격형 스킬 가능하지
     public void blockAttackSkill(){
@@ -115,6 +146,11 @@ public class CharacterDto {
     // 공격력 반환
     public void changeBattlePower(int atk){
         this.battlePower = atk;
+    }
+
+    // 수비력 반환
+    public void changeDefenderPower(int dtk){
+        this.defendPower = dtk;
     }
 
     public void changeDefendPower(int defendPower) {

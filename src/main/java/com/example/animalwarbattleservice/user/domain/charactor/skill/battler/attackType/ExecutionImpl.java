@@ -29,7 +29,9 @@ public class ExecutionImpl implements AttackTypeSkill {
             attacker.getExecutionSkillCount();
         }
         if (attacker.getExecutionSkillCount() > 0 ) {
-            if (defender.getLife() <= defender.getMaxLife() / 0.1) {
+            System.out.println(defender.getMaxLife());
+            System.out.println(defender.getLife());
+            if (defender.getLife() <= defender.getMaxLife() * 0.1) {
                 defender.changeLife(0);
             }
             attacker.decrementExecutionCount();

@@ -20,7 +20,6 @@ public class OffenseDefenseShiftImpl implements UtilityTypeSkill {
         // 공수교대 사용(확률 발동)
         if(percentage(99)){
             attacker.exchangeAtkDef();
-            defender.exchangeAtkDef();
         }
     }
 }
