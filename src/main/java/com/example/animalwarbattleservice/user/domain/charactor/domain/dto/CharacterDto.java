@@ -1,12 +1,10 @@
 package com.example.animalwarbattleservice.user.domain.charactor.domain.dto;
 
 import com.example.animalwarbattleservice.compatibility.domain.CompatibilityEnum;
-import com.example.animalwarbattleservice.user.domain.charactor.basicAttack.BasicAttack;
 import com.example.animalwarbattleservice.user.domain.charactor.skill.battler.attackType.AttackTypeSkill;
 import com.example.animalwarbattleservice.user.domain.charactor.skill.battler.defensiveType.DefensiveTypeSkill;
 import com.example.animalwarbattleservice.user.domain.charactor.skill.battler.utilityType.UtilityTypeSkill;
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class CharacterDto {
     @Id
     private Long userUUID;
-    private String nickName = "";
+    private String nickName;
     private int battlePower;
     private int defendPower;
     private int life;
@@ -65,19 +63,13 @@ public class CharacterDto {
     private int bandagingSkillCount = 3;
     private Integer isBanding  = 0;
     private Boolean bandingActivated = false;
-    public boolean isBandingActivated() {
-        return bandingActivated;
-    }
-
     public void changeBanding(Integer num) {
         this.isBanding = num;
     }
     public void decreaseBandingCheck(){
         this.isBanding -= 1;
     }
-
     private boolean isBandingSkill = true;
-
     public Integer isBandingHeal() {
         return isBanding;
     }
@@ -101,8 +93,6 @@ public class CharacterDto {
         this.isBasicAttack -= 1;
     }
 
-
-
     // 부러진 창-공격형 스킬 가능하지
     public void blockAttackSkill(){
         this.isAttackSkill= false;}
@@ -121,7 +111,6 @@ public class CharacterDto {
     public void exchangeAtkDef(){
         int temp = defendPower;
         this.battlePower = temp;}
-
 
     // 체력 반환
     public void changeLife(int life){
@@ -143,7 +132,6 @@ public class CharacterDto {
     public void changeDefenderPower(int dtk){
         this.defendPower = dtk;
     }
-
     public void changeDefendPower(int defendPower) {
         this.defendPower = defendPower;
     }

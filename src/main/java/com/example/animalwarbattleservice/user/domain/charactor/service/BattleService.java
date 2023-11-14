@@ -9,11 +9,15 @@ import com.example.animalwarbattleservice.user.domain.charactor.skill.battler.ut
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 @Service
 public class BattleService extends CharacterDto {
     private static final Logger logger = LoggerFactory.getLogger(BattleService.class);
+    private List<String> battleLog = new ArrayList<>();
 
     public BattleService(BasicAttack basicAttack) {
         this.basicAttack = basicAttack;
@@ -104,6 +108,16 @@ public class BattleService extends CharacterDto {
         }
         logger.info("Battle concluded");
     }
+
+    // Add a message to the battle log
+    private void addToBattleLog(String message) {
+        battleLog.add(message);
+    }
+    // Get the battle log after the battle is concluded
+    public List<String> getBattleLog() {
+        return battleLog;
+    }
+
     // 전투 상태 프린트
     public void printStartMessage(CharacterDto attacker, CharacterDto defender) {
         logger.info("Battle initiated between Attacker {} and Defender {}", attacker.getNickName(), defender.getNickName());
@@ -167,10 +181,8 @@ public class BattleService extends CharacterDto {
     public void checkRustedSword(CharacterDto attacker, Integer beforAttackedLife) {
         Integer battleLostLife = beforAttackedLife - attacker.getLife();
         Integer healAmount = (int) (0.1 * battleLostLife);
-        System.out.println("녹슨 방패 쓰기 전 " + attacker.getNickName() + ",,,체력 " + attacker.getLife());
         if (attacker.isRustedSwordActivated()){
             attacker.changeLife(attacker.getLife() + healAmount);
-            System.out.println("녹슨 방패 쓰고나서 " + attacker.getNickName() + ",,,체력 " + attacker.getLife());
         }
     }
 
@@ -178,11 +190,9 @@ public class BattleService extends CharacterDto {
     public void band(CharacterDto attacker){
         Integer battleLostLife = attacker.getMaxLife() - attacker.getLife();
         Integer healAmount = (int) (0.07 * battleLostLife);
-//        System.out.println("붕대 감기 쓰기 전 " + attacker.getNickName() + ",,,체력 " + attacker.getLife());
         if (attacker.isBandingHeal() != 0) {
             attacker.changeLife(attacker.getLife() + healAmount);
             attacker.decreaseBandingCheck();
-//        System.out.println("붕대 감기 쓰고 나서 " + attacker.getNickName() + ",,,체력 " + attacker.getLife());
         }
     }
 

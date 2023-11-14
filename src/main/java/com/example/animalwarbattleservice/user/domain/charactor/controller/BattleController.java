@@ -21,8 +21,6 @@ public class BattleController {
     public void battleCheck(
 //        @RequestBody CharacterDto attacker
     ){
-//        CharacterDto deffencer = charaterService.findByDefenderId(defenderId);
-
         CharacterDto attackerCharacterDto = new CharacterDto();
         attackerCharacterDto.setNickName("군산 불도저 이세인");
         attackerCharacterDto.setAttackTypeSkill(new SpeedRunImpl());

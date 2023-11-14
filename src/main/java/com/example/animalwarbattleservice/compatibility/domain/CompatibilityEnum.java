@@ -17,7 +17,10 @@ public enum CompatibilityEnum {
     GLIRES(false, false, false, false, true),
 
     //어류는 개에 강함(true)
-    FISH(true, false, false, false, false);
+    FISH(true, false, false, false, false),
+
+    // 공통 동물
+    COMMON(false, false, false, false, false);
 
     private final boolean advantageDog;
     private final boolean advantageBird;
