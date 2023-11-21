@@ -16,11 +16,7 @@ repositories {
 }
 
 dependencies {
-    // Spring Data JPA를 사용하여 데이터베이스와 상호 작용하기 위한 스프링 부트의 스타터
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-
-    //
-    runtimeOnly 'com.mysql:mysql-connector-j'
+//    runtimeOnly 'com.mysql:mysql-connector-j'
 
     // Spring Web MVC를 사용하여 웹 애플리케이션을 개발하기 위한 스프링 부트의 스타터
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -30,6 +26,7 @@ dependencies {
 
     // Lombok 어노테이션 프로세서를 사용하여 컴파일 시에 코드를 자동으로 생성하고 반복적인 작업을 줄이기 위해 사용됨
     annotationProcessor 'org.projectlombok:lombok'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client', version: '4.0.3'
 
     // JWT(Json Web Token) 라이브러리를 사용하여 웹 애플리케이션에서 토큰 기반 인증을 구현하기 위한 라이브러리
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5'

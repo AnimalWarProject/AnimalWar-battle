@@ -43,8 +43,8 @@ public class CompatibilityChecker{
     }
     // 공격자의 전투력을 10% 증가시키는 메서드
     public void increaseAttackerCombatPower(CharacterDto isAttacker) {
-        int battlePower = isAttacker.getBattlePower();
-        int defenderPower = isAttacker.getDefendPower();
+        int battlePower = isAttacker.getAttackPower();
+        int defenderPower = isAttacker.getDefensePower();
         double increasedBattlePower = battlePower * 1.1;
         double increasedDefendPower = defenderPower * 1.1;
         isAttacker.changeBattlePower((int) increasedBattlePower);
@@ -53,8 +53,8 @@ public class CompatibilityChecker{
 
     // 수비자의 전투력을 10% 증가시키는 메서드
     public void increaseDefenderCombatPower(CharacterDto isDefender) {
-        int battlePower = isDefender.getBattlePower();
-        int defenderPower = isDefender.getDefendPower();
+        int battlePower = isDefender.getAttackPower();
+        int defenderPower = isDefender.getDefensePower();
         double increasedBattlePower = battlePower * 1.1;
         double increasedDefendPower = defenderPower * 1.1;
         isDefender.changeBattlePower((int) increasedBattlePower);

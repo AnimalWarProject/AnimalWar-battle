@@ -22,9 +22,9 @@ public class StrongAndWeakImpl implements UtilityTypeSkill {
         // 강약약강 스킬(확률 발동)
         if (percentage(99)) {
             if (attacker.getMaxLife() > defender.getMaxLife()) {
-                attacker.changeBattlePower((int) (attacker.getBattlePower() * 1.1));
+                attacker.changeBattlePower((int) (attacker.getAttackPower() * 1.1));
             } else {
-                attacker.changeBattlePower((int) (attacker.getBattlePower() * 0.9));
+                attacker.changeBattlePower((int) (attacker.getAttackPower() * 0.9));
             }
         }
     }

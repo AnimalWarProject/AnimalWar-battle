@@ -4,7 +4,6 @@ import com.example.animalwarbattleservice.compatibility.domain.CompatibilityEnum
 import com.example.animalwarbattleservice.user.domain.charactor.skill.battler.attackType.AttackTypeSkill;
 import com.example.animalwarbattleservice.user.domain.charactor.skill.battler.defensiveType.DefensiveTypeSkill;
 import com.example.animalwarbattleservice.user.domain.charactor.skill.battler.utilityType.UtilityTypeSkill;
-import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,19 +11,31 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class CharacterDto {
-    @Id
+
+
     private Long userUUID;
+    private String id;
     private String nickName;
-    private int battlePower;
-    private int defendPower;
+
+    private int attackPower;
+    private int defensePower;
     private int life;
     private int maxLife;
     private AttackTypeSkill attackTypeSkill;
     private DefensiveTypeSkill defenseTypeSkill;
     private UtilityTypeSkill utilityTypeSkill;
 
+    private String stringAttackTypeSkill;
+    private String stringDefenseTypeSkill;
+    private String stringUtilityTypeSkill;
+
+    private int food;
+    private int iron;
+    private int wood;
+    private int gold;
+
     // 상성 체크
-    @Enumerated(EnumType.STRING)
+//    @Enumerated(EnumType.STRING)
     private CompatibilityEnum compatibilityEnum;
     public void setCompatibility(CompatibilityEnum compatibilityEnum) {
         this.compatibilityEnum = compatibilityEnum;
@@ -109,8 +120,8 @@ public class CharacterDto {
 
     // 공격자 수비자 공수전투력 체인지
     public void exchangeAtkDef(){
-        int temp = defendPower;
-        this.battlePower = temp;}
+        int temp = defensePower;
+        this.attackPower = temp;}
 
     // 체력 반환
     public void changeLife(int life){
@@ -125,17 +136,17 @@ public class CharacterDto {
 
     // 공격력 반환
     public void changeBattlePower(int atk){
-        this.battlePower = atk;
+        this.attackPower = atk;
     }
 
     // 수비력 반환
     public void changeDefenderPower(int dtk){
-        this.defendPower = dtk;
+        this.defensePower = dtk;
     }
     public void changeDefendPower(int defendPower) {
-        this.defendPower = defendPower;
+        this.defensePower = defendPower;
     }
-    
+
     // 스킬 유형 setter
     public void setAttackTypeSkill(AttackTypeSkill attackTypeSkill) {
         this.attackTypeSkill = attackTypeSkill;}

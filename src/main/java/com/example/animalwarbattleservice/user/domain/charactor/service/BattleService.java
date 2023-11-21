@@ -3,6 +3,7 @@ package com.example.animalwarbattleservice.user.domain.charactor.service;
 import com.example.animalwarbattleservice.compatibility.utill.CompatibilityChecker;
 import com.example.animalwarbattleservice.user.domain.charactor.basicAttack.BasicAttack;
 import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.CharacterDto;
+import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.StateDto;
 import com.example.animalwarbattleservice.user.domain.charactor.skill.battler.attackType.AttackTypeSkill;
 import com.example.animalwarbattleservice.user.domain.charactor.skill.battler.defensiveType.DefensiveTypeSkill;
 import com.example.animalwarbattleservice.user.domain.charactor.skill.battler.utilityType.UtilityTypeSkill;
@@ -17,35 +18,30 @@ import java.util.Random;
 @Service
 public class BattleService extends CharacterDto {
     private static final Logger logger = LoggerFactory.getLogger(BattleService.class);
-    private List<String> battleLog = new ArrayList<>();
 
     public BattleService(BasicAttack basicAttack) {
         this.basicAttack = basicAttack;
     }
 
-    public Integer skillDraw(){
+    public Integer skillDraw() {
         Random random = new Random();
         return random.nextInt(3);
     }
 
+    private StateDto stateDto;
     // 기본 공격
     private BasicAttack basicAttack;
-
     // 공격형 스킬
     private AttackTypeSkill attackTypeSkill;
-
     // 수비형 스킬
     private DefensiveTypeSkill defensiveTypeSkill;
-
     // 유틸형 스킬
     private UtilityTypeSkill utilityTypeSkill;
-
     // 상성체크
     private CompatibilityChecker compatibilityChecker;
 
 
-
-   // 상성체크
+    // 상성체크
     public void checkCompatibility(CharacterDto attacker, CharacterDto defender) {
         CompatibilityChecker compatibilityChecker = new CompatibilityChecker();
         boolean isAttackerCompatible = compatibilityChecker.check(attacker, defender);
@@ -53,28 +49,31 @@ public class BattleService extends CharacterDto {
 
         if (isAttackerCompatible) {
             compatibilityChecker.increaseAttackerCombatPower(attacker);
-        } else if (isDefenderCompatible){
+        } else if (isDefenderCompatible) {
             compatibilityChecker.increaseDefenderCombatPower(defender);
         }
     }
 
-
     // attacker vs defender
-    public void conductBattle(CharacterDto attacker, CharacterDto defender) {
+    public List<String> conductBattle(CharacterDto attacker, CharacterDto defender) {
+        stateDto = new StateDto();
+        List<String> battleLogs = new ArrayList<>();
         checkCompatibility(attacker, defender);
-        printStartMessage(attacker, defender);
+        startBattleLogs(attacker, defender, battleLogs);
+
+
         while (attacker.getLife() > 0 && defender.getLife() > 0) {
 
             // 공격자 턴
             Integer BeforeAttackedDefenderLife = defender.getLife();
             plainHit(attacker, defender);
-            attackerPrintBasicAttack(attacker, defender);
+            attackerLogsBasicAttack(attacker, defender, battleLogs);
             attackerSkillUsed(attacker, defender);
 
             band(defender);
             checkRustedSword(defender, BeforeAttackedDefenderLife);
 
-            printNowPower(attacker, defender);
+            nowState(attacker, defender, battleLogs);
             if (attacker.getLife() <= 0 || defender.getLife() <= 0) break;
             checkBerserker(defender);
             discountBasicAttack(attacker);
@@ -82,82 +81,82 @@ public class BattleService extends CharacterDto {
             // 수비자 턴
             Integer BeforeAttackedAttackerLife = attacker.getLife();
             plainHit(defender, attacker);
-            defenderPrintBasicAttack(attacker, defender);
+            defenderLogsBasicAttack(attacker, defender, battleLogs);
             defenderSkillUsed(defender, attacker);
 
             band(attacker);
             checkRustedSword(attacker, BeforeAttackedAttackerLife);
 
-            printNowPower(attacker, defender);
+            nowState(attacker, defender, battleLogs);
+
             if (attacker.getLife() <= 0 || defender.getLife() <= 0) break;
             checkBerserker(attacker);
             discountBasicAttack(defender);
         }
+        battleLogs.add("싸움 종료 ");
+        battleLogs.add("Attacker life: " + attacker.getLife());
+        battleLogs.add("Defender life: " + defender.getLife());
 
-        logger.info("싸움 종료 ");
-        logger.info("Attacker life: " + attacker.getLife());
-        logger.info("Defender life: " + defender.getLife());
 
         // 전투 종료 후 처리
         if (attacker.getLife() <= 0) {
-            logger.info("Attacker has been defeated.");
+            battleLogs.add("Attacker has been defeated.");
         } else if (defender.getLife() <= 0) {
-            logger.info("Defender has been defeated.");
+            battleLogs.add("Defender has been defeated.");
         } else {
-            logger.info("The battle resulted in a draw.");
+            battleLogs.add("The battle resulted in a draw.");
         }
-        logger.info("Battle concluded");
+        battleLogs.add("Battle concluded");
+
+        return battleLogs;
+}
+    // 전투 상태 로그
+    private static void startBattleLogs(CharacterDto attacker, CharacterDto defender, List<String> battleLogs) {
+        battleLogs.add("Attacker {}님이 Defender {}을 침공하여 전투가 시작되었습니다." + attacker.getNickName() + defender.getNickName());
+        battleLogs.add("====== " + attacker.getNickName() + " 님이 침략했습니다. ====== " + "====== "  + attacker.getNickName() + "====== ");
+        battleLogs.add("====== " + attacker.getNickName() + " 님이 침략했습니다. ====== " + "====== "  + attacker.getNickName() + "====== ");
+        battleLogs.add("====== " + attacker.getNickName() + " 님이 침략했습니다. ====== " + "====== "  + attacker.getNickName() + "====== ");
+        battleLogs.add("====== " + attacker.getNickName() + " 님이 침략했습니다. ====== " + "====== "  + attacker.getNickName() + "====== ");
+        battleLogs.add("---------------------------------------------------------------------------------------------------------------");
+        battleLogs.add("---------------------------------------------------------------------------------------------------------------");
+        battleLogs.add("---------------------------------------------------------------------------------------------------------------");
+        battleLogs.add("---------------------------------------------------------------------------------------------------------------");
+        battleLogs.add("공격자 이름 : "+ attacker.getNickName());
+        battleLogs.add("공격자 종족 : "+ attacker.getCompatibilityEnum());
+        battleLogs.add(attacker.getNickName() + " 님 체력 : " + attacker.getLife());
+        battleLogs.add(attacker.getNickName() + " 님 공격력 : " + attacker.getAttackPower());
+        battleLogs.add(attacker.getNickName() + " 님 방어력 : " + attacker.getDefensePower());
+        battleLogs.add("---------------------------------------------------------------------------------------------------------------");
+        battleLogs.add("---------------------------------------------------------------------------------------------------------------");
+        battleLogs.add("---------------------------------------------------------------------------------------------------------------");
+        battleLogs.add("수비자 이름 : "+ defender.getNickName());
+        battleLogs.add("수비자 종족 : "+ defender.getCompatibilityEnum());
+        battleLogs.add(defender.getNickName() + " 님 체력 : " + defender.getLife());
+        battleLogs.add(defender.getNickName() + " 님 공격력 : " + defender.getAttackPower());
+        battleLogs.add(defender.getNickName() + " 님 방어력 : " + defender.getDefensePower());
+        battleLogs.add("======전투 시작======전투 시작======전투 시작======전투 시작======전투 시작======전투 시작======전투 시작======전투 시작======");
+        battleLogs.add("======전투 시작======전투 시작======전투 시작======전투 시작======전투 시작======전투 시작======전투 시작======전투 시작======");
+        battleLogs.add("======전투 시작======전투 시작======전투 시작======전투 시작======전투 시작======전투 시작======전투 시작======전투 시작======");
+        battleLogs.add("======전투 시작======전투 시작======전투 시작======전투 시작======전투 시작======전투 시작======전투 시작======전투 시작======");
+        battleLogs.add("======전투 시작======전투 시작======전투 시작======전투 시작======전투 시작======전투 시작======전투 시작======전투 시작======");
+        battleLogs.add("======전투 시작======전투 시작======전투 시작======전투 시작======전투 시작======전투 시작======전투 시작======전투 시작======");
     }
 
-    // Add a message to the battle log
-    private void addToBattleLog(String message) {
-        battleLog.add(message);
+    // 현재 상태 로그
+    private static void nowState(CharacterDto attacker, CharacterDto defender, List<String> battleLogs){
+        battleLogs.add("==================공격자 배틀 power ================== " + attacker.getAttackPower());
+        battleLogs.add("==================수비자 배틀 power ================== " + defender.getAttackPower());
+        battleLogs.add("================== 공격자 현재체력 ==================  " + attacker.getLife());
+        battleLogs.add("================== 수비자 현재체력 ==================  " + defender.getLife());
     }
-    // Get the battle log after the battle is concluded
-    public List<String> getBattleLog() {
-        return battleLog;
+    
+    
+    //  기본 공격 로그
+    private static void attackerLogsBasicAttack(CharacterDto attacker, CharacterDto defender, List<String> battleLogs){
+        battleLogs.add(attacker.getNickName() + " 평타 톡!");
     }
-
-    // 전투 상태 프린트
-    public void printStartMessage(CharacterDto attacker, CharacterDto defender) {
-        logger.info("Battle initiated between Attacker {} and Defender {}", attacker.getNickName(), defender.getNickName());
-        System.out.println("====== " + attacker.getNickName() + " 님이 침략했습니다. ====== " + "====== "  + attacker.getNickName() + "====== ");
-        System.out.println("====== " + attacker.getNickName() + " 님이 침략했습니다. ====== " + "====== "  + attacker.getNickName() + "====== ");
-        System.out.println("====== " + attacker.getNickName() + " 님이 침략했습니다. ====== " + "====== "  + attacker.getNickName() + "====== ");
-        System.out.println("-----------------------------------------------------------------");
-        System.out.println("-----------------------------------------------------------------");
-        System.out.println("-----------------------------------------------------------------");
-        System.out.println("공격자 이름 : "+ attacker.getNickName());
-        System.out.println("공격자 종족 : "+ attacker.getCompatibilityEnum());
-        System.out.println(attacker.getNickName() + " 님 체력 : " + attacker.getLife());
-        System.out.println(attacker.getNickName() + " 님 공격력 : " + attacker.getBattlePower());
-        System.out.println(attacker.getNickName() + " 님 방어력 : " + attacker.getDefendPower());
-        System.out.println("-----------------------------------------------------------------");
-        System.out.println("-----------------------------------------------------------------");
-        System.out.println("-----------------------------------------------------------------");
-        System.out.println("수비자 이름 : "+ defender.getNickName());
-        System.out.println("수비자 종족 : "+ defender.getCompatibilityEnum());
-        System.out.println(defender.getNickName() + " 님 체력 : " + defender.getLife());
-        System.out.println(defender.getNickName() + " 님 공격력 : " + defender.getBattlePower());
-        System.out.println(defender.getNickName() + " 님 방어력 : " + defender.getDefendPower());
-        System.out.println("=========전투 시작=========전투 시작=========전투 시작=========전투 시작=========전투 시작=========전투 시작=========전투 시작=========전투 시작=========  ");
-        System.out.println("=========전투 시작=========전투 시작=========전투 시작=========전투 시작=========전투 시작=========전투 시작=========전투 시작=========전투 시작=========  ");
-        System.out.println("=========전투 시작=========전투 시작=========전투 시작=========전투 시작=========전투 시작=========전투 시작=========전투 시작=========전투 시작=========  ");
-        System.out.println("=========전투 시작=========전투 시작=========전투 시작=========전투 시작=========전투 시작=========전투 시작=========전투 시작=========전투 시작=========  ");
-        System.out.println("=========전투 시작=========전투 시작=========전투 시작=========전투 시작=========전투 시작=========전투 시작=========전투 시작=========전투 시작=========  ");
-    }
-    public void printNowPower(CharacterDto attacker, CharacterDto defender) {
-        System.out.println("==================공격자 배틀 power ================== " + attacker.getBattlePower());
-        System.out.println("==================수비자 배틀 power ================== " + defender.getBattlePower());
-        System.out.println("================== 공격자 현재체력 ==================  " + attacker.getLife());
-        System.out.println("================== 수비자 현재체력 ==================  " + defender.getLife());
-
-    }
-    public void attackerPrintBasicAttack(CharacterDto attacker, CharacterDto defender) {
-        System.out.println(attacker.getNickName() + " 평타 톡!");
-    }
-    public void defenderPrintBasicAttack(CharacterDto attacker, CharacterDto defender) {
-        System.out.println(defender.getNickName() + " 평타 톡!");
+    private static void defenderLogsBasicAttack(CharacterDto attacker, CharacterDto defender, List<String> battleLogs) {
+        battleLogs.add(defender.getNickName() + " 평타 톡!");
     }
 
     // 버서커 체크
@@ -166,7 +165,7 @@ public class BattleService extends CharacterDto {
                 characterLifeCheck(characterDto) &&
                 !characterDto.isBerserkerUsed()){
             characterDto.changeBerserkerUsed();
-            characterDto.changeBattlePower(characterDto.getBattlePower() * 3);
+            characterDto.changeBattlePower(characterDto.getAttackPower() * 3);
         }
     }
     // 버서커 스킬, 유저 체력 체크
@@ -224,12 +223,7 @@ public class BattleService extends CharacterDto {
     }
 
     // 스킬 한 번 적용
-    private boolean attackerAttackUsed = false;
-    private boolean attackerDefensiveTypeUsed = false;
-    private boolean attackerUtilityTypeUsed = false;
-    private boolean defenderAttackUsed = false;
-    private boolean defenderDefensiveTypeUsed = false;
-    private boolean defenderUtilityTypeUsed = false;
+
 
     private Integer attackerSkillExecute(CharacterDto attacker, CharacterDto defender) {
         Integer returnAttackerDamage = 0;
@@ -239,27 +233,27 @@ public class BattleService extends CharacterDto {
         System.out.println(nowSkillType);
         // 1. 스킬 선택
         if (nowSkillType == 0) {
-            if (!attackerAttackUsed) {
+            if (!stateDto.isAttackerAttackUsed()) {
                 if (attacker.getAttackTypeSkill() != null) {
                     returnAttackerDamage = attacker.getAttackTypeSkill().execute(attacker, defender);
                     System.out.println("======공격자" + attacker.getAttackTypeSkill());
-                    attackerAttackUsed = true;
+                    stateDto.setAttackerAttackUsed(true);
                 }
             }
         } else if (nowSkillType == 1) {
-            if (!attackerUtilityTypeUsed) {
+            if (!stateDto.isAttackerUtilityTypeUsed()) {
                 if (attacker.getUtilityTypeSkill() != null) {
                     attacker.getUtilityTypeSkill().execute(attacker, defender);
                     System.out.println("======공격자" + attacker.getUtilityTypeSkill());
-                    attackerUtilityTypeUsed = true;
+                    stateDto.setAttackerUtilityTypeUsed(true);
                 }
             }
         } else if (nowSkillType == 2) {
-            if (!attackerDefensiveTypeUsed) {
+            if (!stateDto.isAttackerDefensiveTypeUsed()) {
                 if (attacker.getDefenseTypeSkill() != null) {
                     attacker.getDefenseTypeSkill().execute(attacker, defender);
                     System.out.println("======공격자" + attacker.getDefenseTypeSkill());
-                    attackerDefensiveTypeUsed = true;
+                    stateDto.setAttackerDefensiveTypeUsed(true);
                 }
             }
         }
@@ -273,27 +267,27 @@ public class BattleService extends CharacterDto {
 
         // 1. 스킬 선택
         if (nowSkillType == 0) {
-            if (!defenderAttackUsed) {
+            if (!stateDto.isDefenderAttackUsed()) {
                 if (defender.getAttackTypeSkill() != null) {
                     returnDefenderDamage  = defender.getAttackTypeSkill().execute(defender, attacker);
                     System.out.println("======수비자" + defender.getAttackTypeSkill());
-                    defenderAttackUsed = true;
+                    stateDto.setDefenderAttackUsed(true);
                 }
             }
         } else if (nowSkillType == 1) {
-            if (!defenderUtilityTypeUsed) {
+            if (!stateDto.isDefenderUtilityTypeUsed()) {
                 if (defender.getUtilityTypeSkill() != null) {
                     defender.getUtilityTypeSkill().execute(defender, attacker);
                     System.out.println("======수비자" + defender.getUtilityTypeSkill());
-                    defenderUtilityTypeUsed = true;
+                    stateDto.setDefenderUtilityTypeUsed(true);
                 }
             }
         } else if (nowSkillType == 2) {
-            if (!defenderDefensiveTypeUsed) {
+            if (!stateDto.isDefenderDefensiveTypeUsed()) {
                 if (defender.getDefenseTypeSkill() != null) {
                     defender.getDefenseTypeSkill().execute(defender, attacker);
                     System.out.println("======수비자" + defender.getDefenseTypeSkill());
-                    defenderDefensiveTypeUsed = true;
+                    stateDto.setDefenderDefensiveTypeUsed(true);
                 }
             }
         }

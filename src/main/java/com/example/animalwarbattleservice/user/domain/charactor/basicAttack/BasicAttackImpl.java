@@ -14,7 +14,7 @@ public class BasicAttackImpl implements BasicAttack {
         }
 
         // 공격자 기본공격 설정
-        Integer battlePlainHit = attacker.getBattlePower();
+        Integer battlePlainHit = attacker.getAttackPower();
 
         return battlePlainHit;
     }
