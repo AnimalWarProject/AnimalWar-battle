@@ -1,5 +1,6 @@
 package com.example.animalwarbattleservice.user.domain.charactor.controller;
 
+import com.example.animalwarbattleservice.compatibility.domain.CompatibilityEnum;
 import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.CharacterDto;
 import com.example.animalwarbattleservice.user.domain.charactor.domain.request.CharacterRequest;
 import com.example.animalwarbattleservice.user.domain.charactor.service.BattleService;
@@ -27,11 +28,11 @@ public class BattleController {
     private static final HashMap<String,UtilityTypeSkill>
             hangleToUtilityTypeSkill = new HashMap<>();
 
+
     @PostMapping
     public List<String> battleCheck(@RequestBody CharacterRequest request) {
         CharacterDto attacker = request.getAttacker();
         CharacterDto defender = request.getDefender();
-        System.out.println(attacker.getNickName());
 
         hangleToAttackTypeSkill.put("버서커", new BerserkerImpl());
         hangleToAttackTypeSkill.put("폭탄 투하", new BombDropImpl());
@@ -54,13 +55,17 @@ public class BattleController {
         hangleToUtilityTypeSkill.put("강약약강" ,new StrongAndWeakImpl());
         hangleToUtilityTypeSkill.put("바꿔치기" ,new SwapImpl());
 
-        attacker.setAttackTypeSkill(hangleToAttackTypeSkill.get(attacker.getStringAttackTypeSkill()));
-        attacker.setUtilityTypeSkill(hangleToUtilityTypeSkill.get(attacker.getUtilityTypeSkill()));
-        attacker.setDefenseTypeSkill(hangleToDefensiveTypeSkill.get(attacker.getDefenseTypeSkill()));
 
-        defender.setDefenseTypeSkill(hangleToDefensiveTypeSkill.get(defender.getDefenseTypeSkill()));
+        attacker.setCompatibility(CompatibilityEnum.valueOf(attacker.getSpecies()));
+        defender.setCompatibility(CompatibilityEnum.valueOf(defender.getSpecies()));
+
+        attacker.setAttackTypeSkill(hangleToAttackTypeSkill.get(attacker.getStringAttackTypeSkill()));
+        attacker.setUtilityTypeSkill(hangleToUtilityTypeSkill.get(attacker.getStringUtilityTypeSkill()));
+        attacker.setDefenseTypeSkill(hangleToDefensiveTypeSkill.get(attacker.getStringDefenseTypeSkill()));
+
+        defender.setDefenseTypeSkill(hangleToDefensiveTypeSkill.get(defender.getStringDefenseTypeSkill()));
         defender.setAttackTypeSkill(hangleToAttackTypeSkill.get(defender.getStringAttackTypeSkill()));
-        defender.setUtilityTypeSkill(hangleToUtilityTypeSkill.get(defender.getUtilityTypeSkill()));
+        defender.setUtilityTypeSkill(hangleToUtilityTypeSkill.get(defender.getStringUtilityTypeSkill()));
 
 
         return battleService.conductBattle(request.getAttacker(), request.getDefender());

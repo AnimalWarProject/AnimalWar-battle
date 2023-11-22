@@ -37,6 +37,7 @@ public class CharacterDto {
     // 상성 체크
 //    @Enumerated(EnumType.STRING)
     private CompatibilityEnum compatibilityEnum;
+    private String species;
     public void setCompatibility(CompatibilityEnum compatibilityEnum) {
         this.compatibilityEnum = compatibilityEnum;
     }
