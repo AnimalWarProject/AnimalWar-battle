@@ -1,12 +1,11 @@
 package com.example.animalwarbattleservice.user.domain.charactor.service;
 
 import com.example.animalwarbattleservice.compatibility.utill.CompatibilityChecker;
+import com.example.animalwarbattleservice.kafka.Producer;
 import com.example.animalwarbattleservice.user.domain.charactor.basicAttack.BasicAttack;
-import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.CharacterDto;
-import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.StateDto;
-import com.example.animalwarbattleservice.user.domain.charactor.skill.battler.attackType.AttackTypeSkill;
-import com.example.animalwarbattleservice.user.domain.charactor.skill.battler.defensiveType.DefensiveTypeSkill;
-import com.example.animalwarbattleservice.user.domain.charactor.skill.battler.utilityType.UtilityTypeSkill;
+import com.example.animalwarbattleservice.user.domain.charactor.dto.CharacterDto;
+import com.example.animalwarbattleservice.user.domain.charactor.dto.StateDto;
+import com.example.animalwarbattleservice.user.domain.charactor.dto.UserUpdateByGameResultDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -18,9 +17,11 @@ import java.util.Random;
 @Service
 public class BattleService extends CharacterDto {
     private static final Logger logger = LoggerFactory.getLogger(BattleService.class);
+    private Producer producer;
 
-    public BattleService(BasicAttack basicAttack) {
+    public BattleService(Producer producer, BasicAttack basicAttack) {
         this.basicAttack = basicAttack;
+        this.producer = producer;
     }
 
     public Integer skillDraw() {
@@ -31,15 +32,6 @@ public class BattleService extends CharacterDto {
     private StateDto stateDto;
     // 기본 공격
     private BasicAttack basicAttack;
-    // 공격형 스킬
-    private AttackTypeSkill attackTypeSkill;
-    // 수비형 스킬
-    private DefensiveTypeSkill defensiveTypeSkill;
-    // 유틸형 스킬
-    private UtilityTypeSkill utilityTypeSkill;
-    // 상성체크
-    private CompatibilityChecker compatibilityChecker;
-
 
     // 상성체크
     public void checkCompatibility(CharacterDto attacker, CharacterDto defender) {
@@ -98,19 +90,58 @@ public class BattleService extends CharacterDto {
         battleLogs.add("⚔️⚔️⚔️ 공격자 체력: " + attacker.getLife());
         battleLogs.add("🛡️🛡️🛡️수비자 체력: " + defender.getLife());
 
-
         // 전투 종료 후 처리
         battleLogs.add("전투 결과");
         if (attacker.getLife() <= 0) {
             battleLogs.add("🏳️🏳️🏳️ "+attacker.getNickName() + "님이 패배했습니다." + " 🏳️🏳️🏳️");
-        } else if (defender.getLife() <= 0) {
-            battleLogs.add("🏳️🏳️🏳️ "+defender.getNickName() + "님이 패배했습니다." + " 🏳️🏳️🏳️");
-        } else {
-            battleLogs.add("비겼습니다.");
-        }
+            battleLogs.add(" ");
+            battleLogs.add(" ");
+            battleLogs.add("결과 처리중입니다....✏️✏️");
+            battleLogs.add("결과 처리중입니다....✏️✏️");
+            producerLoserSend(attacker);
 
+        } else if (attacker.getLife() >= 0) {
+            battleLogs.add("🚩🚩🚩 "+attacker.getNickName() + "님이 승리했습니다." + " 🚩🚩🚩");
+            battleLogs.add(" ");
+            battleLogs.add(" ");
+            battleLogs.add("결과 처리중입니다....✏️✏️");
+            battleLogs.add("결과 처리중입니다....✏️✏️");
+            battleLogs.add(" ");
+            producerWinnerSend(attacker);
+        }
         return battleLogs;
     }
+
+    // 카프카 전송
+    private void producerWinnerSend(CharacterDto attacker) {
+        int newGold = 1000;
+        int newBattlePoint = 20;
+
+        attacker.setGold(newGold);
+        attacker.setBattlePoint(newBattlePoint);
+
+        producer.send(new UserUpdateByGameResultDto(
+                attacker.getUuid(),
+                newGold,
+                newBattlePoint
+        ));
+    }
+
+    // 카프카 전송
+    private void producerLoserSend(CharacterDto attacker) {
+        int newGold = -400;
+        int newBattlePoint = -20;
+
+        attacker.setGold(newGold);
+        attacker.setBattlePoint(newBattlePoint);
+
+        producer.send(new UserUpdateByGameResultDto(
+                attacker.getUuid(),
+                newGold,
+                newBattlePoint
+        ));
+    }
+
     // 전투 상태 로그
     private static void startBattleLogs(CharacterDto attacker, CharacterDto defender, List<String> battleLogs) {
         battleLogs.add(attacker.getNickName() + " 쉐이가" + defender.getNickName() + "님의 지형을 침공했다.");
@@ -137,13 +168,11 @@ public class BattleService extends CharacterDto {
         battleLogs.add("⚔️⚔️⚔️========공격자 현재체력: " + attacker.getLife());
         battleLogs.add("🛡️🛡️🛡️========수비자 현재체력: " + defender.getLife());
     }
-    
-    
+
     //  기본 공격 로그
     private static void basicAttackLogs(CharacterDto attacker, CharacterDto defender, List<String> battleLogs){
         battleLogs.add("👊👊👊 " + attacker.getNickName() + " 쉐이가 때림!");
     }
-
 
     // 버서커 체크
     public void checkBerserker(CharacterDto characterDto){
@@ -269,7 +298,6 @@ public class BattleService extends CharacterDto {
             if (!stateDto.isDefenderUtilityTypeUsed()) {
                 if (defender.getUtilityTypeSkill() != null) {
                     defender.getUtilityTypeSkill().execute(defender, attacker);
-                    System.out.println("======수비자" + defender.getUtilityTypeSkill());
                     battleLogs.add("🧙‍♂️🧙‍♂️🧙‍♂️ "+defender.getNickName() + "의 유틸형 스킬" + utilitySkill + " 발동");
                     stateDto.setDefenderUtilityTypeUsed(true);
                 }
@@ -278,7 +306,6 @@ public class BattleService extends CharacterDto {
             if (!stateDto.isDefenderDefensiveTypeUsed()) {
                 if (defender.getDefenseTypeSkill() != null) {
                     defender.getDefenseTypeSkill().execute(defender, attacker);
-                    System.out.println("======수비자" + defender.getDefenseTypeSkill());
                     battleLogs.add("🧙🧙🧙 "+defender.getNickName() + "의 방어형 스킬" + defenseSkill + " 발동");
                     stateDto.setDefenderDefensiveTypeUsed(true);
                 }

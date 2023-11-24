@@ -1,12 +1,12 @@
 package com.example.animalwarbattleservice.user.domain.charactor.controller;
 
 import com.example.animalwarbattleservice.compatibility.domain.CompatibilityEnum;
-import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.CharacterDto;
-import com.example.animalwarbattleservice.user.domain.charactor.domain.request.CharacterRequest;
+import com.example.animalwarbattleservice.user.domain.charactor.dto.CharacterDto;
+import com.example.animalwarbattleservice.user.domain.charactor.request.CharacterRequest;
 import com.example.animalwarbattleservice.user.domain.charactor.service.BattleService;
-import com.example.animalwarbattleservice.user.domain.charactor.skill.battler.attackType.*;
-import com.example.animalwarbattleservice.user.domain.charactor.skill.battler.defensiveType.*;
-import com.example.animalwarbattleservice.user.domain.charactor.skill.battler.utilityType.*;
+import com.example.animalwarbattleservice.user.domain.charactor.skill.attackType.*;
+import com.example.animalwarbattleservice.user.domain.charactor.skill.defensiveType.*;
+import com.example.animalwarbattleservice.user.domain.charactor.skill.utilityType.*;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,13 +19,13 @@ import java.util.List;
 public class BattleController {
     private BattleService battleService;
 
-    private static final HashMap<String,AttackTypeSkill>
+    private static final HashMap<String, AttackTypeSkill>
             hangleToAttackTypeSkill = new HashMap<>();
 
     private static final HashMap<String,DefensiveTypeSkill>
             hangleToDefensiveTypeSkill = new HashMap<>();
 
-    private static final HashMap<String,UtilityTypeSkill>
+    private static final HashMap<String, UtilityTypeSkill>
             hangleToUtilityTypeSkill = new HashMap<>();
 
 

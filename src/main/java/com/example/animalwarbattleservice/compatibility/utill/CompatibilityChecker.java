@@ -1,7 +1,7 @@
 package com.example.animalwarbattleservice.compatibility.utill;
 
 import com.example.animalwarbattleservice.compatibility.domain.CompatibilityEnum;
-import com.example.animalwarbattleservice.user.domain.charactor.domain.dto.CharacterDto;
+import com.example.animalwarbattleservice.user.domain.charactor.dto.CharacterDto;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 
@@ -14,8 +14,6 @@ public class CompatibilityChecker{
         // 공격자 상성, 수비자 상성 설정
         CompatibilityEnum attackerCompatibility = attacker.getCompatibilityEnum();
         CompatibilityEnum defenderCompatibility = defender.getCompatibilityEnum();
-        System.out.println("공격자 종족 ===" + attackerCompatibility);
-        System.out.println("수비자 종족 ===" + defenderCompatibility);
 
         // 각 상성 조합에 따라 상성 확인 후, 전투력을 증가시키는 메서드 호출
         //개 - 새 상성관계에 따른 전투력 부여
