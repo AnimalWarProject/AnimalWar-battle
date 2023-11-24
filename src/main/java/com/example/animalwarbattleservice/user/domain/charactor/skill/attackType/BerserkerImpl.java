@@ -3,7 +3,7 @@ package com.example.animalwarbattleservice.user.domain.charactor.skill.attackTyp
 import com.example.animalwarbattleservice.user.domain.charactor.dto.CharacterDto;
 import java.util.Random;
 
-/*  버서커 : 자신의 체력이 20%이하 남았을 때, 스킬이 발동이 되며, 상대에게 입히는 데미지가 2배가 지속적으로 쌔집니다.  */
+/*  버서커 : 자신의 체력이 20%이하 남았을 때, 스킬이 발동이 되며, 상대에게 입히는 데미지가 3배.  */
 public class BerserkerImpl implements AttackTypeSkill {
 
     //  스킬 확률 관리
