@@ -7,7 +7,6 @@ import com.example.animalwarbattleservice.user.domain.charactor.skill.utilityTyp
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.util.UUID;
 
 @Getter
@@ -29,7 +28,6 @@ public class CharacterDto {
     private String stringAttackTypeSkill;
     private String stringDefenseTypeSkill;
     private String stringUtilityTypeSkill;
-
 
     private String profileImage;
 
@@ -133,12 +131,6 @@ public class CharacterDto {
     public void changeLife(int life){
         this.life = life;
     }
-    public void changeMaxLife(int maxLife){
-        this.maxLife = maxLife;
-    }
-    public void setNickName(String nickName){
-        this.nickName = nickName;
-    }
 
     // 공격력 반환
     public void changeBattlePower(int atk){
@@ -148,9 +140,6 @@ public class CharacterDto {
     // 수비력 반환
     public void changeDefenderPower(int dtk){
         this.defensePower = dtk;
-    }
-    public void changeDefendPower(int defendPower) {
-        this.defensePower = defendPower;
     }
 
     // 스킬 유형 setter
