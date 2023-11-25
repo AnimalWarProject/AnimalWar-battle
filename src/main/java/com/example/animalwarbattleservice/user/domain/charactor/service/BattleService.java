@@ -35,24 +35,34 @@ public class BattleService extends CharacterDto {
     private BasicAttack basicAttack;
 
     // 상성체크
-    public void checkCompatibility(CharacterDto attacker, CharacterDto defender) {
+    public boolean checkCompatibility(CharacterDto attacker, CharacterDto defender) {
         CompatibilityChecker compatibilityChecker = new CompatibilityChecker();
         boolean isAttackerCompatible = compatibilityChecker.check(attacker, defender);
         boolean isDefenderCompatible = compatibilityChecker.check(defender, attacker);
 
         if (isAttackerCompatible) {
             compatibilityChecker.increaseAttackerCombatPower(attacker);
+            return true;
         } else if (isDefenderCompatible) {
             compatibilityChecker.increaseDefenderCombatPower(defender);
+            return true;
         }
+
+        return false; // 상성이 없으면 false 반환
     }
 
     // attacker vs defender
     public List<String> conductBattle(CharacterDto attacker, CharacterDto defender) {
         stateDto = new StateDto();
 
-        checkCompatibility(attacker, defender);
         startBattleLogs(attacker, defender, battleLogs);
+
+        boolean isCompatibilityChecked = checkCompatibility(attacker, defender);
+        if (isCompatibilityChecked) {
+            battleLogs.add("공격자 상성확인되었습니다.");
+        } else {
+            battleLogs.add("수비자 상성확인되었습니다.");
+        }
 
         while (attacker.getLife() > 0 && defender.getLife() > 0) {
 
@@ -100,6 +110,7 @@ public class BattleService extends CharacterDto {
             battleLogs.add(" ");
             battleLogs.add("결과 처리중입니다....✏️✏️");
             battleLogs.add("결과 처리중입니다....✏️✏️");
+            battleLogs.add("결과 처리중입니다....✏️✏️");
             producerLoserSend(attacker);
 
         } else if (attacker.getLife() >= 0) {
@@ -108,7 +119,7 @@ public class BattleService extends CharacterDto {
             battleLogs.add(" ");
             battleLogs.add("결과 처리중입니다....✏️✏️");
             battleLogs.add("결과 처리중입니다....✏️✏️");
-            battleLogs.add(" ");
+            battleLogs.add("결과 처리중입니다....✏️✏️");
             producerWinnerSend(attacker);
         }
         return battleLogs;
