@@ -18,7 +18,7 @@ public class SwapImpl implements UtilityTypeSkill {
     @Override
     public void execute(CharacterDto attacker, CharacterDto defender) {
         // 바꿔치기 스킬 사용(확률 발동)
-        if(percentage(100)){
+        if(percentage(10)){
             int battleLife = attacker.getLife();
             attacker.changeLife((int) (defender.getLife()*0.9));
             defender.changeLife(battleLife);

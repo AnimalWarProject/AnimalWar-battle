@@ -23,7 +23,7 @@ public class ExecutionImpl implements AttackTypeSkill {
         }
 
         // 처형스킬 설정
-        if (percentage(99)) {
+        if (percentage(55)) {
             attacker.getExecutionSkillCount();
         }
         if (attacker.getExecutionSkillCount() > 0 ) {

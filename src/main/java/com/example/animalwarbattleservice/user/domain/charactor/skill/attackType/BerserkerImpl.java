@@ -22,7 +22,7 @@ public class BerserkerImpl implements AttackTypeSkill {
         if (!attacker.isAttackSkill()) {
             return 0;
         }
-        if (percentage(100)){
+        if (percentage(35)){
             attacker.setBerserkerActivated(true);
         }
         return 0;

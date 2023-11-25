@@ -25,7 +25,7 @@ public class HealImpl implements DefensiveTypeSkill {
             int battleLostLife = attacker.getMaxLife() - attacker.getLife();
             int healAmount = (int) (0.3 * battleLostLife);
         // 힐 스킬(확률 발동)
-        if (percentage(99)) {
+        if (percentage(50)) {
             attacker.changeLife(attacker.getLife() + healAmount);
         }
         return attacker.getLife();

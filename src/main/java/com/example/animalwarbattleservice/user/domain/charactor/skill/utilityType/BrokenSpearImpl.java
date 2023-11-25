@@ -18,7 +18,7 @@ public class BrokenSpearImpl implements UtilityTypeSkill {
     @Override
     public void execute(CharacterDto attacker, CharacterDto defender) {
         // 부러진 창 스킬(확률 발동)
-        if(percentage(99)){
+        if(percentage(10)){
             defender.blockAttackSkill();
         }
     }

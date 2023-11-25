@@ -25,7 +25,7 @@ public class BombDropImpl implements AttackTypeSkill {
 
         // 폭탄 투하 스킬 설정
         Integer bombDropDamage = defender.getLife();
-        if (percentage(99)) {
+        if (percentage(45)) {
             bombDropDamage = (int) (0.2 * defender.getLife());
         }
         return bombDropDamage;

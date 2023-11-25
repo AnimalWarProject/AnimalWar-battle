@@ -27,7 +27,7 @@ public class PoisonImpl implements AttackTypeSkill {
 
     // 독약 스킬 설정
     Integer poisonDamage = defenderMaxLife;
-    if (percentage(99)){
+    if (percentage(65)){
         poisonDamage = (int) (0.07 * defenderMaxLife);
     }
     return poisonDamage;
