@@ -1,8 +1,6 @@
 package com.example.animalwarbattleservice.user.domain.charactor.skill.utilityType;//package com.example.animalwarbattle.charactor.skill.attacker.utilityType;
 
 import com.example.animalwarbattleservice.user.domain.charactor.dto.CharacterDto;
-import com.example.animalwarbattleservice.user.domain.charactor.service.BattleService;
-
 import java.util.Random;
 
 /* 강약약강-(지속성)상대방보다 최대 체력이 많다면, 공격력 및 방어력이 10% 증가하고,

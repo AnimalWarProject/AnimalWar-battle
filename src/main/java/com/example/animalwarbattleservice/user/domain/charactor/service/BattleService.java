@@ -245,8 +245,6 @@ public class BattleService extends CharacterDto {
     }
 
     // 스킬 한 번 적용
-
-
     private Integer attackerSkillExecute(CharacterDto attacker, CharacterDto defender, List<String> battleLogs) {
         Integer returnAttackerDamage = 0;
         Integer nowSkillType = -1;
@@ -280,7 +278,6 @@ public class BattleService extends CharacterDto {
                     stateDto.setAttackerDefensiveTypeUsed(true);
                 }
             }
-            //a의 공격형 스킬 버서커 발동
         }
         return returnAttackerDamage;
     }
@@ -299,6 +296,7 @@ public class BattleService extends CharacterDto {
                 if (defender.getAttackTypeSkill() != null) {
                     returnDefenderDamage  = defender.getAttackTypeSkill().execute(defender, attacker);
                     battleLogs.add("🧙️🧙️🧙️ "+defender.getNickName() + "의 공격형 스킬 " + attackSkill + " 발동");
+                    System.out.println("발동 발더ㅗㅇ ㅅㅂ");
                     stateDto.setDefenderAttackUsed(true);
                 }
             }

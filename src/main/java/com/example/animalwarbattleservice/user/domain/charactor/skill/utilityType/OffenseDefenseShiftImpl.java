@@ -1,10 +1,6 @@
 package com.example.animalwarbattleservice.user.domain.charactor.skill.utilityType;//package com.example.animalwarbattle.charactor.skill.attacker.utilityType;
 
 import com.example.animalwarbattleservice.user.domain.charactor.dto.CharacterDto;
-import com.example.animalwarbattleservice.user.domain.charactor.service.BattleService;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /* 공수교대-(지속성)스킬 사용 후부터 공격자는 방어력으로, 수비자는 공격력으로 전투합니다. */
