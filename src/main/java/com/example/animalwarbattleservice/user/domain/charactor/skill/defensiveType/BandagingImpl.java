@@ -24,7 +24,7 @@ public class BandagingImpl implements DefensiveTypeSkill{
         }
 
         Integer attackerLife = 0;
-        if (percentage(100)) {
+        if (percentage(75)) {
             if (attacker.getBandagingSkillCount() > 0){
                 attacker.changeBanding(3);
             }

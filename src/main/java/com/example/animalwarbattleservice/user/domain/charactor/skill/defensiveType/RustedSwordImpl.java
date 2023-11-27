@@ -25,7 +25,7 @@ public class RustedSwordImpl implements DefensiveTypeSkill{
             return 1;
         }
 
-        if (percentage(100)){
+        if (percentage(75)){
             attacker.setRustedSwordActivated(true);
         }
         else {

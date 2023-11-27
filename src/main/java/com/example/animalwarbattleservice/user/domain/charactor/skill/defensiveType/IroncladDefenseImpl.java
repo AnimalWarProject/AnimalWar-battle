@@ -24,7 +24,7 @@ public class IroncladDefenseImpl implements DefensiveTypeSkill {
         }
 
         // 철통방어 스킬(확률 발동)
-        if (percentage(100)) {
+        if (percentage(35)) {
 
             if (defender.getIroncladDefenseSkillCount() > 0) {
                 defender.changeBasicAttack(3);
