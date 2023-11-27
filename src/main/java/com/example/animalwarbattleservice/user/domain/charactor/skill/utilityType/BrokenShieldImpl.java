@@ -21,7 +21,7 @@ public class BrokenShieldImpl implements UtilityTypeSkill {
 
         // 부러진 방패 스킬(확률 발동)
 
-        if (percentage(10)) {
+        if (percentage(100)) {
             defender.blockDependSkill();
         }
          else {

@@ -20,7 +20,7 @@ public class BrokenSpearImpl implements UtilityTypeSkill {
         Integer skillUsedCheck = 0;
 
         // 부러진 창 스킬(확률 발동)
-        if(percentage(10)){
+        if(percentage(100)){
             defender.blockAttackSkill();
         } else {
             skillUsedCheck = -1;
