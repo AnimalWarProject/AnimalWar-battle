@@ -19,13 +19,18 @@ public class RustedSwordImpl implements DefensiveTypeSkill{
     @Override
     public Integer execute(CharacterDto attacker, CharacterDto defender) {
         // 스킬 가능 여부
+        Integer skillUsedCheck = 0;
+
         if (!attacker.isDependSkill()) {
             return 1;
         }
 
-        if (percentage(50)){
+        if (percentage(100)){
             attacker.setRustedSwordActivated(true);
         }
-        return 0;
+        else {
+            skillUsedCheck = -1;
+        }
+        return skillUsedCheck;
     }
 }

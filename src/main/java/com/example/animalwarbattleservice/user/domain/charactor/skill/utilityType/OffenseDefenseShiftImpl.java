@@ -17,10 +17,15 @@ public class OffenseDefenseShiftImpl implements UtilityTypeSkill {
     }
 
     @Override
-    public void execute(CharacterDto attacker, CharacterDto defender) {
+    public Integer execute(CharacterDto attacker, CharacterDto defender) {
+        Integer skillUsedCheck = 0;
         // 공수교대 사용(확률 발동)
         if(percentage(10)){
             attacker.exchangeAtkDef();
         }
+        else {
+            skillUsedCheck = -1;
+        }
+        return skillUsedCheck;
     }
 }

@@ -18,15 +18,18 @@ public class BombDropImpl implements AttackTypeSkill {
 
     @Override
     public Integer execute(CharacterDto attacker, CharacterDto defender) {
+
         // 스킬 가능 여부
         if (!attacker.isAttackSkill()) {
             return 0;
         }
 
         // 폭탄 투하 스킬 설정
-        Integer bombDropDamage = defender.getLife();
+        Integer bombDropDamage;
         if (percentage(45)) {
             bombDropDamage = (int) (0.2 * defender.getLife());
+        }else {
+            bombDropDamage = -1;
         }
         return bombDropDamage;
     }

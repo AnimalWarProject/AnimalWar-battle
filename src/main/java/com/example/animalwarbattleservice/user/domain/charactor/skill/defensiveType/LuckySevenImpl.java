@@ -19,6 +19,7 @@ public class LuckySevenImpl implements DefensiveTypeSkill {
     @Override
     public Integer execute(CharacterDto attacker, CharacterDto defender) {
         // 스킬 가능 여부
+        Integer skillUsedCheck = 0;
         if (!attacker.isDependSkill()) {
             return 1;
         }
@@ -26,11 +27,13 @@ public class LuckySevenImpl implements DefensiveTypeSkill {
         // 공격자 현재체력 설정
         int attackerLife = attacker.getLife();
         // 럭키 7 스킬 발동
-        if ((attackerLife >= attacker.getMaxLife() * 0.77) && percentage(17)) {
+        if ((attackerLife >= attacker.getMaxLife() * 0.77) && percentage(100)) {
             if (defender.getLuckySevenSkillCount() > 0) {
                 defender.changeBasicAttack(7);
             }
+        } else {
+            skillUsedCheck = -1;
         }
-        return null;
+        return skillUsedCheck;
     }
 }

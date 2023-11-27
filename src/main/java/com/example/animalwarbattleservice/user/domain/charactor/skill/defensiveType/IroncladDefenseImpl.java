@@ -18,17 +18,21 @@ public class IroncladDefenseImpl implements DefensiveTypeSkill {
     @Override
     public Integer execute(CharacterDto attacker, CharacterDto defender) {
         // 스킬 가능 여부
+        Integer skillUsedCheck = 0;
         if (!attacker.isDependSkill()) {
             return 1;
         }
 
         // 철통방어 스킬(확률 발동)
-        if (percentage(35)) {
+        if (percentage(100)) {
 
             if (defender.getIroncladDefenseSkillCount() > 0) {
                 defender.changeBasicAttack(3);
             }
         }
-        return null;
+        else {
+            skillUsedCheck = -1;
+        }
+        return skillUsedCheck;
     }
 }

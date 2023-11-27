@@ -16,10 +16,17 @@ public class BrokenShieldImpl implements UtilityTypeSkill {
     }
 
     @Override
-    public void execute(CharacterDto attacker, CharacterDto defender) {
+    public Integer execute(CharacterDto attacker, CharacterDto defender) {
+        Integer skillUsedCheck = 0;
+
         // 부러진 방패 스킬(확률 발동)
+
         if (percentage(10)) {
             defender.blockDependSkill();
         }
+         else {
+            skillUsedCheck = -1;
+        }
+         return skillUsedCheck;
     }
 }

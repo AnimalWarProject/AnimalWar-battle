@@ -30,6 +30,8 @@ public class HiddenAceImpl implements AttackTypeSkill {
         Integer hiddenAceDamage = attacker.getAttackPower();
         if ((attackerLife < defenderLife) && percentage(65)) {
             hiddenAceDamage *= 5 ;
+        } else {
+            hiddenAceDamage = -1;
         }
         return hiddenAceDamage;
     }

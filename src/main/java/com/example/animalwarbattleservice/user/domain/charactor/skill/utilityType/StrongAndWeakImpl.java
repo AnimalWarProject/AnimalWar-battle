@@ -18,7 +18,8 @@ public class StrongAndWeakImpl implements UtilityTypeSkill {
 }
 
     @Override
-    public void execute(CharacterDto attacker, CharacterDto defender) {
+    public Integer execute(CharacterDto attacker, CharacterDto defender) {
+        Integer skillUsedCheck = 0;
         // 강약약강 스킬(확률 발동)
         if (percentage(10)) {
             
@@ -27,6 +28,9 @@ public class StrongAndWeakImpl implements UtilityTypeSkill {
             } else {
                 attacker.changeBattlePower((int) (attacker.getAttackPower() * 0.9));
             }
+        }else {
+            skillUsedCheck = -1;
         }
+        return skillUsedCheck;
     }
 }

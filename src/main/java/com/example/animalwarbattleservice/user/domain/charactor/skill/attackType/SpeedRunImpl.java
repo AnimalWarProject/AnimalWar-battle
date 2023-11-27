@@ -19,6 +19,7 @@ public class SpeedRunImpl implements AttackTypeSkill {
     @Override
     public Integer execute(CharacterDto attacker, CharacterDto defender) {
         // 스킬 가능 여부
+        Integer skillUsedCheck = 0;
         if(!attacker.isAttackSkill()){
             return 0;
         }
@@ -33,7 +34,9 @@ public class SpeedRunImpl implements AttackTypeSkill {
             int defenderSpeedRun = (int) (defenderLife * 0.7);
             attacker.changeLife(attackerSpeedRun);
             defender.changeLife(defenderSpeedRun);
+        } else {
+            skillUsedCheck = -1;
         }
-        return 0;
+        return skillUsedCheck;
     }
 }

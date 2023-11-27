@@ -34,26 +34,26 @@ public class BattleController {
         CharacterDto attacker = request.getAttacker();
         CharacterDto defender = request.getDefender();
 
-        hangleToAttackTypeSkill.put("버서커", new BerserkerImpl());
-        hangleToAttackTypeSkill.put("폭탄 투하", new BombDropImpl());
-        hangleToAttackTypeSkill.put("처형", new ExecutionImpl());
-        hangleToAttackTypeSkill.put("비장의 한발", new HiddenAceImpl());
-        hangleToAttackTypeSkill.put("독약", new PoisonImpl());
-        hangleToAttackTypeSkill.put("빨리감기", new SpeedRunImpl());
+        hangleToAttackTypeSkill.put("버서커 [35%]", new BerserkerImpl());
+        hangleToAttackTypeSkill.put("폭탄 투하 [45%]", new BombDropImpl());
+        hangleToAttackTypeSkill.put("처형 [55%]", new ExecutionImpl());
+        hangleToAttackTypeSkill.put("비장의 한발 [65%]", new HiddenAceImpl());
+        hangleToAttackTypeSkill.put("독약 [65%]", new PoisonImpl());
+        hangleToAttackTypeSkill.put("빨리감기 [85%]", new SpeedRunImpl());
 
-        hangleToDefensiveTypeSkill.put("비상식령" ,new EmergencyFoodImpl());
-        hangleToDefensiveTypeSkill.put("회복" ,new HealImpl());
-        hangleToDefensiveTypeSkill.put("철통방어" ,new IroncladDefenseImpl());
-        hangleToDefensiveTypeSkill.put("럭기 7" ,new LuckySevenImpl());
-        hangleToDefensiveTypeSkill.put("녹슨 방패" ,new RustedSwordImpl());
-        hangleToDefensiveTypeSkill.put("붕대 감기" ,new BandagingImpl());
+        hangleToDefensiveTypeSkill.put("비상식량 [50%]" ,new EmergencyFoodImpl());
+        hangleToDefensiveTypeSkill.put("회복 [50%]" ,new HealImpl());
+        hangleToDefensiveTypeSkill.put("철통방어 [35%]" ,new IroncladDefenseImpl());
+        hangleToDefensiveTypeSkill.put("럭키 7 [17%]" ,new LuckySevenImpl());
+        hangleToDefensiveTypeSkill.put("녹슨 방패 [50%]" ,new RustedSwordImpl());
+        hangleToDefensiveTypeSkill.put("붕대 감기 [75%]" ,new BandagingImpl());
 
-        hangleToUtilityTypeSkill.put("부러진 창" ,new BrokenSpearImpl());
-        hangleToUtilityTypeSkill.put("부러진 방패" ,new BrokenShieldImpl());
-        hangleToUtilityTypeSkill.put("다시하기" ,new DoItAgainImpl());
-        hangleToUtilityTypeSkill.put("공수교대" ,new OffenseDefenseShiftImpl());
-        hangleToUtilityTypeSkill.put("강약약강" ,new StrongAndWeakImpl());
-        hangleToUtilityTypeSkill.put("바꿔치기" ,new SwapImpl());
+        hangleToUtilityTypeSkill.put("부러진 창 [10%]" ,new BrokenSpearImpl());
+        hangleToUtilityTypeSkill.put("부러진 방패 [10%]" ,new BrokenShieldImpl());
+        hangleToUtilityTypeSkill.put("다시하기 [10%]" ,new DoItAgainImpl());
+        hangleToUtilityTypeSkill.put("공수교대 [10%]" ,new OffenseDefenseShiftImpl());
+        hangleToUtilityTypeSkill.put("강약약강 [10%]" ,new StrongAndWeakImpl());
+        hangleToUtilityTypeSkill.put("바꿔치기 [10%]" ,new SwapImpl());
 
 
         attacker.setCompatibility(CompatibilityEnum.valueOf(attacker.getSpecies()));

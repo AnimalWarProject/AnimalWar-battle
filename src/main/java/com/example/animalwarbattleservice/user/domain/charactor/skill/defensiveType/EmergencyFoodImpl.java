@@ -24,14 +24,17 @@ public class EmergencyFoodImpl implements DefensiveTypeSkill {
         }
 
         // 공격자 현재 체력 설정
-        int battleLife = attacker.getLife();
+        int battleLife = 0;
 
         // 비상식량 스킬(확률 발동)
-        if (percentage(50)) {
+        if (percentage(100)) {
             int emergencyFood = (int) (0.2 * attacker.getMaxLife());
-            int newLife = Math.min(attacker.getMaxLife(), battleLife + emergencyFood);
+            int newLife = Math.min(attacker.getMaxLife(), attacker.getLife() + emergencyFood);
             attacker.changeLife(newLife);
         }
-        return attacker.getLife();
+        else {
+            battleLife = -1;
+        }
+        return battleLife;
     }
 }

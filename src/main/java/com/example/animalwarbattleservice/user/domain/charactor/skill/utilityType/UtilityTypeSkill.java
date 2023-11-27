@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface UtilityTypeSkill {
-    void execute (CharacterDto attacker, CharacterDto defender);
+    Integer execute (CharacterDto attacker, CharacterDto defender);
 }
 
 

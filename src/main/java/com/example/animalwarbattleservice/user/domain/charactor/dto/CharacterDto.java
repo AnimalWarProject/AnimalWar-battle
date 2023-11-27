@@ -7,11 +7,14 @@ import com.example.animalwarbattleservice.user.domain.charactor.skill.utilityTyp
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
+
 import java.util.UUID;
 
 @Getter
 @NoArgsConstructor
 @Setter
+@ToString
 public class CharacterDto {
     private UUID uuid;
     private String id;

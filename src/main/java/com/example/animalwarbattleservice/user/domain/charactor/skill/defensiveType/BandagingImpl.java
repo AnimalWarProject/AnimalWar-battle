@@ -18,17 +18,20 @@ public class BandagingImpl implements DefensiveTypeSkill{
 
     @Override
     public Integer execute(CharacterDto attacker, CharacterDto defender) {
-
         // 스킬 여부
         if(!attacker.isDependSkill()){
             return 1;
         }
 
-        if (percentage(75)) {
+        Integer attackerLife = 0;
+        if (percentage(100)) {
             if (attacker.getBandagingSkillCount() > 0){
                 attacker.changeBanding(3);
             }
+        } 
+        else {
+            attackerLife = -1;
         }
-        return attacker.getLife();
+        return attackerLife;
     }
 }

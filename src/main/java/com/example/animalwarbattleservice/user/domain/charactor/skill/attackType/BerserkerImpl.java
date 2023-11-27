@@ -19,12 +19,16 @@ public class BerserkerImpl implements AttackTypeSkill {
     @Override
     public Integer execute(CharacterDto attacker, CharacterDto defender) {
         // 스킬 가능 여부
+
+        Integer skillUsedCheck = 0;
         if (!attacker.isAttackSkill()) {
             return 0;
         }
         if (percentage(35)){
             attacker.setBerserkerActivated(true);
+        }else {
+            skillUsedCheck = -1;
         }
-        return 0;
+        return skillUsedCheck;
     }
 }

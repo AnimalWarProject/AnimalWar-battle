@@ -17,11 +17,16 @@ public class DoItAgainImpl implements UtilityTypeSkill {
     }
 
     @Override
-    public void execute(CharacterDto attacker, CharacterDto defender) {
+    public Integer execute(CharacterDto attacker, CharacterDto defender) {
+        Integer skillUsedCheck = 0;
         // 다시하기 스킬 사용(확률 발동)
         if(percentage(10)){
             attacker.restoreHP();
             defender.restoreHP();
         }
+        else {
+            skillUsedCheck = -1;
+        }
+        return skillUsedCheck;
     }
 }

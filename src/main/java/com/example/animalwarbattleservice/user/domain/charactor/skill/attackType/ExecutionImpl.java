@@ -18,6 +18,7 @@ public class ExecutionImpl implements AttackTypeSkill {
     @Override
     public Integer execute(CharacterDto attacker, CharacterDto defender) {
         // 스킬 가능 여부
+        Integer skillUsedCheck = 0;
         if (!attacker.isAttackSkill()) {
             return 0;
         }
@@ -29,9 +30,11 @@ public class ExecutionImpl implements AttackTypeSkill {
         if (attacker.getExecutionSkillCount() > 0 ) {
             if (defender.getLife() <= defender.getMaxLife() * 0.1) {
                 defender.changeLife(0);
+            } else {
+                skillUsedCheck = -1;
             }
             attacker.decrementExecutionCount();
         }
-        return 0;
+        return skillUsedCheck;
     }
 }

@@ -3,11 +3,10 @@ package com.example.animalwarbattleservice.user.domain.charactor.service;
 import com.example.animalwarbattleservice.compatibility.utill.CompatibilityChecker;
 import com.example.animalwarbattleservice.kafka.Producer;
 import com.example.animalwarbattleservice.user.domain.charactor.basicAttack.BasicAttack;
+import com.example.animalwarbattleservice.user.domain.charactor.basicAttack.BasicDefender;
 import com.example.animalwarbattleservice.user.domain.charactor.dto.CharacterDto;
 import com.example.animalwarbattleservice.user.domain.charactor.dto.StateDto;
 import com.example.animalwarbattleservice.user.domain.charactor.dto.UserUpdateByGameResultDto;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,13 +15,16 @@ import java.util.Random;
 
 @Service
 public class BattleService extends CharacterDto {
-    private static final Logger logger = LoggerFactory.getLogger(BattleService.class);
     private Producer producer;
-    List<String> battleLogs = new ArrayList<>();
+    // 기본 공격
+    private BasicAttack basicAttack;
+    private BasicDefender basicDefender;
 
-    public BattleService(Producer producer, BasicAttack basicAttack) {
+
+    public BattleService(Producer producer, BasicAttack basicAttack, BasicDefender basicDefender) {
         this.basicAttack = basicAttack;
         this.producer = producer;
+        this.basicDefender = basicDefender;
     }
 
     public Integer skillDraw() {
@@ -31,36 +33,33 @@ public class BattleService extends CharacterDto {
     }
 
     private StateDto stateDto;
-    // 기본 공격
-    private BasicAttack basicAttack;
 
     // 상성체크
-    public boolean checkCompatibility(CharacterDto attacker, CharacterDto defender) {
+    public String checkCompatibility(CharacterDto attacker, CharacterDto defender) {
         CompatibilityChecker compatibilityChecker = new CompatibilityChecker();
-        boolean isAttackerCompatible = compatibilityChecker.check(attacker, defender);
-        boolean isDefenderCompatible = compatibilityChecker.check(defender, attacker);
 
-        if (isAttackerCompatible) {
-            compatibilityChecker.increaseAttackerCombatPower(attacker);
-            return true;
-        } else if (isDefenderCompatible) {
-            compatibilityChecker.increaseDefenderCombatPower(defender);
-            return true;
-        }
+        //개 피쉬
+        return compatibilityChecker.check(attacker, defender);
+        // 피쉬 개
+//        boolean isDefenderCompatible = compatibilityChecker.check(defender, attacker);
 
-        return false; // 상성이 없으면 false 반환
+
     }
 
     // attacker vs defender
     public List<String> conductBattle(CharacterDto attacker, CharacterDto defender) {
+        List<String> battleLogs = new ArrayList<>();
+
         stateDto = new StateDto();
+
+        System.out.println(attacker.toString());
 
         startBattleLogs(attacker, defender, battleLogs);
 
-        boolean isCompatibilityChecked = checkCompatibility(attacker, defender);
-        if (isCompatibilityChecked) {
+        String isCompatibilityChecked = checkCompatibility(attacker, defender);
+        if (isCompatibilityChecked.equals("Attacker")) {
             battleLogs.add("공격자 상성확인되었습니다.");
-        } else {
+        } else if(isCompatibilityChecked.equals("Defender")) {
             battleLogs.add("수비자 상성확인되었습니다.");
         }
 
@@ -83,7 +82,7 @@ public class BattleService extends CharacterDto {
 
             // 수비자 턴
             Integer BeforeAttackedAttackerLife = attacker.getLife();
-            plainHit(defender, attacker);
+            plainDefHit(defender, attacker);
             basicAttackLogs(defender, attacker, battleLogs);
 
             defenderSkillUsed(defender, attacker, battleLogs);
@@ -223,12 +222,17 @@ public class BattleService extends CharacterDto {
         defender.changeLife(defender.getLife() - a);
         return null;
     }
+    private Integer plainDefHit(CharacterDto attacker, CharacterDto defender) {
+        int a = basicDefender.plainDef(attacker, defender);
+        defender.changeLife(defender.getLife() - a);
+        return null;
+    }
 
     public void discountBasicAttack(CharacterDto characterDto){
         if (characterDto.isBasicAttack() != 0) characterDto.decreaseBasicAttack();
     }
 
-    // 공격자 스킬
+    // 공격자 공격스킬
     public void attackerSkillUsed(CharacterDto attacker, CharacterDto defender, List<String> battleLogs) {
         Integer returnDamage = attackerSkillExecute(attacker, defender, battleLogs);
         if (returnDamage != 0){
@@ -236,7 +240,7 @@ public class BattleService extends CharacterDto {
         }
     }
 
-    // 수비자 스킬
+    // 수비자  공격스킬
     public void defenderSkillUsed(CharacterDto defender, CharacterDto attacker, List<String> battleLogs) {
         Integer returnDamage = defenderSkillExecute(defender, attacker, battleLogs);
         if (returnDamage != 0){
@@ -244,8 +248,12 @@ public class BattleService extends CharacterDto {
         }
     }
 
+
+
+
     // 스킬 한 번 적용
     private Integer attackerSkillExecute(CharacterDto attacker, CharacterDto defender, List<String> battleLogs) {
+
         Integer returnAttackerDamage = 0;
         Integer nowSkillType = -1;
         nowSkillType = skillDraw();
@@ -258,23 +266,36 @@ public class BattleService extends CharacterDto {
             if (!stateDto.isAttackerAttackUsed()) {
                 if (attacker.getAttackTypeSkill() != null) {
                     returnAttackerDamage = attacker.getAttackTypeSkill().execute(attacker, defender);
-                    battleLogs.add("🧙️🧙️🧙️ "+ attacker.getNickName() + "의 공격형 스킬 " + attackSkill + " 발동");
+                    System.out.println(returnAttackerDamage);
+                    if (returnAttackerDamage != -1) {
+                        battleLogs.add("🧙️🧙️🧙️ "+ attacker.getNickName() + "의 공격형 스킬 " + attackSkill + " 발동");
+                    } else {
+                        battleLogs.add("✖️✖️✖️ "+ attacker.getNickName() + "의 공격형 스킬 " + attackSkill + " 실패");
+                    }
                     stateDto.setAttackerAttackUsed(true);
                 }
             }
         } else if (nowSkillType == 1) {
             if (!stateDto.isAttackerUtilityTypeUsed()) {
                 if (attacker.getUtilityTypeSkill() != null) {
-                    attacker.getUtilityTypeSkill().execute(attacker, defender);
-                    battleLogs.add("🧙‍♂️🧙‍♂️🧙‍♂️ "+attacker.getNickName() + "의 유틸형 스킬 " + utilitySkill + " 발동");
+                    returnAttackerDamage = attacker.getUtilityTypeSkill().execute(attacker, defender);
+                    if (returnAttackerDamage != -1) {
+                        battleLogs.add("🧙‍♂️🧙‍♂️🧙‍♂️ "+attacker.getNickName() + "의 유틸형 스킬 " + utilitySkill + " 발동");
+                    } else {
+                        battleLogs.add("✖️✖️✖️ "+attacker.getNickName() + "의 유틸형 스킬 " + utilitySkill + " 실패");
+                    }
                     stateDto.setAttackerUtilityTypeUsed(true);
                 }
             }
         } else if (nowSkillType == 2) {
             if (!stateDto.isAttackerDefensiveTypeUsed()) {
                 if (attacker.getDefenseTypeSkill() != null) {
-                    attacker.getDefenseTypeSkill().execute(attacker, defender);
-                    battleLogs.add("🧙🧙🧙 "+attacker.getNickName() + "의 방어형 스킬 " + defenseSkill + " 발동");
+                    returnAttackerDamage = attacker.getDefenseTypeSkill().execute(attacker, defender);
+                    if (returnAttackerDamage != -1) {
+                        battleLogs.add("🧙🧙🧙 "+attacker.getNickName() + "의 방어형 스킬 " + defenseSkill + " 발동");
+                    } else {
+                        battleLogs.add("✖️✖️✖️ "+attacker.getNickName() + "의 방어형 스킬 " + defenseSkill + " 실패");
+                    }
                     stateDto.setAttackerDefensiveTypeUsed(true);
                 }
             }
@@ -284,6 +305,8 @@ public class BattleService extends CharacterDto {
 
     private Integer defenderSkillExecute(CharacterDto defender, CharacterDto attacker, List<String> battleLogs) {
         Integer returnDefenderDamage = 0;
+        Integer returnDefenderDefDamage = 0;
+        Integer returnDefenderUtilDamage = 0;
         Integer nowSkillType = -1;
         nowSkillType = skillDraw();
         String attackSkill = defender.getStringAttackTypeSkill();
@@ -295,24 +318,35 @@ public class BattleService extends CharacterDto {
             if (!stateDto.isDefenderAttackUsed()) {
                 if (defender.getAttackTypeSkill() != null) {
                     returnDefenderDamage  = defender.getAttackTypeSkill().execute(defender, attacker);
-                    battleLogs.add("🧙️🧙️🧙️ "+defender.getNickName() + "의 공격형 스킬 " + attackSkill + " 발동");
-                    System.out.println("발동 발더ㅗㅇ ㅅㅂ");
+                    if (returnDefenderDamage != -1) {
+                        battleLogs.add("🧙️🧙️🧙️ "+defender.getNickName() + "의 공격형 스킬 " + attackSkill + " 발동");
+                    } else {
+                        battleLogs.add("✖️✖️✖️ "+defender.getNickName() + "의 공격형 스킬 " + attackSkill + " 실패");
+                    }
                     stateDto.setDefenderAttackUsed(true);
                 }
             }
         } else if (nowSkillType == 1) {
             if (!stateDto.isDefenderUtilityTypeUsed()) {
                 if (defender.getUtilityTypeSkill() != null) {
-                    defender.getUtilityTypeSkill().execute(defender, attacker);
-                    battleLogs.add("🧙‍♂️🧙‍♂️🧙‍♂️ "+defender.getNickName() + "의 유틸형 스킬 " + utilitySkill + " 발동");
+                    returnDefenderDamage = defender.getUtilityTypeSkill().execute(defender, attacker);
+                    if (returnDefenderDamage != -1) {
+                        battleLogs.add("🧙‍♂️🧙‍♂️🧙‍♂️ "+defender.getNickName() + "의 유틸형 스킬 " + utilitySkill + " 발동");
+                    } else {
+                        battleLogs.add("✖️✖️✖️ "+defender.getNickName() + "의 유틸형 스킬 " + utilitySkill + " 실패");
+                    }
                     stateDto.setDefenderUtilityTypeUsed(true);
                 }
             }
         } else if (nowSkillType == 2) {
             if (!stateDto.isDefenderDefensiveTypeUsed()) {
                 if (defender.getDefenseTypeSkill() != null) {
-                    defender.getDefenseTypeSkill().execute(defender, attacker);
-                    battleLogs.add("🧙🧙🧙 "+defender.getNickName() + "의 방어형 스킬 " + defenseSkill + " 발동");
+                    returnDefenderDamage = defender.getDefenseTypeSkill().execute(defender, attacker);
+                    if (returnDefenderDamage != -1) {
+                        battleLogs.add("🧙🧙🧙 "+defender.getNickName() + "의 방어형 스킬 " + defenseSkill + " 발동");
+                    } else {
+                        battleLogs.add("✖️✖️✖️ "+defender.getNickName() + "의 방어형 스킬 " + defenseSkill + " 실패");
+                    }
                     stateDto.setDefenderDefensiveTypeUsed(true);
                 }
             }
