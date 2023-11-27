@@ -38,11 +38,7 @@ public class BattleService extends CharacterDto {
     public String checkCompatibility(CharacterDto attacker, CharacterDto defender) {
         CompatibilityChecker compatibilityChecker = new CompatibilityChecker();
 
-        //개 피쉬
         return compatibilityChecker.check(attacker, defender);
-        // 피쉬 개
-//        boolean isDefenderCompatible = compatibilityChecker.check(defender, attacker);
-
 
     }
 
@@ -305,8 +301,6 @@ public class BattleService extends CharacterDto {
 
     private Integer defenderSkillExecute(CharacterDto defender, CharacterDto attacker, List<String> battleLogs) {
         Integer returnDefenderDamage = 0;
-        Integer returnDefenderDefDamage = 0;
-        Integer returnDefenderUtilDamage = 0;
         Integer nowSkillType = -1;
         nowSkillType = skillDraw();
         String attackSkill = defender.getStringAttackTypeSkill();
