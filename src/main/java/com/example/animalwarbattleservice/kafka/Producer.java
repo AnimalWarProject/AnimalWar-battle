@@ -1,7 +1,7 @@
 package com.example.animalwarbattleservice.kafka;
 
 
-import com.example.animalwarbattleservice.user.domain.charactor.dto.UserUpdateByGameResultDto;
+import com.example.animalwarbattleservice.user.domain.character.dto.UserUpdateByGameResultDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
